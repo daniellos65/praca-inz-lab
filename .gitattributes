@@ -1,0 +1,9 @@
+# Skrypty uruchamiane w Linuksie musza miec konce linii LF
+*.sh      text eol=lf
+*.py      text eol=lf
+*.lua     text eol=lf
+*.rules   text eol=lf
+*.yml     text eol=lf
+*.conf    text eol=lf
+Dockerfile text eol=lf
+*.ps1     text eol=crlf

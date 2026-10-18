@@ -1,0 +1,7 @@
+# Reguły własne laboratorium - plik startowy.
+# Skopiować do /usr/local/etc/rules/local.rules (sudo mkdir -p /usr/local/etc/rules).
+# Reguły wykrywające downgrade i rozszerzenie długości skrótu powstaną w kolejnym etapie,
+# na podstawie ruchu nagranego podczas ataków.
+
+# Reguła kontrolna: potwierdza, że Snort widzi ruch do aplikacji laboratoryjnej.
+alert tcp any any -> 10.10.10.30 5000 ( msg:"LAB test - ruch HTTP do aplikacji"; flow:to_server,established; content:"GET"; http_method; sid:1000001; rev:1; )

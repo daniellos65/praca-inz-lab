@@ -1,0 +1,5 @@
+# Klucze i certyfikaty generowane lokalnie
+server/certs/*.crt
+server/certs/*.key
+__pycache__/
+*.pcap
