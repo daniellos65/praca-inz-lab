@@ -401,7 +401,7 @@ try {
         Write-Host "      client: OpenSSL 1.0.2u                 ok. 10 min"
         Write-Host "      sensor: kompilacja Snort 3              30-60 min"
         Write-Host ""
-        Write-Host "    Postep:  ssh lab-sensor `"sudo tail -f /var/log/lab-role.log`""
+        Write-Host "    Postep:  ssh -t lab-sensor `"sudo tail -f /var/log/lab-role.log`""
         Write-Host "    Gotowe, gdy w logu jest linia 'KONIEC: rola ... - OK'."
     }
     Write-Host ""

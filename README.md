@@ -48,9 +48,20 @@ Na komputerze z VirtualBoxem, gdy masz już zainstalowaną i **wyłączoną** ma
    powershell -ExecutionPolicy Bypass -File .\setup-lab.ps1
    ```
 
+> **Maszyna bazowa – ważne.** Przy tworzeniu maszyny w VirtualBox 7 zaznacz „Pomiń instalację nienadzorowaną”. Instalacja nienadzorowana tworzy użytkownika `vboxuser` (hasło `changeme`), nie instaluje serwera SSH i przypisuje sieć do adresu MAC, więc klony zostają bez sieci. Jeśli baza powstała w ten sposób, przed uruchomieniem skryptu: ustaw w niej kartę 1 = labnet i kartę 2 = NAT, a w systemie wykonaj:
+> ```bash
+> sudo mv /etc/netplan/*.yaml /root/
+> sudo netplan set ethernets.enp0s8.dhcp4=true
+> sudo netplan set ethernets.enp0s3.optional=true
+> sudo netplan apply
+> sudo apt update && sudo apt install -y openssh-server
+> sudo poweroff
+> ```
+> Potem uruchom skrypt z `-User vboxuser`. Po zmianach w bazie usuń klony i migawkę `czysta-baza` (`VBoxManage snapshot ubuntu-base delete czysta-baza`), żeby skrypt utworzył je od nowa.
+
 Skrypt usuwa niedziałające klony, tworzy klony połączone `server`, `client`, `sensor`, ustawia sieć i SSH, przesyła pliki do maszyn, nadaje adresy i uruchamia w tle instalację Dockera, OpenSSL 1.0.2u i Snorta 3. Każda maszyna zapyta dwa razy o hasło użytkownika Ubuntu. Na końcu sprawdza pingi i dodaje skróty `ssh lab-server`, `ssh lab-client`, `ssh lab-sensor`.
 
-Postęp instalacji w tle: `ssh lab-sensor "sudo tail -f /var/log/lab-role.log"`.
+Postęp instalacji w tle: `ssh -t lab-sensor "sudo tail -f /var/log/lab-role.log"`.
 
 Punkty 1–6 poniżej opisują to samo krok po kroku, na wypadek konfiguracji ręcznej.
 
