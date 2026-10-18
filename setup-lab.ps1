@@ -160,9 +160,17 @@ try {
     $script:VBM = Find-VBoxManage
     if (-not $VBM) { Fail "Nie znaleziono VBoxManage.exe. Czy VirtualBox jest zainstalowany?" }
     Ok ("VirtualBox " + ((VBox --version) -join ""))
+    # OpenSSH bywa zainstalowany, ale poza PATH (np. w 32-bitowym PowerShellu)
+    if (-not (Get-Command ssh -ErrorAction SilentlyContinue)) {
+        foreach ($d in @("$env:WINDIR\Sysnative\OpenSSH", "$env:WINDIR\System32\OpenSSH", "$env:ProgramFiles\OpenSSH")) {
+            if (Test-Path (Join-Path $d "ssh.exe")) { $env:PATH = "$d;$env:PATH"; Ok "OpenSSH znaleziony w $d"; break }
+        }
+    }
     foreach ($tool in @("ssh", "scp", "ssh-keygen", "tar")) {
         if (-not (Get-Command $tool -ErrorAction SilentlyContinue)) {
-            Fail "Brak polecenia '$tool'. Wlacz klienta OpenSSH: Ustawienia > Aplikacje > Funkcje opcjonalne > Klient OpenSSH."
+            Fail ("Brak polecenia '$tool'. Zainstaluj klienta OpenSSH w PowerShellu uruchomionym jako administrator:`n" +
+                  "  Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0`n" +
+                  "Potem otworz NOWE okno PowerShella i uruchom skrypt ponownie.")
         }
     }
     Ok "ssh, scp, ssh-keygen, tar"
