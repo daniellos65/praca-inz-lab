@@ -1,0 +1,57 @@
+ANALIZA PODATNOŚCI PROTOKOŁÓW SIECIOWYCH I BŁĘDÓW LOGICZNYCH
+W IMPLEMENTACJACH KRYPTOGRAFICZNYCH
+
+Spis treści (wersja robocza)
+
+1. Wstęp
+   1.1. Uzasadnienie wyboru tematu
+   1.2. Cel i zakres pracy
+   1.3. Pytania badawcze
+   1.4. Struktura pracy
+
+2. Model zagrożeń i podstawy kryptograficzne
+   2.1. Etapy ataku w ujęciu modelu Cyber Kill Chain
+   2.2. Poufność, integralność i autentyczność danych
+   2.3. Tryby pracy szyfrów: strumieniowe, CBC, AEAD
+   2.4. Funkcje skrótu i kody uwierzytelniające (Merkle-Damgård, HMAC)
+   2.5. Funkcje derywacji klucza: compute-hard i memory-hard
+   2.6. Mechanizmy negocjacji parametrów sesji w protokole TLS
+
+3. Środowisko badawcze
+   3.1. Założenia i wymagania
+   3.2. Topologia stanowiska laboratoryjnego
+   3.3. Konfiguracja maszyn i usług
+   3.4. Platforma sprzętowa do badań wydajnościowych
+   3.5. Metodyka pomiarów
+
+4. Analiza ataków na mechanizmy negocjacji sesji i integralność danych
+   4.1. Uzyskanie pozycji pośrednika w sieci lokalnej
+   4.2. Wymuszenie słabszych parametrów sesji i mechanizmy ochronne
+   4.3. Plastyczność szyfru strumieniowego
+   4.4. Modyfikacja danych zaszyfrowanych w trybie CBC
+   4.5. Rozszerzenie długości skrótu w konstrukcji sekret || wiadomość
+   4.6. Podsumowanie wyników
+
+5. Badanie wydajności kryptoanalizy offline z wykorzystaniem GPU
+   5.1. Zakres i plan eksperymentu
+   5.2. Wyniki dla algorytmów compute-hard
+   5.3. Wyniki dla algorytmów memory-hard
+   5.4. Wpływ parametrów kosztu na wydajność
+   5.5. Porównanie GPU i CPU oraz interpretacja wyników
+
+6. Projekt i weryfikacja wielowarstwowego systemu obronnego
+   6.1. Detekcja w warstwie sieciowej (IDS)
+   6.2. Detekcja prób eksfiltracji na podstawie analizy entropii
+   6.3. Weryfikacja skuteczności systemu
+   6.4. Ograniczenia rozwiązania
+
+7. Podsumowanie i wnioski
+   7.1. Odpowiedzi na pytania badawcze
+   7.2. Rekomendacje dotyczące utwardzania systemów
+   7.3. Kierunki dalszych prac
+
+Bibliografia
+Spis rysunków
+Spis tabel
+Spis listingów
+Załączniki
