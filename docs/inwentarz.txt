@@ -17,5 +17,11 @@ sensor (10.10.10.40)
   Jadro:           6.8.0-147-generic
   Snort:           3.12.2.0
 
-Do uzupelnienia: parametry hosta (CPU, RAM, system), wersja VirtualBox,
-maszyna attacker (Kali), host GPU (sterownik NVIDIA, Hashcat).
+host (laboratorium i stanowisko GPU)
+  CPU:             AMD Ryzen 5 5600 (6 rdzeni)
+  RAM:             16 GB
+  GPU:             NVIDIA GeForce GTX 1660
+  System:          Microsoft Windows 11 Pro
+  VirtualBox:      7.2.8 r173730
+
+Do uzupelnienia: maszyna attacker (Kali), sterownik NVIDIA, Hashcat.

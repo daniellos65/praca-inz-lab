@@ -10,7 +10,8 @@ Zbudowano izolowane środowisko wirtualne umożliwiające powtarzalne przeprowad
 
 | Element | Wartość |
 |---|---|
-| Hipernadzorca | Oracle VirtualBox 7.x (dokładna wersja: `VBoxManage --version`) |
+| Host | AMD Ryzen 5 5600 (6 rdzeni), 16 GB RAM, NVIDIA GeForce GTX 1660, Windows 11 Pro |
+| Hipernadzorca | Oracle VirtualBox 7.2.8 r173730 |
 | System gościa | Ubuntu Server 24.04.5 LTS, jądro 6.8.0-147-generic |
 | Sposób powielania maszyn | klony połączone (linked clones) z migawki `czysta-baza` maszyny `ubuntu-base` |
 | Lokalizacja maszyn | dysk F: (`F:\VirtualBox VMs`) |
@@ -77,7 +78,10 @@ Pełny wykaz: `docs/inwentarz.txt`.
 ## 7. Do uzupełnienia
 
 - [x] Wersje oprogramowania (`docs/inwentarz.txt`).
-- [ ] Parametry hosta: CPU, RAM, GPU (GTX 1660), system, wersja sterownika NVIDIA.
+- [x] Parametry hosta: CPU, RAM, GPU, system, wersja VirtualBox.
+- [ ] Wersja sterownika NVIDIA i Hashcata (przy konfiguracji stanowiska GPU).
 - [ ] Maszyna attacker (Kali) – wersja i konfiguracja.
 - [ ] Migawki `baseline` wszystkich maszyn.
 - [ ] Schemat topologii (rysunek do pracy).
+
+Laboratorium sieciowe i stanowisko pomiarowe GPU działają na tym samym komputerze. Pomiary GPU wykonuje się bezpośrednio w systemie hosta, bez maszyn wirtualnych, przy wyłączonych maszynach laboratorium, aby nie zakłócały wyników.
