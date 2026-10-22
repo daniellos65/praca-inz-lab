@@ -4,7 +4,7 @@ Platforma: NVIDIA GeForce GTX 1660, sterownik 610.88 (CUDA 13.3), Hashcat 7.1.2,
 
 ## Pomiar 1 – wbudowany test wydajności (`hashcat -b`), 22.10.2026
 
-Każdy tryb zmierzono 3 razy; wartość to średnia. Surowe dane: `F:\praca-inz\wyniki\E4\wyniki-surowe.csv`, log temperatury: `gpu-log-bench.csv`.
+Każdy tryb zmierzono 3 razy; wartość to średnia. Surowe dane w repozytorium: `wyniki/E4/` (pliki `bench-m<tryb>-<próba>.txt`, `wyniki-surowe.csv`, `podsumowanie.txt`). Rozrzut między próbami poniżej 1% (Argon2: ok. 1%).
 
 | Tryb | Algorytm | Średnia [H/s] | Wolniej niż MD5 |
 |---|---|---:|---:|
@@ -19,7 +19,12 @@ Każdy tryb zmierzono 3 razy; wartość to średnia. Surowe dane: `F:\praca-inz\
 
 - Szybkie funkcje skrótu (MD5, NTLM) osiągają dziesiątki miliardów prób na sekundę – są nieodpowiednie do ochrony haseł.
 - Funkcje derywacji klucza zmniejszają szybkość o 5–8 rzędów wielkości.
+- Przykładowy skrót KDBX4 użyty przez Hashcat (`wyniki/E4/tryb-34300.txt`) wykorzystuje Argon2d z pamięcią 67 108 864 B (64 MiB).
 - **Ograniczenie:** tryb `-b` używa przykładowych skrótów wbudowanych w Hashcat, z parametrami kosztu (liczba iteracji, pamięć Argon2) dobranymi przez autorów narzędzia, a nie domyślnymi ustawieniami aplikacji. Wartości z różnych algorytmów nie są więc wprost porównywalne – np. wynik Argon2 (460 H/s) zależy od tego, ile pamięci wymaga przykładowy skrót. Rzetelne porównanie wymaga pomiarów na własnych plikach z kontrolowanymi parametrami (pomiar 2) oraz porównania GPU z CPU dla tych samych parametrów (pomiar 3).
+
+### Uwaga do powtórzenia
+
+Log temperatury (`gpu-log-bench.csv`) nie zapisał się – w poleceniu `nvidia-smi` wpisano `-1` (cyfra) zamiast `-l` (mała litera L). Przy kolejnych pomiarach log trzeba uruchomić poprawnie; pomiar 1 warto powtórzyć z logiem, aby udokumentować brak spowolnienia termicznego.
 
 ## Pomiar 2 – własne pliki z kontrolowanymi parametrami (do wykonania)
 

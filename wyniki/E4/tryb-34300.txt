@@ -1,0 +1,29 @@
+hashcat (v7.1.2) starting in hash-info mode
+
+Hash Info:
+==========
+
+Hash mode #34300
+  Name................: KeePass (KDBX v4)
+  Category............: Password Manager
+  Slow.Hash...........: Yes
+  Deprecated..........: No
+  Deprecated.Notice...: N/A
+  Password.Type.......: plain
+  Password.Len.Min....: 0
+  Password.Len.Max....: 256
+  Salt.Type...........: Embedded
+  Salt.Len.Min........: 0
+  Salt.Len.Max........: 256
+  Kernel.Type(s)......: pure
+  Example.Hash.Format.: plain
+  Example.Hash........: $keepass$*4*2*ef636ddf*67108864*19*2*e4e48422ec...eefa9 [Truncated, use --mach for full length]
+  Example.Pass........: hashcat
+  Benchmark.Mask......: ?a?a?a?a?a?a?a
+  Autodetect.Enabled..: Yes
+  Self.Test.Enabled...: Yes
+  Potfile.Enabled.....: Yes
+  Keep.Guessing.......: No
+  Custom.Plugin.......: No
+  Plaintext.Encoding..: ASCII, HEX
+

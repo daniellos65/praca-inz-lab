@@ -1,0 +1,7 @@
+Tryb   Algorytm                          Srednia [H/s]    n   Odch.% Wolniej niz MD5
+0      MD5                              20 070 400 000    3     0,1%          1,00x
+1000   NTLM                             34 954 233 333    3     0,4%          0,57x
+11600  7-Zip                                   309 633    3     0,0%        64 820x
+13400  KeePass KDBX 3.1 (AES-KDF)               19 638    3     0,1%     1 022 001x
+13721  VeraCrypt SHA-512+AES                       782    3     0,1%    25 654 538x
+34300  KeePass KDBX4 (Argon2)                      460    3     1,0%    43 599 710x

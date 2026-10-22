@@ -1,0 +1,44 @@
+hashcat (v7.1.2) starting in backend information mode
+
+Successfully initialized the NVIDIA main driver CUDA runtime library.
+
+Failed to initialize NVIDIA RTC library.
+
+* Device #1: CUDA SDK Toolkit not installed or incorrectly installed.
+             CUDA SDK Toolkit required for proper device support and utilization.
+             For more information, see: https://hashcat.net/faq/wrongdriver
+             Falling back to OpenCL runtime.
+
+If you are using WSL2 you can use CUDA instead of OpenCL.
+Users must not install any NVIDIA GPU Linux driver within WSL 2
+For all details: https://docs.nvidia.com/cuda/wsl-user-guide/index.html
+
+TLDR; go to https://developer.nvidia.com/cuda-downloads and follow this path:
+  Linux -> Architecture -> Distribution -> Version -> deb (local)
+Follow the installation Instructions on the website.
+
+OpenCL Info:
+============
+
+OpenCL Platform ID #1
+  Vendor..: NVIDIA Corporation
+  Name....: NVIDIA CUDA
+  Version.: OpenCL 3.0 CUDA 13.3.80
+
+  Backend Device ID #01
+    Type...........: GPU
+    Vendor.ID......: 32
+    Vendor.........: NVIDIA Corporation
+    Name...........: NVIDIA GeForce GTX 1660
+    Version........: OpenCL 3.0 CUDA
+    Processor(s)...: 22
+    Preferred.Thrd.: 32
+    Clock..........: 1830
+    Memory.Total...: 6143 MB (limited to 1535 MB allocatable in one block)
+    Memory.Free....: 6143 MB
+    Memory.Unified.: 0
+    Local.Memory...: 48 KB
+    OpenCL.Version.: OpenCL C 1.2 
+    Driver.Version.: 610.88
+    PCI.Addr.BDF...: 29:00.0
+

@@ -1,0 +1,4 @@
+  13400 | KeePass (KDBX v2/v3)                                       | Password Manager
+  29700 | KeePass (KDBX v2/v3) - keyfile only                        | Password Manager
+  34300 | KeePass (KDBX v4)                                          | Password Manager
+  11600 | 7-Zip                                                      | Archive

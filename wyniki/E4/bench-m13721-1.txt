@@ -1,0 +1,46 @@
+hashcat (v7.1.2) starting in benchmark mode
+
+Benchmarking uses hand-optimized kernel code by default.
+You can use it in your cracking session by setting the -O option.
+Note: Using optimized kernel code limits the maximum supported password length.
+To disable the optimized kernel code in benchmark mode, use the -w option.
+
+Initializing bridges. Please be patient...Kernel ./OpenCL/m13721-optimized.cl:
+Optimized kernel requested, but not available or not required
+Falling back to pure kernel
+
+Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Successfully initialized the NVIDIA main driver CUDA runtime library.
+
+Failed to initialize NVIDIA RTC library.
+
+* Device #1: CUDA SDK Toolkit not installed or incorrectly installed.
+             CUDA SDK Toolkit required for proper device support and utilization.
+             For more information, see: https://hashcat.net/faq/wrongdriver
+             Falling back to OpenCL runtime.
+
+If you are using WSL2 you can use CUDA instead of OpenCL.
+Users must not install any NVIDIA GPU Linux driver within WSL 2
+For all details: https://docs.nvidia.com/cuda/wsl-user-guide/index.html
+
+TLDR; go to https://developer.nvidia.com/cuda-downloads and follow this path:
+  Linux -> Architecture -> Distribution -> Version -> deb (local)
+Follow the installation Instructions on the website.
+
+Initialized backend devicesOpenCL API (OpenCL 3.0 CUDA 13.3.80) - Platform #1 [NVIDIA Corporation]
+=======================================================================
+* Device #01: NVIDIA GeForce GTX 1660, 6143/6143 MB (1535 MB allocatable), 22MCU
+
+Benchmark relevant options:
+===========================
+* --backend-devices-virtmulti=1
+* --backend-devices-virthost=1
+* --optimized-kernel-enable
+
+--------------------------------------------------------------------------------
+* Hash-Mode 13721 (VeraCrypt SHA512 + XTS 512 bit (legacy)) [Iterations: 499999]
+--------------------------------------------------------------------------------
+
+Speed.#01........:      783 H/s (46.89ms) @ Accel:576 Loops:250 Thr:256 Vec:1
+
+Started: Thu Oct 22 20:40:07 2026
+Stopped: Thu Oct 22 20:40:49 2026
