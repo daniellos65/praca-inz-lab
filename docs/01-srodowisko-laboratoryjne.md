@@ -23,10 +23,10 @@ Klony połączone wybrano ze względu na ograniczoną przestrzeń dyskową: prze
 
 | Maszyna | Adres labnet | Rola | RAM / vCPU | SSH z hosta |
 |---|---|---|---|---|
-| attacker | 10.10.10.10 | Kali Linux, ataki (do utworzenia) | 4 GB / 2 | – |
+| attacker (`kali`) | 10.10.10.10 | Kali Linux 2026.2 (jądro 6.19.14) | 3 GB / 2 | konsola VirtualBox |
 | client | 10.10.10.20 | ofiara: klient TLS, użytkownik aplikacji | 1 GB / 1 | `ssh lab-client` (127.0.0.1:2220) |
 | server | 10.10.10.30 | usługi celowo podatne i poprawione | 2 GB / 2 | `ssh lab-server` (127.0.0.1:2230) |
-| sensor | 10.10.10.40 | czujnik IDS (Snort 3), tryb nasłuchu | 4 GB / 2 | `ssh lab-sensor` (127.0.0.1:2240) |
+| sensor | 10.10.10.40 | czujnik IDS (Snort 3), tryb nasłuchu | 2 GB / 2 (4 GB na czas kompilacji) | `ssh lab-sensor` (127.0.0.1:2240) |
 
 Każda maszyna posiada dwie karty sieciowe:
 
@@ -53,7 +53,8 @@ Czujnik (10.10.10.40) posiada Snort 3 skompilowany ze źródeł, konfigurację l
 | client | OpenSSL (instalacja równoległa w `/opt/openssl-legacy`) | 1.0.2u (20.12.2019) |
 | client | Python | 3.12.3 |
 | sensor | Snort | 3.12.2.0 |
-| wszystkie | Ubuntu Server / jądro | 24.04.5 LTS / 6.8.0-147-generic |
+| server, client, sensor | Ubuntu Server / jądro | 24.04.5 LTS / 6.8.0-147-generic |
+| attacker | Kali GNU/Linux Rolling / jądro | 2026.2 / 6.19.14+kali-amd64 |
 
 Pełny wykaz: `docs/inwentarz.txt`.
 
@@ -80,7 +81,7 @@ Pełny wykaz: `docs/inwentarz.txt`.
 - [x] Wersje oprogramowania (`docs/inwentarz.txt`).
 - [x] Parametry hosta: CPU, RAM, GPU, system, wersja VirtualBox.
 - [ ] Wersja sterownika NVIDIA i Hashcata (przy konfiguracji stanowiska GPU).
-- [ ] Maszyna attacker (Kali) – wersja i konfiguracja.
+- [x] Maszyna attacker (Kali) – wersja i konfiguracja, migawka `baseline`.
 - [ ] Migawki `baseline` wszystkich maszyn.
 - [ ] Schemat topologii (rysunek do pracy).
 

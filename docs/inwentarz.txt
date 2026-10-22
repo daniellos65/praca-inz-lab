@@ -24,4 +24,9 @@ host (laboratorium i stanowisko GPU)
   System:          Microsoft Windows 11 Pro
   VirtualBox:      7.2.8 r173730
 
-Do uzupelnienia: maszyna attacker (Kali), sterownik NVIDIA, Hashcat.
+attacker (10.10.10.10), maszyna "kali" w VirtualBox
+  System:          Kali GNU/Linux Rolling 2026.2
+  Jadro:           6.19.14+kali-amd64
+  Zasoby:          3 GB RAM, 2 vCPU
+
+Do uzupelnienia: sterownik NVIDIA, Hashcat.
