@@ -11,7 +11,7 @@ Zbudowano izolowane środowisko wirtualne umożliwiające powtarzalne przeprowad
 | Element | Wartość |
 |---|---|
 | Hipernadzorca | Oracle VirtualBox 7.x (dokładna wersja: `VBoxManage --version`) |
-| System gościa | Ubuntu Server 24.04 LTS |
+| System gościa | Ubuntu Server 24.04.5 LTS, jądro 6.8.0-147-generic |
 | Sposób powielania maszyn | klony połączone (linked clones) z migawki `czysta-baza` maszyny `ubuntu-base` |
 | Lokalizacja maszyn | dysk F: (`F:\VirtualBox VMs`) |
 | Automatyzacja | `setup-lab.ps1` (host), `vm-bootstrap.sh`, `vm-roles.sh` (goście) |
@@ -44,6 +44,18 @@ Klient (10.10.10.20) posiada OpenSSL 1.0.2u w `/opt/openssl-legacy` (niezależni
 
 Czujnik (10.10.10.40) posiada Snort 3 skompilowany ze źródeł, konfigurację laboratorium `lab.lua` (inspektor `arp_spoof` z powiązaniami IP–MAC klienta i serwera, reguły wbudowane) oraz plik reguł własnych `local.rules`.
 
+## 4a. Wersje oprogramowania (22.10.2026)
+
+| Maszyna | Oprogramowanie | Wersja |
+|---|---|---|
+| server | Docker / Docker Compose | 29.1.3 / 2.40.3 |
+| client | OpenSSL (instalacja równoległa w `/opt/openssl-legacy`) | 1.0.2u (20.12.2019) |
+| client | Python | 3.12.3 |
+| sensor | Snort | 3.12.2.0 |
+| wszystkie | Ubuntu Server / jądro | 24.04.5 LTS / 6.8.0-147-generic |
+
+Pełny wykaz: `docs/inwentarz.txt`.
+
 ## 5. Procedura budowy
 
 1. Instalacja Ubuntu Server 24.04 w maszynie `ubuntu-base`; konfiguracja kart (labnet + NAT), sieci niezależnej od adresów MAC (netplan po nazwach interfejsów) i serwera OpenSSH.
@@ -64,7 +76,7 @@ Czujnik (10.10.10.40) posiada Snort 3 skompilowany ze źródeł, konfigurację l
 
 ## 7. Do uzupełnienia
 
-- [ ] Wersje oprogramowania (wynik `inwentarz.txt`).
+- [x] Wersje oprogramowania (`docs/inwentarz.txt`).
 - [ ] Parametry hosta: CPU, RAM, GPU (GTX 1660), system, wersja sterownika NVIDIA.
 - [ ] Maszyna attacker (Kali) – wersja i konfiguracja.
 - [ ] Migawki `baseline` wszystkich maszyn.

@@ -1,0 +1,21 @@
+Inwentarz wersji oprogramowania - laboratorium (stan na 22.10.2026)
+
+server (10.10.10.30)
+  System:          Ubuntu 24.04.5 LTS
+  Jadro:           6.8.0-147-generic
+  Docker:          29.1.3 (build 29.1.3-0ubuntu3~24.04.2)
+  Docker Compose:  2.40.3 (2.40.3_ds1-0ubuntu1~24.04.1)
+
+client (10.10.10.20)
+  System:          Ubuntu 24.04.5 LTS
+  Jadro:           6.8.0-147-generic
+  OpenSSL legacy:  1.0.2u (20 Dec 2019), /opt/openssl-legacy
+  Python:          3.12.3
+
+sensor (10.10.10.40)
+  System:          Ubuntu 24.04.5 LTS
+  Jadro:           6.8.0-147-generic
+  Snort:           3.12.2.0
+
+Do uzupelnienia: parametry hosta (CPU, RAM, system), wersja VirtualBox,
+maszyna attacker (Kali), host GPU (sterownik NVIDIA, Hashcat).
