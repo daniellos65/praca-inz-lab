@@ -29,4 +29,6 @@ attacker (10.10.10.10), maszyna "kali" w VirtualBox
   Jadro:           6.19.14+kali-amd64
   Zasoby:          3 GB RAM, 2 vCPU
 
-Do uzupelnienia: sterownik NVIDIA, Hashcat.
+stanowisko GPU (host)
+  Sterownik NVIDIA: 610.88 (CUDA 13.3)
+  Hashcat:          7.1.2 (F:\hashcat), GTX 1660 wykryta (hashcat -I)

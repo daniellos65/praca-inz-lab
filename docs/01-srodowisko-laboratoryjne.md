@@ -12,6 +12,7 @@ Zbudowano izolowane środowisko wirtualne umożliwiające powtarzalne przeprowad
 |---|---|
 | Host | AMD Ryzen 5 5600 (6 rdzeni), 16 GB RAM, NVIDIA GeForce GTX 1660, Windows 11 Pro |
 | Hipernadzorca | Oracle VirtualBox 7.2.8 r173730 |
+| Stanowisko GPU | sterownik NVIDIA 610.88 (CUDA 13.3), Hashcat 7.1.2 |
 | System gościa | Ubuntu Server 24.04.5 LTS, jądro 6.8.0-147-generic |
 | Sposób powielania maszyn | klony połączone (linked clones) z migawki `czysta-baza` maszyny `ubuntu-base` |
 | Lokalizacja maszyn | dysk F: (`F:\VirtualBox VMs`) |
@@ -80,7 +81,7 @@ Pełny wykaz: `docs/inwentarz.txt`.
 
 - [x] Wersje oprogramowania (`docs/inwentarz.txt`).
 - [x] Parametry hosta: CPU, RAM, GPU, system, wersja VirtualBox.
-- [ ] Wersja sterownika NVIDIA i Hashcata (przy konfiguracji stanowiska GPU).
+- [x] Sterownik NVIDIA 610.88 (CUDA 13.3), Hashcat 7.1.2.
 - [x] Maszyna attacker (Kali) – wersja i konfiguracja, migawka `baseline`.
 - [ ] Migawki `baseline` wszystkich maszyn.
 - [ ] Schemat topologii (rysunek do pracy).
