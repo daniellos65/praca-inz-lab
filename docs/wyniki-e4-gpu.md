@@ -22,9 +22,20 @@ Każdy tryb zmierzono 3 razy; wartość to średnia. Surowe dane w repozytorium:
 - Przykładowy skrót KDBX4 użyty przez Hashcat (`wyniki/E4/tryb-34300.txt`) wykorzystuje Argon2d z pamięcią 67 108 864 B (64 MiB).
 - **Ograniczenie:** tryb `-b` używa przykładowych skrótów wbudowanych w Hashcat, z parametrami kosztu (liczba iteracji, pamięć Argon2) dobranymi przez autorów narzędzia, a nie domyślnymi ustawieniami aplikacji. Wartości z różnych algorytmów nie są więc wprost porównywalne – np. wynik Argon2 (460 H/s) zależy od tego, ile pamięci wymaga przykładowy skrót. Rzetelne porównanie wymaga pomiarów na własnych plikach z kontrolowanymi parametrami (pomiar 2) oraz porównania GPU z CPU dla tych samych parametrów (pomiar 3).
 
-### Uwaga do powtórzenia
+### Powtórka z logiem karty, 23.10.2026
 
-Log temperatury (`gpu-log-bench.csv`) nie zapisał się – w poleceniu `nvidia-smi` wpisano `-1` (cyfra) zamiast `-l` (mała litera L). Przy kolejnych pomiarach log trzeba uruchomić poprawnie; pomiar 1 warto powtórzyć z logiem, aby udokumentować brak spowolnienia termicznego.
+Pomiar powtórzono skryptem `tools/pomiar-bench.ps1`, który rejestruje stan karty co ok. 2 s. Dane: `wyniki/E4/pomiar1-powtorka/` (log: `gpu-log.csv`, czasy prób: `przebiegi.csv`).
+
+| Tryb | Algorytm | Pomiar 22.10 [H/s] | Powtórka 23.10 [H/s] | Różnica |
+|---|---|---:|---:|---:|
+| 0 | MD5 | 20 070 400 000 | 20 083 866 667 | +0,07% |
+| 1000 | NTLM | 34 954 233 333 | 35 033 600 000 | +0,23% |
+| 11600 | 7-Zip | 309 633 | 309 533 | −0,03% |
+| 13400 | KeePass KDBX 3.1 (AES-KDF) | 19 638 | 19 830 | +0,98% |
+| 13721 | VeraCrypt | 782 | 782 | 0,00% |
+| 34300 | KeePass KDBX4 (Argon2) | 460 | 460 | 0,00% |
+
+Stan karty pod obciążeniem (≥ 90%): temperatura średnio 53 °C, maks. 58 °C; taktowanie SM 1950–1965 MHz (stabilne); pobór mocy średnio 84,6 W, maks. 119 W. Temperatura pozostawała znacznie poniżej progu ograniczania taktowania, a taktowanie nie spadało w trakcie pomiaru – wyniki nie są obciążone wpływem termicznym. Różnice między dniami nie przekraczają 1%, co potwierdza powtarzalność pomiaru.
 
 ## Pomiar 2 – własne pliki z kontrolowanymi parametrami (do wykonania)
 
