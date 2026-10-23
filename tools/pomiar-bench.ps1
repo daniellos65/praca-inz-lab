@@ -29,7 +29,8 @@ param(
 )
 
 $ErrorActionPreference = "Continue"
-$Tryby = @($Tryby -split '[,; ]+' | Where-Object { $_ -match '^\d+$' } | ForEach-Object { [int]$_ })
+$ListaTrybow = @($Tryby -split '[,; ]+' | Where-Object { $_ -match '^\d+$' } | ForEach-Object { [int]$_ })
+if ($ListaTrybow.Count -eq 0) { Write-Host "Nieprawidlowa lista trybow: $Tryby" -ForegroundColor Red; exit 1 }
 function Info($t) { Write-Host "==> $t" -ForegroundColor Cyan }
 function Ostrz($t) { Write-Host "    [!] $t" -ForegroundColor Yellow }
 
@@ -47,25 +48,37 @@ if ($vm) {
 }
 
 New-Item -ItemType Directory -Force $Folder | Out-Null
+# usun wyniki poprzedniego (np. nieudanego) przebiegu w tym folderze
+Get-ChildItem $Folder -File | Where-Object { $_.Name -match '^(bench-m.*\.txt|gpu-log\.csv|przebiegi\.csv|log-podsumowanie\.txt|podsumowanie\.txt|wyniki-surowe\.csv)$' } | Remove-Item -Force
 $log = Join-Path $Folder "gpu-log.csv"
 $przebiegi = Join-Path $Folder "przebiegi.csv"
 "tryb;proba;start;koniec" | Set-Content $przebiegi -Encoding UTF8
 
-$czas = [math]::Round($Tryby.Count * $Proby * 0.6)
-Info "Pomiar: $($Tryby.Count) trybow x $Proby prob (ok. $czas-$(2*$czas) min). Nie uzywaj w tym czasie karty graficznej."
+$czas = [math]::Round($ListaTrybow.Count * $Proby * 0.6)
+Info "Pomiar: $($ListaTrybow.Count) trybow ($($ListaTrybow -join ', ')) x $Proby prob (ok. $czas-$(2*$czas) min). Nie uzywaj w tym czasie karty graficznej."
 
 # --- log karty w tle ---------------------------------------------------------
-$argsSmi = "--query-gpu=timestamp,temperature.gpu,clocks.sm,clocks.mem,power.draw,utilization.gpu --format=csv -l 2 -f `"$log`""
-$logStart = (Get-Date).AddSeconds(-2)
-$logger = Start-Process -FilePath $smi.Source -ArgumentList $argsSmi -PassThru -WindowStyle Hidden
-Start-Sleep -Seconds 6
-if ($logger.HasExited -or -not (Test-Path $log)) { Write-Host "Log nvidia-smi nie wystartowal." -ForegroundColor Red; exit 1 }
-Info "Log temperatury dziala: $log"
+# Kazda probka to osobne wywolanie nvidia-smi dopisywane od razu do pliku,
+# wiec przerwanie pomiaru nie powoduje utraty danych.
+$logJob = Start-Job -ArgumentList $smi.Source, $log -ScriptBlock {
+    param($smiExe, $plik)
+    "timestamp, temperature.gpu, clocks.sm [MHz], clocks.mem [MHz], power.draw [W], utilization.gpu [%]" | Set-Content $plik -Encoding UTF8
+    while ($true) {
+        & $smiExe --query-gpu=timestamp,temperature.gpu,clocks.sm,clocks.mem,power.draw,utilization.gpu --format=csv,noheader | Add-Content $plik -Encoding UTF8
+        Start-Sleep -Seconds 2
+    }
+}
+Start-Sleep -Seconds 7
+if (-not (Test-Path $log) -or @(Get-Content $log).Count -lt 2) {
+    Stop-Job $logJob -ErrorAction SilentlyContinue; Remove-Job $logJob -Force -ErrorAction SilentlyContinue
+    Write-Host "Log nvidia-smi nie zbiera danych - przerwano przed pomiarem." -ForegroundColor Red; exit 1
+}
+Info "Log temperatury dziala: $log ($(@(Get-Content $log).Count - 1) probek)"
 
 # --- pomiary -----------------------------------------------------------------
 Push-Location $Hashcat
 try {
-    foreach ($m in $Tryby) {
+    foreach ($m in $ListaTrybow) {
         foreach ($i in 1..$Proby) {
             Write-Host ""
             Info "Tryb $m, proba $i z $Proby"
@@ -83,8 +96,8 @@ try {
 finally {
     Pop-Location
     Start-Sleep -Seconds 4
-    if (-not $logger.HasExited) { Stop-Process -Id $logger.Id -Force -ErrorAction SilentlyContinue }
-    Get-Process -Name nvidia-smi -ErrorAction SilentlyContinue | Where-Object { $_.StartTime -ge $logStart } | Stop-Process -Force -ErrorAction SilentlyContinue
+    Stop-Job $logJob -ErrorAction SilentlyContinue
+    Remove-Job $logJob -Force -ErrorAction SilentlyContinue
 }
 
 # --- podsumowanie logu -------------------------------------------------------
