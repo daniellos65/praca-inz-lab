@@ -1,0 +1,5 @@
+﻿Probek w logu: 121 (co 2 s), pod obciazeniem >= 90%: 52
+Temperatura GPU pod obciazeniem: srednio 53,0 C, maks. 58 C
+Taktowanie SM pod obciazeniem:   srednio 1 959 MHz, min. 1 950 MHz, maks. 1 965 MHz
+Pobor mocy pod obciazeniem:      srednio 84,6 W, maks. 119,0 W
+Temperatura ponizej progu ograniczania taktowania - brak wplywu termicznego na wyniki.
