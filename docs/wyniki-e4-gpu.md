@@ -37,11 +37,25 @@ Pomiar powtórzono skryptem `tools/pomiar-bench.ps1`, który rejestruje stan kar
 
 Stan karty pod obciążeniem (≥ 90%): temperatura średnio 53 °C, maks. 58 °C; taktowanie SM 1950–1965 MHz (stabilne); pobór mocy średnio 84,6 W, maks. 119 W. Temperatura pozostawała znacznie poniżej progu ograniczania taktowania, a taktowanie nie spadało w trakcie pomiaru – wyniki nie są obciążone wpływem termicznym. Różnice między dniami nie przekraczają 1%, co potwierdza powtarzalność pomiaru.
 
-## Pomiar 2 – własne pliki z kontrolowanymi parametrami (do wykonania)
+## Pomiar 2 – własne pliki z kontrolowanymi parametrami
 
-- KeePassXC: KDBX4 z Argon2 dla pamięci 64 / 256 / 1024 MB; KDBX 3.1 (lub KDBX4) z AES-KDF.
-- VeraCrypt: kontener z kilkoma wartościami PIM.
-- 7-Zip: archiwum AES-256.
+### VeraCrypt: wpływ liczby iteracji (PIM), 24.10.2026
+
+Trzy kontenery AES + SHA-512 różniące się tylko parametrem PIM, który steruje liczbą iteracji PBKDF2 (iteracje = 15000 + PIM × 1000). Hashcat (tryb 13721) czyta kontener bezpośrednio, z ustaloną wartością PIM. Skrypt: `tools/pomiar-veracrypt.ps1`; dane: `wyniki/E4/veracrypt/` (hasło kontenerów: 30-znakowe, wymóg VeraCrypt dla własnego PIM).
+
+| PIM | Iteracje | Średnia [H/s] | Odch. | Prędkość × iteracje |
+|---|---:|---:|---:|---:|
+| 1 | 16 000 | 20 590,7 | 0,6% | ≈ 329,4 mln |
+| 250 | 265 000 | 1 278,3 | 0,0% | ≈ 338,7 mln |
+| 500 | 515 000 | 659,0 | 0,0% | ≈ 339,4 mln |
+
+**Interpretacja.** Prędkość łamania jest odwrotnie proporcjonalna do liczby iteracji: iloczyn prędkości i liczby iteracji jest niemal stały (~330–339 mln), a przy 32-krotnym wzroście liczby iteracji (16 k → 515 k) prędkość spada ~31-krotnie (20 591 → 659 H/s). Potwierdza to, że parametr kosztu funkcji compute-hard przekłada się liniowo na nakład pracy atakującego. Nieco niższy iloczyn dla PIM 1 wynika ze stałego narzutu na kandydata (uruchomienie jądra, odczyt kontenera), który przy małej liczbie iteracji waży proporcjonalnie więcej.
+
+Stan karty pod obciążeniem (≥ 90%, 206 z 250 próbek): temperatura średnio 60,2 °C, maks. 66 °C; taktowanie SM 1920–1980 MHz (stabilne); pobór mocy średnio 90,6 W, maks. 105 W. Brak ograniczania termicznego.
+
+### KeePass z Argon2 – ograniczenie narzędzia
+
+Dla własnych baz KDBX4 z Argon2 (64/256/1024 MiB) nie udało się wyciągnąć skrótu: `keepass2john` (John 1.8.0-jumbo) zgłasza „file version 40000 is currently not supported”, bo parser zna tylko starszy format KDBX 3.1. Udało się wyciągnąć jedynie bazę KDBX 3.1 z AES-KDF (tryb 13400). Skalowanie pamięci Argon2 wymaga nowszego ekstraktora (bleeding-jumbo lub narzędzie oparte na pykeepass) i pozostaje do wykonania; teza memory-hard jest już poparta pomiarem `-b` (Argon2 460 H/s wobec AES-KDF 19 638 H/s przy KeePass).
 
 ## Pomiar 3 – porównanie GPU i CPU (do wykonania)
 
