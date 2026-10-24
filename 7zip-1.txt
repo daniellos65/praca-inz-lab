@@ -1,0 +1,47 @@
+﻿hashcat (v7.1.2) starting
+
+F:\praca-inz\e4b\test-7zip.hash: Byte Order Mark (BOM) was detected
+Initializing bridges. Please be patient...This hash-mode is known to emit multiple valid candidates for the same hash.
+Use --keep-guessing to continue attack after finding the first crack.
+
+Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Successfully initialized the NVIDIA main driver CUDA runtime library.
+
+Failed to initialize NVIDIA RTC library.
+
+* Device #1: CUDA SDK Toolkit not installed or incorrectly installed.
+             CUDA SDK Toolkit required for proper device support and utilization.
+             For more information, see: https://hashcat.net/faq/wrongdriver
+             Falling back to OpenCL runtime.
+
+If you are using WSL2 you can use CUDA instead of OpenCL.
+Users must not install any NVIDIA GPU Linux driver within WSL 2
+For all details: https://docs.nvidia.com/cuda/wsl-user-guide/index.html
+
+TLDR; go to https://developer.nvidia.com/cuda-downloads and follow this path:
+  Linux -> Architecture -> Distribution -> Version -> deb (local)
+Follow the installation Instructions on the website.
+
+Initialized backend devicesOpenCL API (OpenCL 3.0 CUDA 13.3.80) - Platform #1 [NVIDIA Corporation]
+=======================================================================
+* Device #01: NVIDIA GeForce GTX 1660, 6143/6143 MB (1535 MB allocatable), 22MCU
+
+This hash-mode is known to emit multiple valid candidates for the same hash.
+Use --keep-guessing to continue attack after finding the first crack.
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+Minimum salt length supported by kernel: 0
+Maximum salt length supported by kernel: 256
+
+Counting lines in F:\praca-inz\e4b\test-7zip.hash. Please be patient...Counted lines in F:\praca-inz\e4b\test-7zip.hashHashfile 'F:\praca-inz\e4b\test-7zip.hash' on line 1 ($): Token length exception
+Hashfile 'F:\praca-inz\e4b\test-7zip.hash' on line 2 (): Token length exception
+Parsing Hashes: 0/2 (0.00%)...
+* Token length exception: 2/2 hashes
+  This error happens if the wrong hash type is specified, if the hashes are
+  malformed, or if input is otherwise not as expected (for example, if the
+  --username or --dynamic-x option is used but no username or dynamic-tag is present)
+
+No hashes loaded.
+System.Management.Automation.RemoteException
+Started: Sat Oct 24 17:59:35 2026
+Stopped: Sat Oct 24 17:59:36 2026
