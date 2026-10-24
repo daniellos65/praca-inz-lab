@@ -6,6 +6,7 @@ Surowe wyniki eksperymentów, po jednym folderze na etap (oznaczenia jak w plani
 |---|---|---|
 | `E4/` | E4 – kryptoanaliza GPU | pomiar 1 (22.10): testy wydajności Hashcata, informacje o karcie i trybach |
 | `E4/pliki-testowe-parametry.txt` | E4 – kryptoanaliza GPU | parametry własnych plików testowych KeePassXC |
+| `E4/argon2-skalowanie/` | E4 – kryptoanaliza GPU | Argon2 przy 64/256/1024 MiB, GPU vs CPU (dowód memory-hard) |
 | `E4/gpu-cpu/` | E4 – kryptoanaliza GPU | porównanie GPU vs CPU (benchmark `-b` na obu urządzeniach) |
 | `E4/pozostale/` | E4 – kryptoanaliza GPU | własne pliki compute-hard: 7-Zip i KeePass AES-KDF, z logami karty |
 | `E4/veracrypt/` | E4 – kryptoanaliza GPU | pomiar VeraCrypt: wpływ PIM (liczby iteracji) na prędkość, z logiem karty |

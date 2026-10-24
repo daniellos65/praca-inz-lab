@@ -1,4 +1,4 @@
-﻿hashcat (v7.1.2) starting
+hashcat (v7.1.2) starting
 
 Initializing bridges. Please be patient...Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Initialized backend devicesOpenCL API (OpenCL 3.0 CUDA 13.3.80) - Platform #1 [NVIDIA Corporation]
 =======================================================================
@@ -13,7 +13,7 @@ Maximum password length supported by kernel: 256
 Minimum salt length supported by kernel: 0
 Maximum salt length supported by kernel: 256
 
-Counting lines in F:\praca-inz\e4b\argon2-m256.hash. Please be patient...Counted lines in F:\praca-inz\e4b\argon2-m256.hashParsed Hashes: 1/1 (100.00%)Parsed Hashes: 1/1 (100.00%)Sorting hashes. Please be patient...Sorted hashesRemoving duplicate hashes. Please be patient...Removed duplicate hashesSorting salts. Please be patient...Sorted saltsGenerating bitmap tables...Generated bitmap tablesHashes: 1 digests; 1 unique digests, 1 unique salts
+Counting lines in F:\praca-inz\e4b\argon2-m1024.hash. Please be patient...Counted lines in F:\praca-inz\e4b\argon2-m1024.hashParsed Hashes: 1/1 (100.00%)Parsed Hashes: 1/1 (100.00%)Sorting hashes. Please be patient...Sorted hashesRemoving duplicate hashes. Please be patient...Removed duplicate hashesSorting salts. Please be patient...Sorted saltsGenerating bitmap tables...Generated bitmap tablesHashes: 1 digests; 1 unique digests, 1 unique salts
 Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
 
 Optimizers applied:
@@ -30,7 +30,7 @@ Initializing bridge salts. Please be patient...Initialized bridge saltsInitializ
              This can hurt performance drastically, especially on memory-heavy algorithms.
              You can adjust this percentage using --backend-devices-keepfree
 
-Initialized backend runtime for device #2Host memory allocated for this attack: 512 MB (7390 MB free)
+Initialized backend runtime for device #2Host memory allocated for this attack: 512 MB (7923 MB free)
 
 Initialized device kernels and memoryStarting self-test. Please be patient...Finished self-testStarting autotune. Please be patient...Finished autotune
                                                           
@@ -39,20 +39,20 @@ Initialized device kernels and memoryStarting self-test. Please be patient...Fin
 Session..........: hashcat
 Status...........: Running
 Hash.Mode........: 34000 (Argon2)
-Hash.Target......: $argon2id$v=19$m=262144,t=3,p=1$8VwoZAsGMcV4U+2rCLz...DDnfoM
-Time.Started.....: Sat Oct 24 19:08:14 2026 (18 secs)
-Time.Estimated...: Fri Mar 26 20:01:18 2027 (153 days, 1 hour; Runtime limited: 22 secs)
+Hash.Target......: $argon2id$v=19$m=1048576,t=3,p=1$5pMeerPjNhp77bC3+C...OPhQr8
+Time.Started.....: Sat Oct 24 19:10:45 2026 (14 secs)
+Time.Estimated...: Fri Jun 20 02:18:07 2031 (4 years, 238 days; Runtime limited: 26 secs)
 Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
 Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
 Guess.Queue......: 1/1 (100.00%)
-Speed.#02........:        8 H/s (99.02ms) @ Accel:9 Loops:1 Thr:1 Vec:8
+Speed.#02........:        1 H/s (240.56ms) @ Accel:2 Loops:1 Thr:1 Vec:8
 Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
-Progress.........: 126/100000000 (0.00%)
-Rejected.........: 0/126 (0.00%)
-Restore.Point....: 9/10000000 (0.00%)
-Restore.Sub.#02..: Salt:0 Amplifier:4-5 Iteration:8-9
+Progress.........: 8/100000000 (0.00%)
+Rejected.........: 0/8 (0.00%)
+Restore.Point....: 0/10000000 (0.00%)
+Restore.Sub.#02..: Salt:0 Amplifier:4-5 Iteration:7-8
 Candidate.Engine.: Device Generator
-Candidates.#02...: 97012312 -> 93121999
+Candidates.#02...: 92345678 -> 91012312
 Hardware.Mon.#02.: N/A
 
 [s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
@@ -60,20 +60,20 @@ Hardware.Mon.#02.: N/A
 Session..........: hashcat
 Status...........: Running
 Hash.Mode........: 34000 (Argon2)
-Hash.Target......: $argon2id$v=19$m=262144,t=3,p=1$8VwoZAsGMcV4U+2rCLz...DDnfoM
-Time.Started.....: Sat Oct 24 19:08:14 2026 (38 secs)
-Time.Estimated...: Fri Mar 26 10:51:40 2027 (152 days, 16 hours; Runtime limited: 2 secs)
+Hash.Target......: $argon2id$v=19$m=1048576,t=3,p=1$5pMeerPjNhp77bC3+C...OPhQr8
+Time.Started.....: Sat Oct 24 19:10:45 2026 (34 secs)
+Time.Estimated...: Wed Feb 26 12:59:54 2031 (4 years, 124 days; Runtime limited: 6 secs)
 Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
 Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
 Guess.Queue......: 1/1 (100.00%)
-Speed.#02........:        8 H/s (98.50ms) @ Accel:9 Loops:1 Thr:1 Vec:8
+Speed.#02........:        1 H/s (219.34ms) @ Accel:2 Loops:1 Thr:1 Vec:8
 Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
-Progress.........: 279/100000000 (0.00%)
-Rejected.........: 0/279 (0.00%)
-Restore.Point....: 27/10000000 (0.00%)
-Restore.Sub.#02..: Salt:0 Amplifier:1-2 Iteration:8-9
+Progress.........: 24/100000000 (0.00%)
+Rejected.........: 0/24 (0.00%)
+Restore.Point....: 2/10000000 (0.00%)
+Restore.Sub.#02..: Salt:0 Amplifier:2-3 Iteration:3-4
 Candidate.Engine.: Device Generator
-Candidates.#02...: 03232312 -> 05432312
+Candidates.#02...: 28012312 -> 29121999
 Hardware.Mon.#02.: N/A
 
 [s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
@@ -84,23 +84,23 @@ Runtime limit reached, aborting
 Session..........: hashcat
 Status...........: Aborted (Runtime)
 Hash.Mode........: 34000 (Argon2)
-Hash.Target......: $argon2id$v=19$m=262144,t=3,p=1$8VwoZAsGMcV4U+2rCLz...DDnfoM
-Time.Started.....: Sat Oct 24 19:08:14 2026 (40 secs)
-Time.Estimated...: Fri Mar 26 09:25:31 2027 (152 days, 15 hours; Runtime limit exceeded)
+Hash.Target......: $argon2id$v=19$m=1048576,t=3,p=1$5pMeerPjNhp77bC3+C...OPhQr8
+Time.Started.....: Sat Oct 24 19:10:45 2026 (40 secs)
+Time.Estimated...: Wed Feb 19 04:34:31 2031 (4 years, 117 days; Runtime limit exceeded)
 Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
 Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
 Guess.Queue......: 1/1 (100.00%)
-Speed.#02........:        8 H/s (98.33ms) @ Accel:9 Loops:1 Thr:1 Vec:8
+Speed.#02........:        1 H/s (219.52ms) @ Accel:2 Loops:1 Thr:1 Vec:8
 Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
-Progress.........: 297/100000000 (0.00%)
-Rejected.........: 0/297 (0.00%)
-Restore.Point....: 27/10000000 (0.00%)
-Restore.Sub.#02..: Salt:0 Amplifier:3-4 Iteration:4-5
+Progress.........: 28/100000000 (0.00%)
+Rejected.........: 0/28 (0.00%)
+Restore.Point....: 2/10000000 (0.00%)
+Restore.Sub.#02..: Salt:0 Amplifier:4-5 Iteration:6-7
 Candidate.Engine.: Device Generator
-Candidates.#02...: 33232312 -> 35432312
+Candidates.#02...: 98012312 -> 99121999
 Hardware.Mon.#02.: N/A
 
                                                           
 Runtime limit reached, aborting
-Started: Sat Oct 24 19:08:01 2026
-Stopped: Sat Oct 24 19:08:56 2026
+Started: Sat Oct 24 19:10:36 2026
+Stopped: Sat Oct 24 19:11:26 2026

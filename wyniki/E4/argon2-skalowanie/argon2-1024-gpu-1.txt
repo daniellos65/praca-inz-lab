@@ -1,4 +1,4 @@
-﻿hashcat (v7.1.2) starting
+hashcat (v7.1.2) starting
 
 Initializing bridges. Please be patient...Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Successfully initialized the NVIDIA main driver CUDA runtime library.
 
@@ -44,5 +44,5 @@ Watchdog: Temperature abort trigger set to 90c
 
 clCreateBuffer(): CL_INVALID_BUFFER_SIZE
 System.Management.Automation.RemoteException
-Initializing bridge salts. Please be patient...Initialized bridge saltsInitializing device kernels and memory. Please be patient...Initializing backend runtime for device #1. Please be patient...Started: Sat Oct 24 19:09:45 2026
-Stopped: Sat Oct 24 19:09:46 2026
+Initializing bridge salts. Please be patient...Initialized bridge saltsInitializing device kernels and memory. Please be patient...Initializing backend runtime for device #1. Please be patient...Started: Sat Oct 24 19:09:43 2026
+Stopped: Sat Oct 24 19:09:45 2026

@@ -68,7 +68,7 @@ Stan karty pod obciążeniem: 7-Zip temp. średnio 56,1 °C (maks. 62), KeePass 
 
 ### KeePass z Argon2 – ograniczenie narzędzia
 
-Dla własnych baz KDBX4 z Argon2 (64/256/1024 MiB) nie udało się wyciągnąć skrótu: `keepass2john` (John 1.8.0-jumbo) zgłasza „file version 40000 is currently not supported”, bo parser zna tylko starszy format KDBX 3.1. Udało się wyciągnąć jedynie bazę KDBX 3.1 z AES-KDF (tryb 13400). Skalowanie pamięci Argon2 wymaga nowszego ekstraktora (bleeding-jumbo lub narzędzie oparte na pykeepass) i pozostaje do wykonania; teza memory-hard jest już poparta pomiarem `-b` (Argon2 460 H/s wobec AES-KDF 19 638 H/s przy KeePass).
+Dla własnych baz KDBX4 z Argon2 (64/256/1024 MiB) nie udało się wyciągnąć skrótu: `keepass2john` (John 1.8.0-jumbo) zgłasza „file version 40000 is currently not supported”, bo parser zna tylko starszy format KDBX 3.1. Udało się wyciągnąć jedynie bazę KDBX 3.1 z AES-KDF (tryb 13400). Skalowanie pamięci Argon2 zrealizowano ostatecznie bez KeePass — w generycznym trybie Argon2 Hashcata (34000) na hashach wygenerowanych wprost dla zadanej pamięci (pomiar 4).
 
 ## Pomiar 3 – porównanie GPU i CPU, 24.10.2026
 
@@ -91,6 +91,18 @@ Benchmark Hashcata (`-b`) uruchomiony osobno na GPU (CUDA) i na CPU (Intel CPU R
 
 **Wniosek cząstkowy.** Sama klasyfikacja „memory-hard” nie gwarantuje najmniejszej przewagi GPU przy niskich parametrach pamięci. Najskuteczniej przewagę GPU ogranicza tu funkcja oparta na operacjach sprzętowo przyspieszanych w CPU (AES-KDF) oraz — co pokazuje pomiar 4 — Argon2 przy odpowiednio dużej pamięci.
 
-## Pomiar 4 – skalowanie pamięci Argon2 (do wykonania)
+## Pomiar 4 – skalowanie pamięci Argon2, 24.10.2026
 
-Argon2 przy pamięci 64 / 256 / 1024 MiB, pomiar GPU i CPU. Oczekiwanie: wraz ze wzrostem pamięci maleje liczba równoległych instancji mieszczących się w 6 GB VRAM, więc stosunek GPU/CPU spada — to właściwy dowód, że funkcja memory-hard ogranicza akcelerację GPU.
+Hashe Argon2id wygenerowano w Pythonie (`tools/gen-argon2.py`, argon2-cffi), różniące się tylko pamięcią (64 / 256 / 1024 MiB) przy stałych t=3 i p=1. Pomiar w trybie generycznym Hashcata (34000), GPU i CPU. Skrypt: `tools/pomiar-argon2.ps1`; dane: `wyniki/E4/argon2-skalowanie/`.
+
+| Pamięć Argon2 | GPU [H/s] | CPU [H/s] | GPU/CPU |
+|---|---:|---:|---:|
+| 64 MiB | 286,5 | 34,0 | 8,4× |
+| 256 MiB | 29,0 | 7,5 | 3,9× |
+| 1024 MiB | — (błąd alokacji) | 1,0 | GPU nie uruchomił |
+
+**Interpretacja — to właściwy dowód tezy.** Wraz ze wzrostem wymaganej pamięci przewaga GPU nad CPU gwałtownie maleje: z 8,4× przy 64 MiB do 3,9× przy 256 MiB. Przy 1024 MiB karta GTX 1660 **w ogóle nie wykonała obliczeń** — Hashcat zakończył się błędem `clCreateBuffer(): CL_INVALID_BUFFER_SIZE`, ponieważ pojedynczy bufor Argon2 o rozmiarze 1 GiB przekracza pamięć dostępną dla Hashcata na tej karcie (6 GB fizycznie, ok. 1,5 GB alokowalne). Procesor, dysponując 16 GB RAM, policzył wszystkie warianty, choć bardzo wolno (1 H/s przy 1 GiB).
+
+Mechanizm jest następujący: efektywność GPU bierze się z masowej równoległości (tysiące jednoczesnych instancji). Funkcja memory-hard wymaga, by każda instancja miała do dyspozycji duży, osobny blok pamięci. Pamięć karty szybko się wyczerpuje, liczba równoległych instancji spada, a przy odpowiednio dużym parametrze pamięci akceleracja na GPU staje się niemożliwa. To jest istota ochrony, jaką memory-hard daje przeciwko atakom z użyciem GPU.
+
+(Wartości bezwzględne przy 64 MiB różnią się od pomiaru `-b` trybu 34300, bo tu użyto t=3, a przykład benchmarku t=2 — porównywalny jest trend stosunku GPU/CPU, nie liczby bezwzględne.)

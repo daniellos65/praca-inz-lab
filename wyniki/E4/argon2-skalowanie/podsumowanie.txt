@@ -1,0 +1,4 @@
+Pamiec            GPU [H/s]        CPU [H/s]      GPU/CPU
+64 MiB                286,5             34,0         8,4x
+256 MiB                29,0              7,5         3,9x
+1024 MiB                                 1,0         0,0x
