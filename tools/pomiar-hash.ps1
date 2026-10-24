@@ -47,7 +47,14 @@ Get-ChildItem $Folder -File | Where-Object { $_.Name -match "^$([regex]::Escape(
 # Oczysc plik z hashem: usun BOM i puste linie (czesta przyczyna "Token length exception"),
 # zapisz czysta kopie w folderze wynikow i to jej uzyj do pomiaru (oryginal bez zmian).
 $HashClean = Join-Path $Folder "$safe.hash"
-$linieHash = Get-Content $HashFile | Where-Object { $_.Trim() -ne "" }
+$linieHash = Get-Content $HashFile | Where-Object { $_.Trim() -ne "" } | ForEach-Object {
+    $l = $_
+    foreach ($mk in '$keepass$', '$7z$', '$veracrypt$', '$office$', '$pdf$', '$rar5$', '$zip2$') {
+        $idx = $l.IndexOf($mk)
+        if ($idx -gt 0) { $l = $l.Substring($idx); break }   # odetnij prefiks sciezki/nazwy przed hashem
+    }
+    $l
+}
 if (-not $linieHash) { Write-Host "Plik z hashem jest pusty: $HashFile" -ForegroundColor Red; exit 1 }
 [IO.File]::WriteAllText($HashClean, ($linieHash -join "`n") + "`n")
 Info "Oczyszczony hash: $HashClean (linii: $($linieHash.Count))"
