@@ -16,7 +16,6 @@
       -Folder  F:\praca-inz\wyniki\E4\gpu-cpu
       -Tryby   "0,11600,13400,13721,34300"   tryby Hashcata
       -GpuDev  1      numer urzadzenia GPU (z `hashcat -I`)
-      -CpuDev  2      numer urzadzenia CPU (z `hashcat -I`)
       -Proby   2      liczba prob na (tryb, urzadzenie)
 
   Wyniki:
@@ -29,7 +28,6 @@ param(
     [string]$Folder = "F:\praca-inz\wyniki\E4\gpu-cpu",
     [string]$Tryby = "0,11600,13400,13721,34300",
     [int]$GpuDev = 1,
-    [int]$CpuDev = 2,
     [int]$Proby = 2
 )
 
@@ -47,11 +45,16 @@ $mult = @{ 'H/s' = 1; 'kH/s' = 1e3; 'MH/s' = 1e6; 'GH/s' = 1e9 }
 
 New-Item -ItemType Directory -Force $Folder | Out-Null
 Get-ChildItem $Folder -File -EA SilentlyContinue | Where-Object { $_.Name -match '\.(txt|csv)$' } | Remove-Item -Force
-Info "Porownanie GPU (dev $GpuDev) vs CPU (dev $CpuDev). Tryby: $($ListaTrybow -join ', '). UWAGA: CPU liczy wolniej, calosc moze potrwac."
+Info "Porownanie GPU (dev $GpuDev, CUDA) vs CPU (OpenCL). Tryby: $($ListaTrybow -join ', '). UWAGA: CPU liczy wolniej, calosc moze potrwac."
 
-function Zmierz($mode, $dev) {
+function Zmierz($mode, $kind) {
     Push-Location $Hashcat
-    $out = & $hcExe -b -m $mode -d $dev 2>&1 | ForEach-Object { "$_" }
+    if ($kind -eq "cpu") {
+        # CPU przez OpenCL: wylacz CUDA i wybierz urzadzenia typu CPU (-D 1)
+        $out = & $hcExe -b -m $mode --backend-ignore-cuda -D 1 2>&1 | ForEach-Object { "$_" }
+    } else {
+        $out = & $hcExe -b -m $mode -d $GpuDev 2>&1 | ForEach-Object { "$_" }
+    }
     Pop-Location
     $sl = $out | Where-Object { $_ -match 'Speed\.#' } | Select-Object -First 1
     $hs = $null
@@ -62,16 +65,16 @@ function Zmierz($mode, $dev) {
 $wyniki = @()
 foreach ($m in $ListaTrybow) {
     $nazwa = $Nazwy["$m"]; if (-not $nazwa) { $nazwa = "tryb$m" }
-    foreach ($dev in @(@{n = "gpu"; d = $GpuDev }, @{n = "cpu"; d = $CpuDev })) {
+    foreach ($kind in @("gpu", "cpu")) {
         for ($i = 1; $i -le $Proby; $i++) {
             Write-Host ""
-            Info "$nazwa ($m) na $($dev.n.ToUpper()) - proba $i z $Proby"
-            $r = Zmierz $m $dev.d
-            $r.Out | Set-Content (Join-Path $Folder "$m-$($dev.n)-$i.txt") -Encoding UTF8
+            Info "$nazwa ($m) na $($kind.ToUpper()) - proba $i z $Proby"
+            $r = Zmierz $m $kind
+            $r.Out | Set-Content (Join-Path $Folder "$m-$kind-$i.txt") -Encoding UTF8
             if ($null -ne $r.HS) {
                 Write-Host ("    {0:N1} H/s" -f $r.HS)
-                $wyniki += [pscustomobject]@{ Tryb = $m; Algorytm = $nazwa; Urzadzenie = $dev.n; Proba = $i; HS = $r.HS }
-            } else { Ostrz "brak Speed - sprawdz $m-$($dev.n)-$i.txt" }
+                $wyniki += [pscustomobject]@{ Tryb = $m; Algorytm = $nazwa; Urzadzenie = $kind; Proba = $i; HS = $r.HS }
+            } else { Ostrz "brak Speed - sprawdz $m-$kind-$i.txt" }
         }
     }
 }
