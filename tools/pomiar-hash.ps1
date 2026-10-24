@@ -44,6 +44,14 @@ if ($vm) { Ostrz "Dzialaja maszyny wirtualne - wylacz je przed pomiarem." }
 New-Item -ItemType Directory -Force $Folder | Out-Null
 $safe = $Nazwa -replace '[^\w\-]', '_'
 Get-ChildItem $Folder -File | Where-Object { $_.Name -match "^$([regex]::Escape($safe))-(\d+\.txt)$" -or $_.Name -eq "gpu-log-$safe.csv" } | Remove-Item -Force
+# Oczysc plik z hashem: usun BOM i puste linie (czesta przyczyna "Token length exception"),
+# zapisz czysta kopie w folderze wynikow i to jej uzyj do pomiaru (oryginal bez zmian).
+$HashClean = Join-Path $Folder "$safe.hash"
+$linieHash = Get-Content $HashFile | Where-Object { $_.Trim() -ne "" }
+if (-not $linieHash) { Write-Host "Plik z hashem jest pusty: $HashFile" -ForegroundColor Red; exit 1 }
+[IO.File]::WriteAllText($HashClean, ($linieHash -join "`n") + "`n")
+Info "Oczyszczony hash: $HashClean (linii: $($linieHash.Count))"
+
 $log = Join-Path $Folder "gpu-log-$safe.csv"
 
 $logJob = Start-Job -ArgumentList $smi.Source, $log -ScriptBlock {
@@ -69,7 +77,7 @@ try {
         Info "$Nazwa - proba $i z $Proby"
         $st = [math]::Max(1, [math]::Floor($Czas / 2))
         Push-Location $Hashcat
-        $out = & $hcExe -m $Mode "$HashFile" -a 3 "?d?d?d?d?d?d?d?d" `
+        $out = & $hcExe -m $Mode "$HashClean" -a 3 "?d?d?d?d?d?d?d?d" `
             --runtime $Czas --status --status-timer $st --potfile-disable 2>&1 | ForEach-Object { "$_" }
         Pop-Location
         $out | Set-Content (Join-Path $Folder "$safe-$i.txt") -Encoding UTF8
