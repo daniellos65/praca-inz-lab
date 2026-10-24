@@ -1,0 +1,48 @@
+﻿hashcat (v7.1.2) starting
+
+Initializing bridges. Please be patient...Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Successfully initialized the NVIDIA main driver CUDA runtime library.
+
+Failed to initialize NVIDIA RTC library.
+
+* Device #1: CUDA SDK Toolkit not installed or incorrectly installed.
+             CUDA SDK Toolkit required for proper device support and utilization.
+             For more information, see: https://hashcat.net/faq/wrongdriver
+             Falling back to OpenCL runtime.
+
+If you are using WSL2 you can use CUDA instead of OpenCL.
+Users must not install any NVIDIA GPU Linux driver within WSL 2
+For all details: https://docs.nvidia.com/cuda/wsl-user-guide/index.html
+
+TLDR; go to https://developer.nvidia.com/cuda-downloads and follow this path:
+  Linux -> Architecture -> Distribution -> Version -> deb (local)
+Follow the installation Instructions on the website.
+
+Initialized backend devicesOpenCL API (OpenCL 3.0 CUDA 13.3.80) - Platform #1 [NVIDIA Corporation]
+=======================================================================
+* Device #01: NVIDIA GeForce GTX 1660, 6143/6143 MB (1535 MB allocatable), 22MCU
+
+OpenCL API (OpenCL 3.0 WINDOWS) - Platform #2 [Intel(R) Corporation]
+====================================================================
+* Device #02: AMD Ryzen 5 5600 6-Core Processor, skipped
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+Minimum salt length supported by kernel: 0
+Maximum salt length supported by kernel: 256
+
+Counting lines in F:\praca-inz\e4b\argon2-m1024.hash. Please be patient...Counted lines in F:\praca-inz\e4b\argon2-m1024.hashParsed Hashes: 1/1 (100.00%)Parsed Hashes: 1/1 (100.00%)Sorting hashes. Please be patient...Sorted hashesRemoving duplicate hashes. Please be patient...Removed duplicate hashesSorting salts. Please be patient...Sorted saltsGenerating bitmap tables...Generated bitmap tablesHashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+
+Optimizers applied:
+* Zero-Byte
+* Single-Hash
+* Single-Salt
+* Brute-Force
+* Slow-Hash-DimensionY-LOOP
+
+Watchdog: Temperature abort trigger set to 90c
+
+clCreateBuffer(): CL_INVALID_BUFFER_SIZE
+System.Management.Automation.RemoteException
+Initializing bridge salts. Please be patient...Initialized bridge saltsInitializing device kernels and memory. Please be patient...Initializing backend runtime for device #1. Please be patient...Started: Sat Oct 24 19:09:45 2026
+Stopped: Sat Oct 24 19:09:46 2026

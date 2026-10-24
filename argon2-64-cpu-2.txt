@@ -1,0 +1,106 @@
+﻿hashcat (v7.1.2) starting
+
+Initializing bridges. Please be patient...Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Initialized backend devicesOpenCL API (OpenCL 3.0 CUDA 13.3.80) - Platform #1 [NVIDIA Corporation]
+=======================================================================
+* Device #01: NVIDIA GeForce GTX 1660, skipped
+
+OpenCL API (OpenCL 3.0 WINDOWS) - Platform #2 [Intel(R) Corporation]
+====================================================================
+* Device #02: AMD Ryzen 5 5600 6-Core Processor, 8154/16309 MB (4077 MB allocatable), 12MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+Minimum salt length supported by kernel: 0
+Maximum salt length supported by kernel: 256
+
+Counting lines in F:\praca-inz\e4b\argon2-m64.hash. Please be patient...Counted lines in F:\praca-inz\e4b\argon2-m64.hashParsed Hashes: 1/1 (100.00%)Parsed Hashes: 1/1 (100.00%)Sorting hashes. Please be patient...Sorted hashesRemoving duplicate hashes. Please be patient...Removed duplicate hashesSorting salts. Please be patient...Sorted saltsGenerating bitmap tables...Generated bitmap tablesHashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+
+Optimizers applied:
+* Zero-Byte
+* Single-Hash
+* Single-Salt
+* Brute-Force
+* Slow-Hash-DimensionY-LOOP
+
+Watchdog: Temperature abort trigger set to 90c
+
+Initializing bridge salts. Please be patient...Initialized bridge saltsInitializing device kernels and memory. Please be patient...Initializing backend runtime for device #2. Please be patient...* Device #2: This system does not offer any reliable method to query actual free memory. Estimated base: 8550905856
+             Assuming normal desktop activity, reducing estimate by 34%: 5643597864
+             This can hurt performance drastically, especially on memory-heavy algorithms.
+             You can adjust this percentage using --backend-devices-keepfree
+
+Initialized backend runtime for device #2Host memory allocated for this attack: 512 MB (7593 MB free)
+
+Initialized device kernels and memoryStarting self-test. Please be patient...Finished self-testStarting autotune. Please be patient...Finished autotune
+                                                          
+[s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
+
+Session..........: hashcat
+Status...........: Running
+Hash.Mode........: 34000 (Argon2)
+Hash.Target......: $argon2id$v=19$m=65536,t=3,p=1$7kP0QJmVaVFmJsNeW9LK...iw3iyI
+Time.Started.....: Sat Oct 24 19:05:43 2026 (20 secs)
+Time.Estimated...: Sat Nov 28 06:22:49 2026 (34 days, 12 hours; Runtime limited: 20 secs)
+Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
+Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
+Guess.Queue......: 1/1 (100.00%)
+Speed.#02........:       34 H/s (29.30ms) @ Accel:12 Loops:1 Thr:1 Vec:8
+Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
+Progress.........: 648/100000000 (0.00%)
+Rejected.........: 0/648 (0.00%)
+Restore.Point....: 60/10000000 (0.00%)
+Restore.Sub.#02..: Salt:0 Amplifier:4-5 Iteration:7-8
+Candidate.Engine.: Device Generator
+Candidates.#02...: 92888888 -> 91912312
+Hardware.Mon.#02.: N/A
+
+[s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
+                                                          
+Runtime limit reached, aborting
+
+
+Session..........: hashcat
+Status...........: Aborted (Runtime)
+Hash.Mode........: 34000 (Argon2)
+Hash.Target......: $argon2id$v=19$m=65536,t=3,p=1$7kP0QJmVaVFmJsNeW9LK...iw3iyI
+Time.Started.....: Sat Oct 24 19:05:43 2026 (40 secs)
+Time.Estimated...: Sat Nov 28 05:41:19 2026 (34 days, 11 hours; Runtime limit exceeded)
+Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
+Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
+Guess.Queue......: 1/1 (100.00%)
+Speed.#02........:       34 H/s (30.24ms) @ Accel:12 Loops:1 Thr:1 Vec:8
+Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
+Progress.........: 1332/100000000 (0.00%)
+Rejected.........: 0/1332 (0.00%)
+Restore.Point....: 132/10000000 (0.00%)
+Restore.Sub.#02..: Salt:0 Amplifier:1-2 Iteration:7-8
+Candidate.Engine.: Device Generator
+Candidates.#02...: 08999000 -> 09212312
+Hardware.Mon.#02.: N/A
+
+[s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
+                                                          
+Session..........: hashcat
+Status...........: Aborted (Runtime)
+Hash.Mode........: 34000 (Argon2)
+Hash.Target......: $argon2id$v=19$m=65536,t=3,p=1$7kP0QJmVaVFmJsNeW9LK...iw3iyI
+Time.Started.....: Sat Oct 24 19:05:43 2026 (40 secs)
+Time.Estimated...: Sat Nov 28 05:41:19 2026 (34 days, 11 hours; Runtime limit exceeded)
+Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
+Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
+Guess.Queue......: 1/1 (100.00%)
+Speed.#02........:       34 H/s (30.23ms) @ Accel:12 Loops:1 Thr:1 Vec:8
+Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
+Progress.........: 1332/100000000 (0.00%)
+Rejected.........: 0/1332 (0.00%)
+Restore.Point....: 132/10000000 (0.00%)
+Restore.Sub.#02..: Salt:0 Amplifier:1-2 Iteration:7-8
+Candidate.Engine.: Device Generator
+Candidates.#02...: 08999000 -> 09212312
+Hardware.Mon.#02.: N/A
+
+                                                          
+Runtime limit reached, aborting
+Started: Sat Oct 24 19:05:41 2026
+Stopped: Sat Oct 24 19:06:25 2026
