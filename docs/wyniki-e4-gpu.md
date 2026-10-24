@@ -53,6 +53,19 @@ Trzy kontenery AES + SHA-512 różniące się tylko parametrem PIM, który steru
 
 Stan karty pod obciążeniem (≥ 90%, 206 z 250 próbek): temperatura średnio 60,2 °C, maks. 66 °C; taktowanie SM 1920–1980 MHz (stabilne); pobór mocy średnio 90,6 W, maks. 105 W. Brak ograniczania termicznego.
 
+### Własne pliki compute-hard: 7-Zip i KeePass AES-KDF, 24.10.2026
+
+Pomiar na własnych plikach z realnymi parametrami. Skrypt: `tools/pomiar-hash.ps1`; dane: `wyniki/E4/pozostale/`. Hash 7-Zip wyciągnięto narzędziem `7z2hashcat`, hash KeePass KDBX 3.1 — `keepass2john`.
+
+| Plik | Parametr kosztu | Tryb | Prędkość GPU [H/s] | Odch. | Benchmark `-b` [H/s] |
+|---|---|---:|---:|---:|---:|
+| 7-Zip AES-256 | 2^19 iteracji SHA-256 + weryfikacja danych | 11600 | 6 735 | 5,8% | 309 633 |
+| KeePass AES-KDF (KDBX 3.1) | 100 000 rund AES | 13400 | 4 734 | 0,5% | 19 638 |
+
+**Interpretacja.** Oba pliki łamią się wyraźnie wolniej niż w benchmarku `-b`, bo mają realne, wyższe parametry kosztu niż uproszczone próbki wbudowane w Hashcata. Dla KeePass stosunek 19 638 / 4 734 ≈ 4,1× odpowiada większej liczbie rund w pliku testowym (100 000) niż w próbce benchmarku. Dla 7-Zip różnica jest większa, bo przy realnym archiwum Hashcat musi dla każdego kandydata odszyfrować i zweryfikować rzeczywiste dane (CRC), a nie tylko sprawdzić dopełnienie próbki; stąd też wyższe odchylenie (5,8%), zależne od zawartości archiwum. Wniosek: benchmark `-b` zawyża prędkość atakującego względem realnych plików z poprawnie dobranym kosztem.
+
+Stan karty pod obciążeniem: 7-Zip temp. średnio 56,1 °C (maks. 62), KeePass średnio 50,2 °C (maks. 53). Brak ograniczania termicznego.
+
 ### KeePass z Argon2 – ograniczenie narzędzia
 
 Dla własnych baz KDBX4 z Argon2 (64/256/1024 MiB) nie udało się wyciągnąć skrótu: `keepass2john` (John 1.8.0-jumbo) zgłasza „file version 40000 is currently not supported”, bo parser zna tylko starszy format KDBX 3.1. Udało się wyciągnąć jedynie bazę KDBX 3.1 z AES-KDF (tryb 13400). Skalowanie pamięci Argon2 wymaga nowszego ekstraktora (bleeding-jumbo lub narzędzie oparte na pykeepass) i pozostaje do wykonania; teza memory-hard jest już poparta pomiarem `-b` (Argon2 460 H/s wobec AES-KDF 19 638 H/s przy KeePass).

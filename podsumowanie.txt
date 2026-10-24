@@ -1,2 +1,0 @@
-﻿7zip (tryb 11600): srednia 6 735,0 H/s, n=3, odch. 5,8%
-keepass-aeskdf (tryb 13400): srednia 4 734,0 H/s, n=3, odch. 0,5%
