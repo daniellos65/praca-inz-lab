@@ -1,6 +1,0 @@
-﻿Tryb     Algorytm                  GPU [H/s]          CPU [H/s]      GPU/CPU
-0        MD5                20 016 200 000,0    1 218 600 000,0       16,4x
-11600    7-Zip                     310 100,0            7 478,0       41,5x
-13400    KeePass AES-KDF            19 794,0            2 666,5        7,4x
-13721    VeraCrypt                     786,0               70,0       11,2x
-34300    KeePass Argon2                461,0               36,0       12,8x

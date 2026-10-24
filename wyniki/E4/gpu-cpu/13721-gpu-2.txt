@@ -1,11 +1,11 @@
-﻿hashcat (v7.1.2) starting in benchmark mode
+hashcat (v7.1.2) starting in benchmark mode
 
 Benchmarking uses hand-optimized kernel code by default.
 You can use it in your cracking session by setting the -O option.
 Note: Using optimized kernel code limits the maximum supported password length.
 To disable the optimized kernel code in benchmark mode, use the -w option.
 
-Initializing bridges. Please be patient...Kernel ./OpenCL/m13400-optimized.cl:
+Initializing bridges. Please be patient...Kernel ./OpenCL/m13721-optimized.cl:
 Optimized kernel requested, but not available or not required
 Falling back to pure kernel
 
@@ -41,11 +41,11 @@ Benchmark relevant options:
 * --backend-devices-virthost=1
 * --optimized-kernel-enable
 
-------------------------------------------------------------
-* Hash-Mode 13400 (KeePass (KDBX v2/v3)) [Iterations: 24569]
-------------------------------------------------------------
+--------------------------------------------------------------------------------
+* Hash-Mode 13721 (VeraCrypt SHA512 + XTS 512 bit (legacy)) [Iterations: 499999]
+--------------------------------------------------------------------------------
 
-Speed.#01........:    19799 H/s (94.68ms) @ Accel:8 Loops:1024 Thr:256 Vec:1
+Speed.#01........:      783 H/s (46.88ms) @ Accel:576 Loops:250 Thr:256 Vec:1
 
-Started: Sat Oct 24 18:43:03 2026
-Stopped: Sat Oct 24 18:43:11 2026
+Started: Sat Oct 24 18:44:29 2026
+Stopped: Sat Oct 24 18:44:44 2026

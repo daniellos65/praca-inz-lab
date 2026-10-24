@@ -1,15 +1,11 @@
-﻿hashcat (v7.1.2) starting in benchmark mode
+hashcat (v7.1.2) starting in benchmark mode
 
 Benchmarking uses hand-optimized kernel code by default.
 You can use it in your cracking session by setting the -O option.
 Note: Using optimized kernel code limits the maximum supported password length.
 To disable the optimized kernel code in benchmark mode, use the -w option.
 
-Initializing bridges. Please be patient...Kernel ./OpenCL/m13400-optimized.cl:
-Optimized kernel requested, but not available or not required
-Falling back to pure kernel
-
-Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Successfully initialized the NVIDIA main driver CUDA runtime library.
+Initializing bridges. Please be patient...Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Successfully initialized the NVIDIA main driver CUDA runtime library.
 
 Failed to initialize NVIDIA RTC library.
 
@@ -41,11 +37,11 @@ Benchmark relevant options:
 * --backend-devices-virthost=1
 * --optimized-kernel-enable
 
-------------------------------------------------------------
-* Hash-Mode 13400 (KeePass (KDBX v2/v3)) [Iterations: 24569]
-------------------------------------------------------------
+-------------------
+* Hash-Mode 0 (MD5)
+-------------------
 
-Speed.#01........:    19789 H/s (94.72ms) @ Accel:8 Loops:1024 Thr:256 Vec:1
+Speed.#01........: 20087.8 MH/s (73.09ms) @ Accel:256 Loops:1024 Thr:256 Vec:8
 
-Started: Sat Oct 24 18:42:55 2026
-Stopped: Sat Oct 24 18:43:03 2026
+Started: Sat Oct 24 18:42:01 2026
+Stopped: Sat Oct 24 18:42:07 2026

@@ -1,12 +1,13 @@
-﻿hashcat (v7.1.2) starting in benchmark mode
+hashcat (v7.1.2) starting in benchmark mode
 
 Benchmarking uses hand-optimized kernel code by default.
 You can use it in your cracking session by setting the -O option.
 Note: Using optimized kernel code limits the maximum supported password length.
 To disable the optimized kernel code in benchmark mode, use the -w option.
 
-Initializing bridges. Please be patient...This hash-mode is known to emit multiple valid candidates for the same hash.
-Use --keep-guessing to continue attack after finding the first crack.
+Initializing bridges. Please be patient...Kernel ./OpenCL/m13721-optimized.cl:
+Optimized kernel requested, but not available or not required
+Falling back to pure kernel
 
 Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Initialized backend devicesOpenCL API (OpenCL 3.0 CUDA 13.3.80) - Platform #1 [NVIDIA Corporation]
 =======================================================================
@@ -23,11 +24,11 @@ Benchmark relevant options:
 * --opencl-device-types=1
 * --optimized-kernel-enable
 
----------------------------------------------
-* Hash-Mode 11600 (7-Zip) [Iterations: 16384]
----------------------------------------------
+--------------------------------------------------------------------------------
+* Hash-Mode 13721 (VeraCrypt SHA512 + XTS 512 bit (legacy)) [Iterations: 499999]
+--------------------------------------------------------------------------------
 
-Speed.#02........:     7462 H/s (97.14ms) @ Accel:243 Loops:4096 Thr:1 Vec:8
+Speed.#02........:       70 H/s (14.53ms) @ Accel:1024 Loops:1000 Thr:1 Vec:4
 
-Started: Sat Oct 24 18:42:49 2026
-Stopped: Sat Oct 24 18:42:55 2026
+Started: Sat Oct 24 18:45:28 2026
+Stopped: Sat Oct 24 18:45:34 2026

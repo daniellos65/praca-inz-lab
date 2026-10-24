@@ -1,4 +1,4 @@
-﻿hashcat (v7.1.2) starting in benchmark mode
+hashcat (v7.1.2) starting in benchmark mode
 
 Benchmarking uses hand-optimized kernel code by default.
 You can use it in your cracking session by setting the -O option.
@@ -24,7 +24,7 @@ Benchmark relevant options:
 * Hash-Mode 0 (MD5)
 -------------------
 
-Speed.#02........:  1214.7 MH/s (10.40ms) @ Accel:1024 Loops:1024 Thr:1 Vec:8
+Speed.#02........:  1222.5 MH/s (10.17ms) @ Accel:1024 Loops:1024 Thr:1 Vec:8
 
-Started: Sat Oct 24 18:42:19 2026
-Stopped: Sat Oct 24 18:42:25 2026
+Started: Sat Oct 24 18:42:14 2026
+Stopped: Sat Oct 24 18:42:19 2026

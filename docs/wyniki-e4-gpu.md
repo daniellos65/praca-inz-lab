@@ -70,6 +70,27 @@ Stan karty pod obciążeniem: 7-Zip temp. średnio 56,1 °C (maks. 62), KeePass 
 
 Dla własnych baz KDBX4 z Argon2 (64/256/1024 MiB) nie udało się wyciągnąć skrótu: `keepass2john` (John 1.8.0-jumbo) zgłasza „file version 40000 is currently not supported”, bo parser zna tylko starszy format KDBX 3.1. Udało się wyciągnąć jedynie bazę KDBX 3.1 z AES-KDF (tryb 13400). Skalowanie pamięci Argon2 wymaga nowszego ekstraktora (bleeding-jumbo lub narzędzie oparte na pykeepass) i pozostaje do wykonania; teza memory-hard jest już poparta pomiarem `-b` (Argon2 460 H/s wobec AES-KDF 19 638 H/s przy KeePass).
 
-## Pomiar 3 – porównanie GPU i CPU (do wykonania)
+## Pomiar 3 – porównanie GPU i CPU, 24.10.2026
 
-Te same pliki i parametry na procesorze Ryzen 5 5600. Kluczowa metryka rozdziału 5: stosunek wydajności GPU do CPU dla każdego algorytmu.
+Benchmark Hashcata (`-b`) uruchomiony osobno na GPU (CUDA) i na CPU (Intel CPU Runtime for OpenCL, `--backend-ignore-cuda -D 1`). Skrypt: `tools/pomiar-gpu-cpu.ps1`; dane: `wyniki/E4/gpu-cpu/`. Każdy pomiar 2 razy, wyniki zgodne.
+
+| Algorytm | GPU [H/s] | CPU [H/s] | GPU/CPU |
+|---|---:|---:|---:|
+| MD5 | 20 016 200 000 | 1 218 600 000 | 16,4× |
+| 7-Zip (SHA-256) | 310 100 | 7 478 | 41,5× |
+| KeePass AES-KDF | 19 794 | 2 666 | 7,4× |
+| VeraCrypt (PBKDF2-HMAC-SHA-512) | 786 | 70 | 11,2× |
+| KeePass Argon2 (64 MiB) | 461 | 36 | 12,8× |
+
+**Interpretacja.** Przewaga GPU nad CPU nie zależy wprost od podziału compute-hard / memory-hard, lecz od tego, jak algorytm mapuje się na sprzęt:
+
+- **AES-KDF ma najniższy stosunek (7,4×)**, ponieważ procesor Ryzen 5 5600 ma sprzętowe wsparcie AES (AES-NI). Procesor liczy operacje AES bardzo wydajnie, więc przewaga GPU maleje.
+- **7-Zip ma najwyższy (41,5×)** — używa SHA-256 (operacje 32-bitowe), w których procesory graficzne są szczególnie wydajne.
+- **VeraCrypt (11,2×)** opiera się na PBKDF2-HMAC-SHA-512; operacje 64-bitowe są mniej korzystne dla konsumenckiego GPU, więc procesor relatywnie nadrabia.
+- **Argon2 przy 64 MiB daje wciąż 12,8× na korzyść GPU.** Przy tej ilości pamięci karta z 6 GB VRAM mieści wiele równoległych instancji, więc własność memory-hard nie ogranicza jeszcze istotnie zrównoleglenia. Spadek przewagi GPU dla Argon2 ujawnia się dopiero przy większym zużyciu pamięci (pomiar 4).
+
+**Wniosek cząstkowy.** Sama klasyfikacja „memory-hard” nie gwarantuje najmniejszej przewagi GPU przy niskich parametrach pamięci. Najskuteczniej przewagę GPU ogranicza tu funkcja oparta na operacjach sprzętowo przyspieszanych w CPU (AES-KDF) oraz — co pokazuje pomiar 4 — Argon2 przy odpowiednio dużej pamięci.
+
+## Pomiar 4 – skalowanie pamięci Argon2 (do wykonania)
+
+Argon2 przy pamięci 64 / 256 / 1024 MiB, pomiar GPU i CPU. Oczekiwanie: wraz ze wzrostem pamięci maleje liczba równoległych instancji mieszczących się w 6 GB VRAM, więc stosunek GPU/CPU spada — to właściwy dowód, że funkcja memory-hard ogranicza akcelerację GPU.
