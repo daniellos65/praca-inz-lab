@@ -78,9 +78,12 @@ try {
         foreach ($i in 1..$Proby) {
             Write-Host ""
             Info "Kontener PIM $pim (iteracje ~$iter), proba $i z $Proby"
+            $st = [math]::Max(1, [math]::Floor($Czas / 2))
+            Push-Location $Hashcat   # hashcat musi dzialac ze swojego folderu, by znalezc OpenCL/kernels
             $out = & $hcExe -m 13721 "$($k.FullName)" -a 3 "?d?d?d?d?d?d?d?d" `
                 --veracrypt-pim-start $pim --veracrypt-pim-stop $pim `
-                --runtime $Czas --status --status-timer ([math]::Max(10, $Czas)) --potfile-disable --quiet 2>&1 | ForEach-Object { "$_" }
+                --runtime $Czas --status --status-timer $st --potfile-disable 2>&1 | ForEach-Object { "$_" }
+            Pop-Location
             $out | Set-Content (Join-Path $Folder "vc-pim$pim-$i.txt") -Encoding UTF8
             $speedLine = $out | Where-Object { $_ -match 'Speed\.#' } | Select-Object -First 1
             if ($speedLine -match 'Speed\.#[\d\*]+\.*:\s+([\d\.]+)\s+([kMG]?H/s)') {
