@@ -1,0 +1,18 @@
+Pliki testowe KeePassXC - parametry (utworzone 24.10.2026)
+Program: KeePassXC 2.8.0
+Lokalizacja: F:\praca-inz\pliki-testowe
+Haslo wszystkich baz: Laboratorium2026!
+Szyfr: AES 256-bit (wszystkie bazy)
+
+Plik                     Format   KDF       Pamiec     Iteracje/rundy   Rownoleglosc
+kp-argon2d-64.kdbx       KDBX 4   Argon2d   64 MiB     2                2
+kp-argon2d-256.kdbx      KDBX 4   Argon2d   256 MiB    2                2
+kp-argon2d-1024.kdbx     KDBX 4   Argon2d   1024 MiB   2                2
+kp-aeskdf-kdbx4.kdbx     KDBX 4   AES-KDF   -          100 000          -
+kp-aeskdf-kdbx31.kdbx    KDBX 3   AES-KDF   -          100 000          -
+                         (KDBX 3 = wersja 3.1)
+
+Zasada: bazy rozni tylko jeden parametr naraz.
+- kp-argon2d-64 / -256 / -1024: wplyw pamieci Argon2 przy stalych pozostalych parametrach.
+- kp-aeskdf-kdbx4 vs kp-argon2d-*: wplyw rodzaju funkcji (compute-hard vs memory-hard) w tym samym formacie.
+- kp-aeskdf-kdbx4 vs kp-aeskdf-kdbx31: wplyw wersji formatu przy tej samej funkcji.
