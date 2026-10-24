@@ -1,0 +1,39 @@
+﻿hashcat (v7.1.2) starting in benchmark mode
+
+Benchmarking uses hand-optimized kernel code by default.
+You can use it in your cracking session by setting the -O option.
+Note: Using optimized kernel code limits the maximum supported password length.
+To disable the optimized kernel code in benchmark mode, use the -w option.
+
+Initializing bridges. Please be patient...Kernel ./OpenCL/m34300-optimized.cl:
+Optimized kernel requested, but not available or not required
+Falling back to pure kernel
+
+Initialized bridgesInitializing backend runtimes. Please be patient...Initialized backend runtimesInitializing backend devices. Please be patient...Initialized backend devicesOpenCL API (OpenCL 3.0 CUDA 13.3.80) - Platform #1 [NVIDIA Corporation]
+=======================================================================
+* Device #01: NVIDIA GeForce GTX 1660, skipped
+
+OpenCL API (OpenCL 3.0 WINDOWS) - Platform #2 [Intel(R) Corporation]
+====================================================================
+* Device #02: AMD Ryzen 5 5600 6-Core Processor, 8154/16309 MB (4077 MB allocatable), 12MCU
+
+Benchmark relevant options:
+===========================
+* --backend-devices-virtmulti=1
+* --backend-devices-virthost=1
+* --opencl-device-types=1
+* --optimized-kernel-enable
+
+-----------------------------------------------------
+* Hash-Mode 34300 (KeePass (KDBX v4)) [Iterations: 8]
+-----------------------------------------------------
+
+* Device #2: This system does not offer any reliable method to query actual free memory. Estimated base: 8550905856
+             Assuming normal desktop activity, reducing estimate by 34%: 5643597864
+             This can hurt performance drastically, especially on memory-heavy algorithms.
+             You can adjust this percentage using --backend-devices-keepfree
+
+Speed.#02........:       37 H/s (81.72ms) @ Accel:12 Loops:2 Thr:1 Vec:8
+
+Started: Sat Oct 24 18:46:15 2026
+Stopped: Sat Oct 24 18:46:23 2026
