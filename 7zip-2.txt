@@ -1,6 +1,5 @@
 ﻿hashcat (v7.1.2) starting
 
-F:\praca-inz\e4b\test-7zip.hash: Byte Order Mark (BOM) was detected
 Initializing bridges. Please be patient...This hash-mode is known to emit multiple valid candidates for the same hash.
 Use --keep-guessing to continue attack after finding the first crack.
 
@@ -33,15 +32,113 @@ Maximum password length supported by kernel: 256
 Minimum salt length supported by kernel: 0
 Maximum salt length supported by kernel: 256
 
-Counting lines in F:\praca-inz\e4b\test-7zip.hash. Please be patient...Counted lines in F:\praca-inz\e4b\test-7zip.hashHashfile 'F:\praca-inz\e4b\test-7zip.hash' on line 1 ($): Token length exception
-Hashfile 'F:\praca-inz\e4b\test-7zip.hash' on line 2 (): Token length exception
-Parsing Hashes: 0/2 (0.00%)...
-* Token length exception: 2/2 hashes
-  This error happens if the wrong hash type is specified, if the hashes are
-  malformed, or if input is otherwise not as expected (for example, if the
-  --username or --dynamic-x option is used but no username or dynamic-tag is present)
+Counting lines in F:\praca-inz\wyniki\E4\pozostale\7zip.hash. Please be patient...Counted lines in F:\praca-inz\wyniki\E4\pozostale\7zip.hashParsed Hashes: 1/1 (100.00%)Parsed Hashes: 1/1 (100.00%)Sorting hashes. Please be patient...Sorted hashesRemoving duplicate hashes. Please be patient...Removed duplicate hashesSorting salts. Please be patient...Sorted saltsGenerating bitmap tables...Generated bitmap tablesHashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
 
-No hashes loaded.
-System.Management.Automation.RemoteException
-Started: Sat Oct 24 17:59:41 2026
-Stopped: Sat Oct 24 17:59:42 2026
+Optimizers applied:
+* Zero-Byte
+* Single-Hash
+* Single-Salt
+* Brute-Force
+
+ATTENTION! Pure (unoptimized) backend kernels selected.
+Pure kernels can crack longer passwords, but drastically reduce performance.
+If you want to switch to optimized kernels, append -O to your commandline.
+See the above message to find out about the exact limits.
+
+Watchdog: Temperature abort trigger set to 90c
+
+Initializing bridge salts. Please be patient...Initialized bridge saltsInitializing device kernels and memory. Please be patient...Initializing backend runtime for device #1. Please be patient...Initialized backend runtime for device #1Host memory allocated for this attack: 972 MB (7880 MB free)
+
+Initialized device kernels and memoryStarting self-test. Please be patient...Finished self-testStarting autotune. Please be patient...Finished autotune
+                                                          
+[s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
+                                                          
+Cracking performance lower than expected?
+
+* Append -O to the commandline.
+  This lowers the maximum supported password/salt length (usually down to 32).
+
+* Append -w 3 to the commandline.
+  This can cause your screen to lag.
+
+* Append -S to the commandline.
+  This has a drastic speed impact but can be better for specific attacks.
+  Typical scenarios are a small wordlist but a large ruleset.
+
+* Update your backend API runtime / driver the right way:
+  https://hashcat.net/faq/wrongdriver
+
+* Create more work items to make use of your parallelization power:
+  https://hashcat.net/faq/morework
+
+[s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
+
+Session..........: hashcat
+Status...........: Running
+Hash.Mode........: 11600 (7-Zip)
+Hash.Target......: $7z$1$19$0$$16$07d7316761e3a57545c5708dbc3830c4$207...100000
+Time.Started.....: Sat Oct 24 18:11:44 2026 (19 secs)
+Time.Estimated...: Sat Oct 24 22:03:57 2026 (3 hours, 51 mins; Runtime limited: 21 secs)
+Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
+Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
+Guess.Queue......: 1/1 (100.00%)
+Speed.#01........:     7177 H/s (4.54ms) @ Accel:6 Loops:256 Thr:512 Vec:1
+Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
+Progress.........: 135168/100000000 (0.14%)
+Rejected.........: 0/135168 (0.00%)
+Restore.Point....: 0/10000000 (0.00%)
+Restore.Sub.#01..: Salt:0 Amplifier:2-3 Iteration:52224-52480
+Candidate.Engine.: Device Generator
+Candidates.#01...: 22345678 -> 29543523
+Hardware.Mon.#01.: Temp: 57c Fan: 56% Util: 97% Core:1950MHz Mem:4001MHz Bus:16
+
+[s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
+                                                          
+Runtime limit reached, aborting
+
+
+Session..........: hashcat
+Status...........: Aborted (Runtime)
+Hash.Mode........: 11600 (7-Zip)
+Hash.Target......: $7z$1$19$0$$16$07d7316761e3a57545c5708dbc3830c4$207...100000
+Time.Started.....: Sat Oct 24 18:11:44 2026 (40 secs)
+Time.Estimated...: Sat Oct 24 22:03:59 2026 (3 hours, 51 mins; Runtime limit exceeded)
+Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
+Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
+Guess.Queue......: 1/1 (100.00%)
+Speed.#01........:     7177 H/s (4.54ms) @ Accel:6 Loops:256 Thr:512 Vec:1
+Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
+Progress.........: 270336/100000000 (0.27%)
+Rejected.........: 0/270336 (0.00%)
+Restore.Point....: 0/10000000 (0.00%)
+Restore.Sub.#01..: Salt:0 Amplifier:4-5 Iteration:126976-127232
+Candidate.Engine.: Device Generator
+Candidates.#01...: 92345678 -> 99543523
+Hardware.Mon.#01.: Temp: 60c Fan: 59% Util: 99% Core:1950MHz Mem:4001MHz Bus:16
+
+[s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => 
+                                                          
+Session..........: hashcat
+Status...........: Aborted (Runtime)
+Hash.Mode........: 11600 (7-Zip)
+Hash.Target......: $7z$1$19$0$$16$07d7316761e3a57545c5708dbc3830c4$207...100000
+Time.Started.....: Sat Oct 24 18:11:44 2026 (40 secs)
+Time.Estimated...: Sat Oct 24 22:03:59 2026 (3 hours, 51 mins; Runtime limit exceeded)
+Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
+Guess.Mask.......: ?d?d?d?d?d?d?d?d [8]
+Guess.Queue......: 1/1 (100.00%)
+Speed.#01........:     7177 H/s (4.53ms) @ Accel:6 Loops:256 Thr:512 Vec:1
+Recovered........: 0/1 (0.00%) Digests (total), 0/1 (0.00%) Digests (new)
+Progress.........: 270336/100000000 (0.27%)
+Rejected.........: 0/270336 (0.00%)
+Restore.Point....: 0/10000000 (0.00%)
+Restore.Sub.#01..: Salt:0 Amplifier:4-5 Iteration:126976-127232
+Candidate.Engine.: Device Generator
+Candidates.#01...: 92345678 -> 99543523
+Hardware.Mon.#01.: Temp: 60c Fan: 59% Util: 99% Core:1950MHz Mem:4001MHz Bus:16
+
+                                                          
+Runtime limit reached, aborting
+Started: Sat Oct 24 18:11:41 2026
+Stopped: Sat Oct 24 18:12:26 2026
