@@ -10,13 +10,13 @@ if default_variables and default_variables.nets then
 end
 
 -- Detekcja ARP spoofingu: znane powiązania IP <-> MAC w sieci laboratoryjnej.
--- UZUPEŁNIĆ adresami MAC z poleceń `ip link` na poszczególnych maszynach.
+-- Adresy MAC odczytane ze stanowiska (ip neigh na sensorze, 2026-10-25).
 arp_spoof =
 {
     hosts =
     {
-        { ip = '10.10.10.20', mac = '08:00:27:00:00:20' },  -- klient
-        { ip = '10.10.10.30', mac = '08:00:27:00:00:30' },  -- serwer
+        { ip = '10.10.10.20', mac = '08:00:27:3b:7f:6d' },  -- klient
+        { ip = '10.10.10.30', mac = '08:00:27:f7:36:74' },  -- serwer
     }
 }
 
