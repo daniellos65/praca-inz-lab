@@ -73,21 +73,26 @@ fallback*, traktując obniżenie jako możliwy objaw ingerencji. Brak tej reakcj
 oznacza, że wymuszone przez pośrednika obniżenie wersji przechodzi niezauważone
 [1].
 
-**Wynik (do potwierdzenia pomiarem).** Serwer współczesny akceptuje wyłącznie
-TLS 1.2 i 1.3 oraz odrzuca połączenie ze znacznikiem `TLS_FALLBACK_SCSV`
-alarmem *inappropriate fallback*. Serwer przestarzały akceptuje dodatkowo
-wcześniejsze wersje protokołu `[wiersze z tls-wersje.csv]` i nie reaguje na
-znacznik, co pozostawia możliwość cichego obniżenia wersji. Zestawienie obu
-konfiguracji zawiera tabela 4.1.
+**Wynik.** Serwer współczesny akceptuje wyłącznie TLS 1.2 i 1.3 oraz odrzuca
+połączenie ze znacznikiem `TLS_FALLBACK_SCSV` (reakcja *inappropriate fallback*).
+Serwer przestarzały akceptuje dodatkowo SSLv3, TLS 1.0 i 1.1, a znacznik
+obniżenia wersji ignoruje — pozostawia zatem możliwość cichego wymuszenia
+słabszej wersji przez pośrednika. Zestawienie obu konfiguracji zawiera tabela 4.1
+(pomiar na stanowisku, OpenSSL klienta 3.0.13, OpenSSL przestarzały 1.0.2u).
 
 | Wersja | Serwer współczesny (:443) | Serwer przestarzały (:4433) |
 |---|---|---|
-| SSLv3 | `[…]` | `[…]` |
-| TLS 1.0 | `[…]` | `[…]` |
-| TLS 1.1 | `[…]` | `[…]` |
-| TLS 1.2 | `[…]` | `[…]` |
-| TLS 1.3 | `[…]` | `[…]` |
-| reakcja na SCSV | `[…]` | `[…]` |
+| SSLv3 | odrzucona | zaakceptowana |
+| TLS 1.0 | odrzucona | zaakceptowana |
+| TLS 1.1 | odrzucona | zaakceptowana |
+| TLS 1.2 | zaakceptowana | zaakceptowana |
+| TLS 1.3 | zaakceptowana | odrzucona |
+| reakcja na SCSV | odrzuca próbę obniżenia (ochrona działa) | akceptuje mimo znacznika (brak ochrony) |
+
+Serwer przestarzały odrzuca jedynie TLS 1.3, ponieważ biblioteka OpenSSL 1.0.2u
+tej wersji protokołu nie implementuje. Nie jest to więc efekt utwardzenia, lecz
+ograniczenia przestarzałej implementacji — pozostałe, słabsze wersje pozostają
+dostępne.
 
 ---
 
