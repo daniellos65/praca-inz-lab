@@ -113,12 +113,11 @@ losowych modyfikacji pojedynczego bajtu tokenu oraz próbę celowaną, zmieniaj�
 pole uprawnień `admin` z wartości 0 na 1 przy założeniu znajomości struktury
 tekstu jawnego.
 
-**Wynik (przebieg testowy, do potwierdzenia).** Wariant CTR bez
-uwierzytelnienia przyjął 100 % (200/200) zmodyfikowanych tokenów; w każdym
-przypadku odszyfrowana treść różniła się od pierwotnej. Próba celowana
-zakończyła się uzyskaniem podniesionych uprawnień (`admin_panel = true`) bez
-naruszenia pozostałych pól. Wariant GCM odrzucił wszystkie modyfikacje
-(0/200) oraz próbę celowaną (HTTP 403). Potwierdza to, że w szyfrze
+**Wynik.** Wariant CTR bez uwierzytelnienia przyjął 100 % (200/200)
+zmodyfikowanych tokenów; w każdym przypadku odszyfrowana treść różniła się od
+pierwotnej. Próba celowana zakończyła się uzyskaniem podniesionych uprawnień
+(`admin_panel = true`) bez naruszenia pozostałych pól. Wariant GCM odrzucił
+wszystkie modyfikacje (0/200) oraz próbę celowaną (HTTP 403). Potwierdza to, że w szyfrze
 strumieniowym poufność bez kontroli integralności nie chroni treści przed
 ukierunkowaną ingerencją, a zastosowanie trybu z uwierzytelnieniem usuwa tę
 podatność.
@@ -141,9 +140,9 @@ analogicznie do podrozdziału 4.3. Wynik serii losowej rozbito dodatkowo według
 obszaru, w którym leżał zmieniony bajt: wektor inicjujący, blok pośredni, blok
 ostatni.
 
-**Wynik (przebieg testowy, do potwierdzenia).** Wariant CBC bez uwierzytelnienia
-przyjął około 60 % zmodyfikowanych tokenów. Rozkład akceptacji według obszaru:
-wektor inicjujący 100 %, blok pośredni około 80 %, blok ostatni 0 % — w ostatnim
+**Wynik.** Wariant CBC bez uwierzytelnienia przyjął 60 % (120/200)
+zmodyfikowanych tokenów. Rozkład akceptacji według obszaru: wektor inicjujący
+100 % (61/61), blok pośredni 81,9 % (59/72), blok ostatni 0 % (0/67) — w ostatnim
 bloku znajduje się dopełnienie, którego naruszenie wykrywa funkcja `unpad`
 (tab. 4.2). Próba celowana na polu `admin` nie powiodła się: pole to leży na
 granicy dwóch bloków, a wymuszenie zmiany jego bajtu zniekształciło blok
@@ -154,9 +153,12 @@ przypadku szyfru strumieniowego z podrozdziału 4.3.
 
 | Obszar tokenu | Próby | Przyjęte | Odsetek [%] |
 |---|---|---|---|
-| wektor inicjujący | `[…]` | `[…]` | `[…]` |
-| blok pośredni | `[…]` | `[…]` | `[…]` |
-| blok ostatni | `[…]` | `[…]` | `[…]` |
+| wektor inicjujący | 61 | 61 | 100,0 |
+| blok pośredni | 72 | 59 | 81,9 |
+| blok ostatni | 67 | 0 | 0,0 |
+
+Rozkład liczby prób między obszary wynika z losowego wyboru pozycji bajtu;
+proporcje odpowiadają udziałowi każdego obszaru w długości tokenu.
 
 ---
 
