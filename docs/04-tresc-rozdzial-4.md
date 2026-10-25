@@ -50,6 +50,22 @@ z widocznymi zduplikatami odpowiedzi ARP oraz wpisy alarmowe inspektora
 `arp_spoof`. Oba artefakty wykorzystano ponownie w rozdziale 6 przy ocenie
 skuteczności detekcji.
 
+**Wynik detekcji.** Na stanowisku wygenerowano kontrolowaną ramkę ARP ogłaszającą
+powiązanie adresu serwera `10.10.10.30` z adresem sprzętowym maszyny klienta
+(`08:00:27:3b:7f:6d`), sprzeczne z powiązaniem skonfigurowanym w inspektorze
+(`10.10.10.30 → 08:00:27:f7:36:74`). Dla każdej z trzech powtórzonych ramek
+inspektor `arp_spoof` systemu Snort zgłosił dwa alarmy (tab. 4.0):
+
+| Identyfikator | Treść alarmu |
+|---|---|
+| 112:3:1 | (arp_spoof) ethernet/ARP mismatch for destination hardware address in reply |
+| 112:4:1 | (arp_spoof) attempted ARP cache overwrite attack |
+
+Potwierdza to, że próba zajęcia pozycji pośrednika przez zatrucie ARP pozostawia
+wykrywalny ślad w warstwie sieciowej, o ile system detekcji dysponuje wzorcem
+poprawnych powiązań IP↔MAC. Artefakty: `wyniki/R4/4.1/arp41.pcap` (zrzut ramek)
+oraz `wyniki/R4/4.1/arp41-alerty.txt` (alarmy inspektora).
+
 ---
 
 ## 4.2. Wymuszenie słabszych parametrów sesji i mechanizmy ochronne
