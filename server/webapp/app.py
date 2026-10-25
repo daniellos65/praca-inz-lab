@@ -3,11 +3,14 @@ Aplikacja testowa do laboratorium pracy inżynierskiej.
 
 UWAGA: aplikacja jest CELOWO PODATNA. Uruchamiać wyłącznie w izolowanej sieci laboratoryjnej.
 
-Zawiera dwie pary mechanizmów (wariant podatny / wariant poprawiony):
-  1. Ciasteczko sesyjne:
+Zawiera trzy pary mechanizmów (wariant podatny / wariant poprawiony):
+  1. Ciasteczko sesyjne, szyfr strumieniowy:
+       /ctr/login, /ctr/profile        -> AES-128-CTR bez MAC (plastyczne, modyfikacja bajtu wprost)
+       /secure/login, /secure/profile  -> AES-128-GCM (AEAD, modyfikacja wykrywana)
+  2. Ciasteczko sesyjne, szyfr blokowy:
        /login, /profile                -> AES-128-CBC bez MAC (podatne na modyfikację bitów)
        /secure/login, /secure/profile  -> AES-128-GCM (AEAD, modyfikacja wykrywana)
-  2. Podpisywanie żądań API:
+  3. Podpisywanie żądań API:
        /api/sample, /api/transfer                -> SHA-256(sekret || wiadomość) (podatne na rozszerzenie długości)
        /api/secure/sample, /api/secure/transfer  -> HMAC-SHA-256(sekret, wiadomość)
 
@@ -28,6 +31,7 @@ from flask import Flask, jsonify, make_response, request
 app = Flask(__name__)
 
 KEY_CBC = get_random_bytes(16)
+KEY_CTR = get_random_bytes(16)
 KEY_GCM = get_random_bytes(16)
 # Długość sekretu jest nieznana atakującemu (domyślnie 16 bajtów).
 API_SECRET = get_random_bytes(int(os.environ.get("API_SECRET_LEN", "16")))
@@ -71,6 +75,8 @@ def index():
     return jsonify({
         "info": "Aplikacja laboratoryjna (celowo podatna)",
         "endpoints": {
+            "GET /ctr/login?user=NAZWA": "ustawia ciasteczko AES-CTR bez MAC",
+            "GET /ctr/profile": "odczytuje ciasteczko AES-CTR",
             "GET /login?user=NAZWA": "ustawia ciasteczko AES-CBC bez MAC",
             "GET /profile": "odczytuje ciasteczko AES-CBC",
             "GET /secure/login?user=NAZWA": "ustawia ciasteczko AES-GCM",
@@ -80,6 +86,43 @@ def index():
             "GET /api/secure/sample": "przykładowe zlecenie podpisane HMAC-SHA-256",
             "GET /api/secure/transfer?msg=...&sig=...": "weryfikuje HMAC-SHA-256",
         },
+    })
+
+
+# ---------------------------------------------------------------------------
+# 0a. Ciasteczko AES-CTR bez MAC (szyfr strumieniowy, plastyczne)
+# ---------------------------------------------------------------------------
+
+@app.get("/ctr/login")
+def login_ctr():
+    username = request.args.get("user", "student")
+    if ";" in username or "=" in username:
+        return jsonify({"error": "niedozwolone znaki w nazwie użytkownika"}), 400
+    nonce = get_random_bytes(8)
+    ct = AES.new(KEY_CTR, AES.MODE_CTR, nonce=nonce).encrypt(session_plaintext(username))
+    resp = make_response(jsonify({"status": "zalogowano", "mode": "AES-CTR bez MAC"}))
+    resp.set_cookie("ctr_session", base64.urlsafe_b64encode(nonce + ct).decode())
+    return resp
+
+
+@app.get("/ctr/profile")
+def profile_ctr():
+    token = request.cookies.get("ctr_session")
+    if not token:
+        return jsonify({"error": "brak ciasteczka"}), 401
+    try:
+        raw = base64.urlsafe_b64decode(token)
+        nonce, ct = raw[:8], raw[8:]
+        # Brak dopełnienia i brak kontroli integralności: każdy kryptogram
+        # tej samej długości zostaje odszyfrowany i sparsowany bez błędu.
+        pt = AES.new(KEY_CTR, AES.MODE_CTR, nonce=nonce).decrypt(ct)
+    except Exception:
+        return jsonify({"error": "nieprawidłowe ciasteczko"}), 400
+    fields = parse_pairs(pt, b";")
+    return jsonify({
+        "mode": "AES-CTR bez MAC",
+        "fields": fields,
+        "admin_panel": fields.get("admin") == "1",
     })
 
 
