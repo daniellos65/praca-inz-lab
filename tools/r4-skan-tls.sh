@@ -58,9 +58,14 @@ sprawdz_wersje() {
     echo | timeout 15 "$binarka" s_client -connect "${HOST}:${port}" "$flaga" \
         -servername lab.local > "$plik" 2>&1 || true
 
+    # Sukces negocjacji rozpoznajemy po wynegocjowanym szyfrze, nie po obecnosci
+    # bloku certyfikatu: w TLS 1.3 certyfikat bywa zapisany inaczej, co dawalo
+    # falszywie negatywny wynik. Linia "New, <wersja>, Cipher is <nazwa>"
+    # pojawia sie dla obu wersji; przy nieudanym handshake ma wartosc (NONE).
     local szyfr wynik
-    szyfr="$(grep -oP '^\s*Cipher\s*:\s*\K\S+' "$plik" | head -1)"
-    if grep -q "BEGIN CERTIFICATE" "$plik" && [ -n "$szyfr" ] && [ "$szyfr" != "0000" ] && [ "$szyfr" != "(NONE)" ]; then
+    szyfr="$(grep -oP 'Cipher is \K\S+' "$plik" | head -1)"
+    [ -z "$szyfr" ] && szyfr="$(grep -oP '^\s*Cipher\s*:\s*\K\S+' "$plik" | head -1)"
+    if [ -n "$szyfr" ] && [ "$szyfr" != "0000" ] && [ "$szyfr" != "(NONE)" ]; then
         wynik="zaakceptowana"
     else
         wynik="odrzucona"
