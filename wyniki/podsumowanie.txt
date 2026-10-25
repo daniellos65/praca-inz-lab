@@ -1,0 +1,39 @@
+4.3. Ciasteczko, szyfr strumieniowy - odsetek przyjetych modyfikacji
+
+Wariant                   Proby   Przyjete  Odsetek [%]    Zmieniona tresc
+AES-CTR bez MAC             200        200        100.0                200
+AES-GCM                     200          0          0.0                  0
+
+4.4. Ciasteczko, szyfr blokowy - odsetek przyjetych modyfikacji
+
+Wariant                   Proby   Przyjete  Odsetek [%]    Zmieniona tresc
+AES-CBC bez MAC             200        120         60.0                120
+AES-GCM                     200          0          0.0                  0
+
+4.4a. Wariant AES-CBC bez MAC w podziale na obszar modyfikacji
+
+Obszar tokenu         Proby   Przyjete  Odsetek [%]
+IV                       61         61        100.0
+blok posredni            72         59         81.9
+blok ostatni             67          0          0.0
+
+Proba celowana: zmiana pola admin z 0 na 1 przy znanej strukturze tekstu jawnego
+
+Wariant                 Pozycja bajtu       HTTP   admin uzyskany
+AES-CTR bez MAC                    27        200              tak
+AES-CBC bez MAC                    19        200              nie
+AES-GCM                            31        403              nie
+
+4.5. Reakcja na naruszenie pary (wiadomosc, podpis)
+
+Wariant                Przypadek                                    HTTP   Przyjete
+SHA-256(sekret||msg)   komunikat nienaruszony                        200        tak
+SHA-256(sekret||msg)   zmieniona wartosc pola w wiadomosci           403        nie
+SHA-256(sekret||msg)   sufiks doklejony do wiadomosci                403        nie
+SHA-256(sekret||msg)   jeden znak podpisu zmieniony                  403        nie
+SHA-256(sekret||msg)   podpis losowy                                 403        nie
+HMAC-SHA-256           komunikat nienaruszony                        200        tak
+HMAC-SHA-256           zmieniona wartosc pola w wiadomosci           403        nie
+HMAC-SHA-256           sufiks doklejony do wiadomosci                403        nie
+HMAC-SHA-256           jeden znak podpisu zmieniony                  403        nie
+HMAC-SHA-256           podpis losowy                                 403        nie

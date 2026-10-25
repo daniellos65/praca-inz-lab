@@ -1,0 +1,11 @@
+wariant;przypadek;kod_http;przyjete;zgodne_z_oczekiwaniem
+SHA-256(sekret||msg);komunikat nienaruszony;200;1;1
+SHA-256(sekret||msg);zmieniona wartosc pola w wiadomosci;403;0;1
+SHA-256(sekret||msg);sufiks doklejony do wiadomosci;403;0;1
+SHA-256(sekret||msg);jeden znak podpisu zmieniony;403;0;1
+SHA-256(sekret||msg);podpis losowy;403;0;1
+HMAC-SHA-256;komunikat nienaruszony;200;1;1
+HMAC-SHA-256;zmieniona wartosc pola w wiadomosci;403;0;1
+HMAC-SHA-256;sufiks doklejony do wiadomosci;403;0;1
+HMAC-SHA-256;jeden znak podpisu zmieniony;403;0;1
+HMAC-SHA-256;podpis losowy;403;0;1

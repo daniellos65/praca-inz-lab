@@ -1,0 +1,74 @@
+depth=0 CN = lab-server
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 CN = lab-server
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:/CN=lab-server
+   i:/CN=lab-server
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIDKDCCAhCgAwIBAgIUCnHPyoUKOLB88Cdf7oyGQfoGkRIwDQYJKoZIhvcNAQEL
+BQAwFTETMBEGA1UEAwwKbGFiLXNlcnZlcjAeFw0yNjEwMTgxMTI2MDlaFw0yOTAx
+MjAxMTI2MDlaMBUxEzARBgNVBAMMCmxhYi1zZXJ2ZXIwggEiMA0GCSqGSIb3DQEB
+AQUAA4IBDwAwggEKAoIBAQDUevxzrkzf0IykAN06UAOOUw8B6z9fejUypiMQusPw
+hVb3/kYJ4Sw1qQiHYRjRNRehR18hW0Bpd1Z3xGwz92XOvoiduV0WN/GBIPNhkEJd
+RXQabpmfS8C+Jv29dA+I/ZYQ1bHCox70GSYehfLYhOOCql7wTRBtvrpd7Cp/eTiK
+8IB0ODUfsfreeu/AppymEXslDJkoDX2TjFOKKForwA0zB0awuih2g8eVIP98lTez
+zjnxHvVtri5Ijm/P/Z86Ctt2Ay54T3NmWFt2D1AvU6ITFcphVeYxjHda/LavkI62
+c0i9DGuTvbC9kRuVGuktzKRzTQNB/AFMCat0q+h9vqy7AgMBAAGjcDBuMB0GA1Ud
+DgQWBBQ0717rk34zCbZzwWa9u8dSK6SU6jAfBgNVHSMEGDAWgBQ0717rk34zCbZz
+wWa9u8dSK6SU6jAPBgNVHRMBAf8EBTADAQH/MBsGA1UdEQQUMBKHBAoKCh6CCmxh
+Yi1zZXJ2ZXIwDQYJKoZIhvcNAQELBQADggEBAFDobdg+6DG5tBjsqv165qWQSAY8
+ZDZdE2wXakJ/kxLfm0EzNrrHqf03Kgly0JB7JIiLE1uuas2YDc6I55FEJEcUAYNi
+r2yShfz7boQioMrODoDiviGLQy8ZIG0wpq4e8BYpqsyBheI2KJKDVmt81LurZYXT
+Atu7/V9z8s+1ToCztqaVB+2unThz+t0HPlTbsZqQNrWNRyXdxl0uZKGXrrshyJqo
+u7d+OrBCfgHhwSC4htd1XFKlGEat5U5V2dxnGOF/XB4Itpha4TDS0US+6odBfhAI
+aCB1z9ONKSgAIa+G76MyDY6jGX9c3exwko6ffQX+B/Nv/J3cm50pCwVU7y4=
+-----END CERTIFICATE-----
+subject=/CN=lab-server
+issuer=/CN=lab-server
+---
+No client certificate CA names sent
+Server Temp Key: ECDH, P-256, 256 bits
+---
+SSL handshake has read 1493 bytes and written 355 bytes
+---
+New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES256-SHA
+Server public key is 2048 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1
+    Cipher    : ECDHE-RSA-AES256-SHA
+    Session-ID: 75BEB0E8E63A6F4E69E54044172D590CE7D51A62434C56B24747E5BA2F14EAE9
+    Session-ID-ctx: 
+    Master-Key: 88DA77D4FECA1898C2392A9199FAF59C0332A7A8129979C60AAAAF49FF90A067630841061EE0EA99E08F012D30FE7260
+    Key-Arg   : None
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 300 (seconds)
+    TLS session ticket:
+    0000 - a4 80 01 39 5c 70 7f 13-ee 2a 52 14 2a 30 81 0f   ...9\p...*R.*0..
+    0010 - c4 78 b7 cf ba 32 b9 ba-72 66 87 c2 7f c2 4b 47   .x...2..rf....KG
+    0020 - d4 82 4b 4a 32 cc 3b 65-6d 62 d6 bd 27 ec 5a 79   ..KJ2.;emb..'.Zy
+    0030 - fe 4e df 54 3e 14 90 f6-e5 2f b8 ff d1 ab 56 85   .N.T>..../....V.
+    0040 - fb d2 c6 50 41 71 e6 9d-87 02 37 cf db 6c 72 99   ...PAq....7..lr.
+    0050 - 1f 28 11 0c ee 73 6a 7c-78 30 b1 4a 4c d2 bd 88   .(...sj|x0.JL...
+    0060 - 32 cc 27 5c fd 49 13 44-eb 70 da 9a b9 b5 76 48   2.'\.I.D.p....vH
+    0070 - 6e bf 25 43 13 f1 18 ef-14 e6 2b 2c aa 51 e8 1a   n.%C......+,.Q..
+    0080 - e4 82 7e 82 c4 21 45 7d-39 34 4d e3 94 9c 7d 89   ..~..!E}94M...}.
+    0090 - dd fe 07 a3 ae 73 19 f2-7c 16 32 44 ac 87 c3 83   .....s..|.2D....
+    00a0 - fd 96 73 17 76 b9 e6 9a-51 70 65 86 db 1d 80 70   ..s.v...Qpe....p
+
+    Start Time: 1792927506
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self signed certificate)
+---
+DONE

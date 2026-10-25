@@ -1,0 +1,3 @@
+--- Test TLS_FALLBACK_SCSV ---
+    nginx wspolczesny      port 443   serwer odrzucil polaczenie (alert inappropriate fallback) - ochrona dziala
+    OpenSSL 1.0.2u         port 4433  serwer zaakceptowal polaczenie mimo znacznika - brak ochrony
