@@ -28,9 +28,9 @@ przestarzały od współczesnego bez fałszywych alarmów [1].
 ECDHE-RSA-AES256-SHA (0xC014), łączącego wymianę klucza ECDHE z szyfrowaniem w
 trybie CBC i uwierzytelnieniem SHA-1.
 
-**Wynik (do potwierdzenia pomiarem).** Reguły uruchomiono offline na nagraniu
-`r4.pcap` z rozdziału 4. Oczekiwana liczba trafień odpowiada liczbie negocjacji
-zarejestrowanych na serwerze przestarzałym (:4433):
+**Wynik.** Reguły uruchomiono offline na nagraniu `r4.pcap` z rozdziału 4.
+Zarejestrowano 12 trafień, w całości dla ruchu serwera przestarzałego
+(10.10.10.30:4433):
 
 | Reguła | Wykrywane zdarzenie | Trafienia |
 |---|---|---|
@@ -39,8 +39,9 @@ zarejestrowanych na serwerze przestarzałym (:4433):
 | 1000012 | ServerHello: TLS 1.1 | 2 |
 | 1000013 | słaby szyfr ECDHE-RSA-AES256-SHA | 6 |
 
-Ruch serwera współczesnego (:443), negocjujący TLS 1.2 i 1.3, nie wyzwala żadnej
-reguły — potwierdza to, że detekcja rozróżnia konfigurację podatną od utwardzonej.
+Ruch serwera współczesnego (:443), negocjujący TLS 1.2 i 1.3, nie wyzwolił żadnej
+reguły — potwierdza to, że detekcja rozróżnia konfigurację podatną od utwardzonej
+bez fałszywych alarmów. Materiał dowodowy: `wyniki/R6/r6-ids-alerty.txt`.
 
 ---
 
@@ -98,9 +99,29 @@ kodowania transportowego (szerzej w 6.4).
 
 ## 6.3. Weryfikacja skuteczności systemu
 
-Zestawienie skuteczności obu warstw: liczba wykrytych klas ataków w warstwie
-sieciowej (6.1) oraz metryki detekcji danych zaszyfrowanych (6.2). Do uzupełnienia
-po potwierdzeniu wyników 6.1 na stanowisku.
+Zestawienie skuteczności obu warstw obrony na materiale z rozdziału 4 oraz
+zbiorze testowym.
+
+**Warstwa sieciowa (IDS).** Na nagraniu ruchu wszystkie trzy klasy zdarzeń
+odpowiadające atakom z rozdziału 4 zostały wykryte, przy braku alarmów dla
+konfiguracji utwardzonej (tab. 6.3):
+
+| Klasa zdarzenia | Źródło dowodu | Wykrycie |
+|---|---|---|
+| zatrucie ARP | 4.1 (`arp41.pcap`) | alarmy 112:3 i 112:4, po 3 na ramkę |
+| obniżenie wersji TLS | 6.1 (`r4.pcap`) | 6 alarmów (SSLv3, TLS 1.0, TLS 1.1) |
+| słaby zestaw szyfrów | 6.1 (`r4.pcap`) | 6 alarmów (ECDHE-RSA-AES256-SHA) |
+| ruch utwardzony (TLS 1.2/1.3) | 6.1 (`r4.pcap`) | brak alarmów (poprawnie) |
+
+**Warstwa danych (detekcja entropijna).** Klasyfikator łączący entropię, test
+chi-kwadrat i rozpoznanie nagłówka osiągnął na zbiorze 60 plików czułość 100 %,
+odsetek fałszywych alarmów 0 % i dokładność 100 % (tab. 6.2), podczas gdy
+klasyfikator oparty na samej entropii — dokładność 73,3 % przy 40 % fałszywych
+alarmów.
+
+Obie warstwy działają komplementarnie: IDS wykrywa fazę ataku w sieci, detekcja
+entropijna — próbę wyprowadzenia danych. Żadna z nich samodzielnie nie pokrywa
+obu etapów, co uzasadnia podejście wielowarstwowe.
 
 ---
 
