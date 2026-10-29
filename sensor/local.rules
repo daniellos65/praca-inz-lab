@@ -1,7 +1,52 @@
-# Reguły własne laboratorium - plik startowy.
-# Skopiować do /usr/local/etc/rules/local.rules (sudo mkdir -p /usr/local/etc/rules).
-# Reguły wykrywające downgrade i rozszerzenie długości skrótu powstaną w kolejnym etapie,
-# na podstawie ruchu nagranego podczas ataków.
+# Reguły własne laboratorium (rozdział 6.1 - detekcja w warstwie sieciowej).
+# Kopiować do /usr/local/etc/rules/local.rules (sudo mkdir -p /usr/local/etc/rules).
+#
+# Detekcja opiera się na polu wersji w komunikacie ServerHello protokołu TLS.
+# Budowa komunikatu (licząc od początku rekordu TLS):
+#   offset 0    : 0x16            typ rekordu = handshake
+#   offset 1-2  : 0x03 0xXX       wersja rekordu
+#   offset 5    : 0x02            typ handshake = ServerHello
+#   offset 9-10 : 0x03 0xXX       WYNEGOCJOWANA wersja protokołu (kluczowe pole)
+# Wersja na offsecie 9-10 jest wiążąca. TLS 1.3 niesie tu 0x0303 (wartość
+# zgodności), a realną wersję w rozszerzeniu supported_versions - dlatego
+# reguły celują wyłącznie w 0x0300/0x0301/0x0302 (SSLv3/TLS1.0/TLS1.1),
+# które jednoznacznie oznaczają przestarzały, słaby protokół.
 
 # Reguła kontrolna: potwierdza, że Snort widzi ruch do aplikacji laboratoryjnej.
 alert tcp any any -> 10.10.10.30 5000 ( msg:"LAB test - ruch HTTP do aplikacji"; flow:to_server,established; content:"GET"; http_method; sid:1000001; rev:1; )
+
+# --- 6.1: wykrywanie negocjacji przestarzałej wersji TLS (downgrade) ---
+
+alert tcp any any -> any any ( msg:"LAB 6.1 - ServerHello: wynegocjowano SSLv3 (przestarzaly protokol)";
+    flow:to_client,established;
+    content:"|16 03|", offset 0, depth 2;
+    content:"|02|", offset 5, depth 1;
+    content:"|03 00|", offset 9, depth 2;
+    sid:1000010; rev:1; )
+
+alert tcp any any -> any any ( msg:"LAB 6.1 - ServerHello: wynegocjowano TLS 1.0 (przestarzaly protokol)";
+    flow:to_client,established;
+    content:"|16 03|", offset 0, depth 2;
+    content:"|02|", offset 5, depth 1;
+    content:"|03 01|", offset 9, depth 2;
+    sid:1000011; rev:1; )
+
+alert tcp any any -> any any ( msg:"LAB 6.1 - ServerHello: wynegocjowano TLS 1.1 (przestarzaly protokol)";
+    flow:to_client,established;
+    content:"|16 03|", offset 0, depth 2;
+    content:"|02|", offset 5, depth 1;
+    content:"|03 02|", offset 9, depth 2;
+    sid:1000012; rev:1; )
+
+# --- 6.1: wykrywanie negocjacji slabego szyfru (CBC + SHA-1) ---
+# ECDHE-RSA-AES256-SHA = 0xC014: wymiana ECDHE, ale szyfrowanie w trybie CBC
+# z uwierzytelnieniem SHA-1. Szukamy bajtow szyfru w oknie, w ktorym lezy pole
+# cipher_suite ServerHello (po 32-bajtowym polu random i polu session_id).
+# Heurystyka - mozliwy pojedynczy falszywy alarm, gdy te bajty wystapia w polu
+# random; w praktyce laboratoryjnej nie obserwowany.
+alert tcp any any -> any any ( msg:"LAB 6.1 - ServerHello: wynegocjowano slaby szyfr ECDHE-RSA-AES256-SHA (CBC/SHA1)";
+    flow:to_client,established;
+    content:"|16 03|", offset 0, depth 2;
+    content:"|02|", offset 5, depth 1;
+    content:"|c0 14|", distance 30, within 60;
+    sid:1000013; rev:1; )
