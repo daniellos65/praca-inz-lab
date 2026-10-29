@@ -1,0 +1,15 @@
+10/25-11:16:02.749759 [**] [1:1000013:1] "LAB 6.1 - ServerHello: wynegocjowano slaby szyfr ECDHE-RSA-AES256-SHA (CBC/SHA1)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:46986
+10/25-11:16:02.749759 [**] [1:1000010:1] "LAB 6.1 - ServerHello: wynegocjowano SSLv3 (przestarzaly protokol)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:46986
+10/25-11:16:02.784616 [**] [1:1000013:1] "LAB 6.1 - ServerHello: wynegocjowano slaby szyfr ECDHE-RSA-AES256-SHA (CBC/SHA1)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:46996
+10/25-11:16:02.784616 [**] [1:1000011:1] "LAB 6.1 - ServerHello: wynegocjowano TLS 1.0 (przestarzaly protokol)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:46996
+10/25-11:16:02.819170 [**] [1:1000013:1] "LAB 6.1 - ServerHello: wynegocjowano slaby szyfr ECDHE-RSA-AES256-SHA (CBC/SHA1)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:46998
+10/25-11:16:02.819170 [**] [1:1000012:1] "LAB 6.1 - ServerHello: wynegocjowano TLS 1.1 (przestarzaly protokol)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:46998
+10/25-11:21:16.594453 [**] [112:1:1] "(arp_spoof) unicast ARP request" [**] [Priority: 3] {ARP}  -> 
+10/25-11:21:16.784829 [**] [112:1:1] "(arp_spoof) unicast ARP request" [**] [Priority: 3] {ARP}  -> 
+10/25-11:25:06.062450 [**] [1:1000013:1] "LAB 6.1 - ServerHello: wynegocjowano slaby szyfr ECDHE-RSA-AES256-SHA (CBC/SHA1)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:45656
+10/25-11:25:06.062450 [**] [1:1000010:1] "LAB 6.1 - ServerHello: wynegocjowano SSLv3 (przestarzaly protokol)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:45656
+10/25-11:25:06.092751 [**] [1:1000013:1] "LAB 6.1 - ServerHello: wynegocjowano slaby szyfr ECDHE-RSA-AES256-SHA (CBC/SHA1)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:45660
+10/25-11:25:06.092751 [**] [1:1000011:1] "LAB 6.1 - ServerHello: wynegocjowano TLS 1.0 (przestarzaly protokol)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:45660
+10/25-11:25:06.123270 [**] [1:1000013:1] "LAB 6.1 - ServerHello: wynegocjowano slaby szyfr ECDHE-RSA-AES256-SHA (CBC/SHA1)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:45668
+10/25-11:25:06.123270 [**] [1:1000012:1] "LAB 6.1 - ServerHello: wynegocjowano TLS 1.1 (przestarzaly protokol)" [**] [Priority: 0] {TCP} 10.10.10.30:4433 -> 10.10.10.20:45668
+10/25-11:25:11.528483 [**] [112:1:1] "(arp_spoof) unicast ARP request" [**] [Priority: 3] {ARP}  -> 
