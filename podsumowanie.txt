@@ -1,0 +1,37 @@
+Srednie cechy w grupach
+Grupa              entropia  chi-kwadrat
+jawne                 4.331     439854.8
+skompresowane         7.815        575.0
+zaszyfrowane          7.994        257.3
+
+Wniosek: grupy 'skompresowane' i 'zaszyfrowane' maja zblizona,
+wysoka entropie - rozroznia je dopiero chi-kwadrat (nizsze dla
+danych zaszyfrowanych) oraz obecnosc naglowka.
+
+Klasyfikator A - sama entropia (H >= 7.5)
+  TP=20  FP=16  TN=24  FN=0
+  czulosc (TPR)        = 100.0 %
+  falszywe alarmy (FPR)=  40.0 %
+  precyzja             =  55.6 %
+  dokladnosc           =  73.3 %
+
+Klasyfikator B - entropia + chi-kwadrat + brak naglowka
+  TP=20  FP=0  TN=40  FN=0
+  czulosc (TPR)        = 100.0 %
+  falszywe alarmy (FPR)=   0.0 %
+  precyzja             = 100.0 %
+  dokladnosc           = 100.0 %
+
+Ograniczenie: dane zaszyfrowane zakodowane Base64
+plik                        H oryg.    H po Base64  wykryty A
+zaszyfrowany-00.bin           7.995          6.000        NIE
+zaszyfrowany-01.bin           7.997          6.000        NIE
+zaszyfrowany-02.bin           7.997          5.999        NIE
+zaszyfrowany-03.bin           7.997          5.999        NIE
+zaszyfrowany-04.bin           7.995          6.000        NIE
+zaszyfrowany-05.bin           7.997          5.999        NIE
+zaszyfrowany-06.bin           7.997          6.000        NIE
+zaszyfrowany-07.bin           7.993          5.999        NIE
+zaszyfrowany-08.bin           7.995          5.999        NIE
+zaszyfrowany-09.bin           7.995          5.999        NIE
+Base64 obniza entropie ponizej progu - klasyfikator A przeoczyl 10/10 plikow.
