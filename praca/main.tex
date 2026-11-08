@@ -1,0 +1,102 @@
+% =====================================================================
+%  Projekt inżynierski - plik główny (wersja robocza)
+%  Ustawienia zgodne z wytycznymi "Jak napisać pracę inżynierską?":
+%  czcionka szeryfowa 12 pt, spis treści, podpisy pod rysunkami
+%  i tabelami bez kropki na końcu, Literatura bez numeru w spisie treści.
+%  Strona tytułowa: do podmiany na obowiązujący wzór wydziału.
+% =====================================================================
+\documentclass[12pt,a4paper,oneside]{report}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+% Times: newtx (Overleaf), w razie braku - mathptmx
+\IfFileExists{newtxtext.sty}{\usepackage{newtxtext,newtxmath}}{\usepackage{mathptmx}}
+\usepackage[a4paper,left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{microtype}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,calc,shapes.geometric}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+% --- Podpisy: pod obiektem, "Rysunek 3.1. Opis", bez kropki na końcu ---
+\usepackage[labelsep=period,font=small,labelfont=bf,justification=centering,
+            skip=6pt]{caption}
+\captionsetup[table]{position=bottom}
+\captionsetup[lstlisting]{position=bottom}
+
+% --- Listingi (kod) z obsługą polskich znaków ---
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Listing}
+\renewcommand{\lstlistlistingname}{Spis listingów}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  columns=fullflexible, keepspaces=true,
+  breaklines=true, breakatwhitespace=false,
+  frame=tb, framesep=4pt, xleftmargin=0pt,
+  numbers=left, numberstyle=\tiny\color{gray}, numbersep=6pt,
+  showstringspaces=false, tabsize=2,
+  commentstyle=\color{black!60}\itshape,
+  keywordstyle=\bfseries,
+  literate={ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1
+           {ó}{{\'o}}1 {ś}{{\'s}}1 {ź}{{\'z}}1 {ż}{{\.z}}1
+           {Ą}{{\k{A}}}1 {Ć}{{\'C}}1 {Ę}{{\k{E}}}1 {Ł}{{\L{}}}1 {Ń}{{\'N}}1
+           {Ó}{{\'O}}1 {Ś}{{\'S}}1 {Ź}{{\'Z}}1 {Ż}{{\.Z}}1
+           {‖}{{$\|$}}1 {→}{{$\rightarrow$}}1
+}
+
+% --- Pomocnicze makra ---
+\newcommand{\kod}[1]{\texttt{#1}}          % nazwy plików, poleceń, funkcji
+\newcommand{\ang}[1]{\textit{#1}}          % termin angielski (kursywa)
+\newcommand{\douzup}[1]{\colorbox{yellow!40}{\small [do uzupełnienia: #1]}}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\addto\captionspolish{\renewcommand{\bibname}{Literatura}}
+
+\begin{document}
+
+% ---------------- Strona tytułowa (tymczasowa) ----------------
+\begin{titlepage}
+  \centering
+  {\large AKADEMIA GÓRNICZO-HUTNICZA IM.~STANISŁAWA STASZICA W~KRAKOWIE\par}
+  \vspace{4cm}
+  {\Large Projekt inżynierski\par}
+  \vspace{1cm}
+  {\LARGE\bfseries Analiza podatności protokołów sieciowych i~błędów logicznych w~implementacjach kryptograficznych\par}
+  \vspace{2cm}
+  {\large Daniel Kubiela\par}
+  \vfill
+  {\small [strona tytułowa do podmiany na obowiązujący wzór wydziału]\par}
+  \vspace{1cm}
+  {\large Kraków, 2026\par}
+\end{titlepage}
+
+\tableofcontents
+
+\include{rozdzialy/01-wstep}
+\include{rozdzialy/02-podstawy}
+\include{rozdzialy/03-srodowisko}
+\include{rozdzialy/04-ataki}
+\include{rozdzialy/05-gpu}
+\include{rozdzialy/06-obrona}
+\include{rozdzialy/07-podsumowanie}
+
+% ---------------- Literatura (bez numeru, w spisie treści) ----------------
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Literatura}
+\bibliographystyle{unsrt}
+\bibliography{bibliografia}
+
+\end{document}
