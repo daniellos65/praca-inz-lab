@@ -105,4 +105,21 @@ Hashe Argon2id wygenerowano w Pythonie (`tools/gen-argon2.py`, argon2-cffi), ró
 
 Mechanizm jest następujący: efektywność GPU bierze się z masowej równoległości (tysiące jednoczesnych instancji). Funkcja memory-hard wymaga, by każda instancja miała do dyspozycji duży, osobny blok pamięci. Pamięć karty szybko się wyczerpuje, liczba równoległych instancji spada, a przy odpowiednio dużym parametrze pamięci akceleracja na GPU staje się niemożliwa. To jest istota ochrony, jaką memory-hard daje przeciwko atakom z użyciem GPU.
 
+### Pomiar 4a – powtórka 1 GiB, 8.11.2026 (rozstrzyga wynik GPU)
+
+Zrzut ekranu wykonany 8.11 pokazał GPU liczące 1 GiB z prędkością 2 H/s, co przeczyło błędowi alokacji z 24.10. Powtórzono pomiar tym samym skryptem, tym samym hashem (sól `5pMeerPjNhp77bC3+C…`) i tą samą maską `?d×8`, 3 próby po 60 s na urządzenie. Dane: `wyniki/E4/argon2-1024-powtorka/`.
+
+Prędkości liczone z przyrostu licznika `Progress` między pierwszym a drugim odczytem statusu (Hashcat zaokrągla `Speed` do całych H/s, co przy 1–2 H/s jest zbyt zgrubne):
+
+| Pamięć | GPU [H/s] | CPU [H/s] | GPU/CPU | Accel GPU | Accel × pamięć |
+|---|---:|---:|---:|---:|---:|
+| 64 MiB (24.10) | 288,4 | 34,2 | 8,4× | 83 | 5,2 GiB |
+| 256 MiB (24.10) | 30,0 | 7,65 | 3,9× | 20 | 5,0 GiB |
+| 1 GiB (8.11) | 1,60 | 0,77 | 2,1× | 4 | 4,0 GiB |
+
+- GPU 3/3 próby udane, wynik identyczny (36→84 w 30 s). CPU 0,80 / 0,77 / 0,73 H/s; zgodne z 0,80 H/s z 24.10, więc warunki porównywalne.
+- **Zastrzeżenie:** w powtórce Hashcat zgłosił zajęcie ok. 1,09 GB pamięci karty przez inne programy i ograniczył wydajność do 83,09%. Wynik GPU dla 1 GiB jest więc dolnym oszacowaniem; bez ograniczenia stosunek wyniósłby co najwyżej ok. 2,5×. W pomiarach 64/256 MiB takiego ostrzeżenia nie było.
+- Błąd `CL_INVALID_BUFFER_SIZE` z 24.10 (2/2 próby) nie powtórzył się (0/3). Przyczyny nie ustalono; najpewniej zależy od stanu pamięci karty w chwili doboru buforów. Wniosek: 1 GiB na instancję leży na granicy możliwości tej karty przy interfejsie OpenCL.
+- Interpretacja zmieniona: przy 1 GiB GPU **liczy**, ale jego przewaga spada do ok. 2×. Trend 8,4× → 3,9× → 2,1× potwierdza tezę. Iloczyn współczynnika akceleracji i pamięci instancji (5,2 / 5,0 / 4,0 GiB) zbliża się do pojemności karty (6 GB), czyli liczbę równoległych instancji ogranicza pamięć karty.
+
 (Wartości bezwzględne przy 64 MiB różnią się od pomiaru `-b` trybu 34300, bo tu użyto t=3, a przykład benchmarku t=2 — porównywalny jest trend stosunku GPU/CPU, nie liczby bezwzględne.)
