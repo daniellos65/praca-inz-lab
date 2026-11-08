@@ -106,7 +106,7 @@ for cel in "nginx wspolczesny:443" "OpenSSL 1.0.2u:4433"; do
     if grep -qi "inappropriate fallback" "$plik"; then
         wynik="serwer odrzucil polaczenie (alert inappropriate fallback) - ochrona dziala"
     elif grep -q "BEGIN CERTIFICATE" "$plik"; then
-        wynik="serwer zaakceptowal polaczenie mimo znacznika - brak ochrony"
+        wynik="polaczenie przyjete - TLS 1.2 to wersja maksymalna serwera, wiec przyjecie jest zgodne z RFC 7507 (rozstrzyga r4-scsv.sh)"
     else
         wynik="polaczenie nieudane z innego powodu - sprawdz $plik"
     fi

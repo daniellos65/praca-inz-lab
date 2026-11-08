@@ -69,7 +69,14 @@ Laboratorium sieciowe zbudowano w~hipernadzorcy Oracle VirtualBox w~wersji 7.2.8
 \label{rys:topologia}
 \end{figure}
 
-Każda maszyna posiada dwie karty sieciowe. Pierwsza, \kod{enp0s3}, jest podłączona do sieci \kod{labnet} i~ma statycznie przypisany adres; to przez nią przechodzi cały ruch badawczy. Druga, \kod{enp0s8}, korzysta z~translacji adresów (NAT) VirtualBox i~służy wyłącznie do instalacji pakietów oraz zarządzania maszynami przez protokół SSH. Dostęp z~hosta realizowany jest przez przekierowanie portów 127.0.0.1:2220, 2230 i~2240 odpowiednio do maszyn klienta, serwera i~czujnika. Na karcie \kod{labnet} czujnika włączono tryb nasłuchu zarówno w~ustawieniach VirtualBox (zezwolenie na cały ruch), jak i~w~systemie operacyjnym, dzięki czemu czujnik rejestruje ruch wymieniany między pozostałymi maszynami, mimo że sam nie jest jego stroną. Parametry maszyn zestawiono w~tabeli~\ref{tab:maszyny}.
+Każda maszyna posiada dwie karty sieciowe. Pierwsza, \kod{enp0s3}, jest podłączona do sieci \kod{labnet} i~ma statycznie przypisany adres; to przez nią przechodzi cały ruch badawczy. Druga, \kod{enp0s8}, korzysta z~translacji adresów (NAT) VirtualBox i~służy wyłącznie do instalacji pakietów oraz zarządzania maszynami przez protokół SSH. Dostęp z~hosta realizowany jest przez przekierowanie portów 127.0.0.1:2220, 2230 i~2240 odpowiednio do maszyn klienta, serwera i~czujnika. Na karcie \kod{labnet} czujnika włączono tryb nasłuchu zarówno w~ustawieniach VirtualBox (zezwolenie na cały ruch), jak i~w~systemie operacyjnym, dzięki czemu czujnik rejestruje ruch wymieniany między pozostałymi maszynami, mimo że sam nie jest jego stroną. Ustawienia karty sieciowej czujnika w~programie VirtualBox przedstawiono na rysunku~\ref{rys:sensor-siec}. Parametry maszyn zestawiono w~tabeli~\ref{tab:maszyny}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{rysunki/r3-sensor-siec.png}
+\caption{Karta sieciowa czujnika: sieć wewnętrzna \kod{labnet} i~tryb nasłuchu (\ang{Promiscuous Mode}) ustawiony na zezwolenie na cały ruch}
+\label{rys:sensor-siec}
+\end{figure}
 
 \begin{table}[htbp]
 \centering\small
@@ -87,14 +94,28 @@ Każda maszyna posiada dwie karty sieciowe. Pierwsza, \kod{enp0s3}, jest podłą
 \label{tab:maszyny}
 \end{table}
 
-Maszyny klienta, serwera i~czujnika utworzono jako klony połączone (ang. \ang{linked clones}) jednej maszyny bazowej \kod{ubuntu-base} z~systemem Ubuntu Server 24.04~\cite{ubuntuserver}. Klon połączony przechowuje jedynie różnice względem dysku maszyny bazowej, dlatego bezpośrednio po utworzeniu zajmuje kilkadziesiąt megabajtów zamiast kilku gigabajtów. Punktem wyjścia dla klonów jest migawka \kod{czysta-baza} maszyny bazowej. Po zainstalowaniu oprogramowania każdej z~maszyn wykonano migawkę \kod{baseline}, do której można wrócić przed powtórzeniem eksperymentu. Budowę stanowiska zautomatyzowano: skrypt PowerShell uruchamiany na hoście tworzy klony i~konfiguruje karty sieciowe, a~skrypty uruchamiane w~maszynach nadają nazwy hostów, adresy w~sieci \kod{labnet} oraz instalują oprogramowanie właściwe dla roli maszyny.
+Maszyny klienta, serwera i~czujnika utworzono jako klony połączone (ang. \ang{linked clones}) jednej maszyny bazowej \kod{ubuntu-base} z~systemem Ubuntu Server 24.04~\cite{ubuntuserver}. Klon połączony przechowuje jedynie różnice względem dysku maszyny bazowej, dlatego bezpośrednio po utworzeniu zajmuje kilkadziesiąt megabajtów zamiast kilku gigabajtów. Punktem wyjścia dla klonów jest migawka \kod{czysta-baza} maszyny bazowej. Po zainstalowaniu oprogramowania każdej z~maszyn wykonano migawkę \kod{baseline}, do której można wrócić przed powtórzeniem eksperymentu (rysunek~\ref{rys:migawki}). Budowę stanowiska zautomatyzowano: skrypt PowerShell uruchamiany na hoście tworzy klony i~konfiguruje karty sieciowe, a~skrypty uruchamiane w~maszynach nadają nazwy hostów, adresy w~sieci \kod{labnet} oraz instalują oprogramowanie właściwe dla roli maszyny.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{rysunki/r3-virtualbox-migawki.png}
+\caption{Maszyny laboratorium w~programie VirtualBox wraz z~migawką \kod{baseline}}
+\label{rys:migawki}
+\end{figure}
 
 % ---------------------------------------------------------------------
 \section{Konfiguracja maszyn i usług}\label{sec:konfiguracja}
 
 \subsection{Serwer usług}\label{sec:serwer}
 
-Wszystkie badane usługi uruchomiono na maszynie \kod{server} jako kontenery zarządzane narzędziem Docker Compose~\cite{docker}. Takie rozwiązanie pozwala uruchomić na jednym serwerze usługi o~skrajnie różnych wymaganiach -- w~tym serwer zbudowany na przestarzałej bibliotece kryptograficznej -- bez wzajemnego wpływu na konfigurację systemu. Definicję usług przedstawiono na listingu~\ref{lst:compose}, a~ich przeznaczenie w~tabeli~\ref{tab:uslugi}.
+Wszystkie badane usługi uruchomiono na maszynie \kod{server} jako kontenery zarządzane narzędziem Docker Compose~\cite{docker}. Takie rozwiązanie pozwala uruchomić na jednym serwerze usługi o~skrajnie różnych wymaganiach -- w~tym serwer zbudowany na przestarzałej bibliotece kryptograficznej -- bez wzajemnego wpływu na konfigurację systemu. Definicję usług przedstawiono na listingu~\ref{lst:compose}, ich przeznaczenie w~tabeli~\ref{tab:uslugi}, a~stan uruchomionych kontenerów na rysunku~\ref{rys:docker}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{rysunki/r3-server-docker.png}
+\caption{Kontenery usług uruchomione na maszynie \kod{server} (polecenie \kod{docker compose ps})}
+\label{rys:docker}
+\end{figure}
 
 \begin{lstlisting}[float=htbp,language={},caption={Definicja usług serwera laboratoryjnego (plik \kod{docker-compose.yml}, fragment)},label={lst:compose}]
 services:
@@ -216,6 +237,7 @@ błąd \kod{VERR\_DISK\_FULL} przy uruchamianiu klonów & brak miejsca na dysku 
 brak serwera SSH w~maszynie bazowej & instalacja nienadzorowana bez pakietu OpenSSH & doinstalowanie \kod{openssh-server} przed klonowaniem \\
 klony bez łączności sieciowej & konfiguracja sieci powiązana z~adresem MAC maszyny bazowej & konfiguracja sieci według nazw interfejsów (\kod{enp0s3}, \kod{enp0s8}) \\
 brak klienta SSH w~systemie hosta & nieudana instalacja funkcji opcjonalnej systemu Windows & instalacja pakietu Win32-OpenSSH \\
+Hashcat nie uruchamiał modułu CUDA & brak bibliotek pakietu CUDA Toolkit & obliczenia na GPU przez interfejs OpenCL sterownika NVIDIA \\
 \bottomrule
 \end{tabularx}
 \caption{Problemy napotkane podczas budowy stanowiska i~ich rozwiązania}
@@ -239,7 +261,8 @@ Karta graficzna (GPU) & NVIDIA GeForce GTX 1660, 6~GB pamięci GDDR5 \\
 System operacyjny & Windows 11 Pro \\
 Sterownik karty graficznej & NVIDIA 610.88 (CUDA 13.3) \\
 Narzędzie do kryptoanalizy & Hashcat 7.1.2 \\
-Obliczenia na CPU & Intel CPU Runtime for OpenCL \\
+Obliczenia na GPU & OpenCL 3.0 (platforma NVIDIA CUDA w~sterowniku) \\
+Obliczenia na CPU & OpenCL 3.0 (Intel CPU Runtime for OpenCL) \\
 Pliki testowe & VeraCrypt 1.26.29, KeePassXC 2.8.0, 7-Zip \\
 Generowanie skrótów Argon2 & Python 3.12, biblioteka \kod{argon2-cffi} \\
 \bottomrule
@@ -248,7 +271,16 @@ Generowanie skrótów Argon2 & Python 3.12, biblioteka \kod{argon2-cffi} \\
 \label{tab:platforma}
 \end{table}
 
-Do pomiarów wykorzystano narzędzie Hashcat~\cite{hashcat}, które pozwala uruchomić te same algorytmy zarówno na karcie graficznej, jak i~na procesorze. Obliczenia na karcie graficznej wykonywane były przez interfejs CUDA, a~na procesorze -- przez interfejs OpenCL, udostępniony przez środowisko Intel CPU Runtime for OpenCL. Pliki testowe, czyli kontenery szyfrowane, bazy haseł i~zaszyfrowane archiwa, utworzono w~programach VeraCrypt~\cite{veracrypt}, KeePassXC~\cite{keepassxc} oraz 7-Zip, a~dane potrzebne do ataku offline wyodrębniono z~nich pomocniczymi narzędziami \kod{7z2hashcat} i~\kod{keepass2john}.
+Do pomiarów wykorzystano narzędzie Hashcat~\cite{hashcat}, które pozwala uruchomić te same algorytmy zarówno na karcie graficznej, jak i~na procesorze. Oba urządzenia obsługiwane były przez interfejs OpenCL: karta graficzna -- przez implementację dostarczaną ze sterownikiem NVIDIA, procesor -- przez środowisko Intel CPU Runtime for OpenCL. Natywny moduł CUDA Hashcata nie został uruchomiony, ponieważ wymaga bibliotek pakietu CUDA Toolkit, których nie instalowano; program automatycznie przełączył się wtedy na OpenCL. Listę urządzeń wykrytych przez Hashcat przedstawiono na rysunku~\ref{rys:hashcat-urz}. Istotny dla dalszych wyników jest wiersz \kod{Memory.Total} karty graficznej: z~6143~MB pamięci interfejs OpenCL pozwala przydzielić w~jednym bloku najwyżej 1535~MB.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.62\textwidth]{rysunki/r3-hashcat-urzadzenia.png}
+\caption{Urządzenia obliczeniowe wykryte przez Hashcat (polecenie \kod{hashcat -I})}
+\label{rys:hashcat-urz}
+\end{figure}
+
+Pliki testowe, czyli kontenery szyfrowane, bazy haseł i~zaszyfrowane archiwa, utworzono w~programach VeraCrypt~\cite{veracrypt}, KeePassXC~\cite{keepassxc} oraz 7-Zip, a~dane potrzebne do ataku offline wyodrębniono z~nich pomocniczymi narzędziami \kod{7z2hashcat} i~\kod{keepass2john}.
 
 Na czas pomiarów wydajności wszystkie maszyny wirtualne były wyłączone, aby nie konkurowały z~badanymi obliczeniami o~zasoby procesora i~pamięci. W~trakcie pomiarów na karcie graficznej co 2~sekundy zapisywano jej temperaturę, taktowanie, pobór mocy i~obciążenie (program \kod{nvidia-smi}). Pozwoliło to wykluczyć wpływ dławienia termicznego na wyniki.
 
