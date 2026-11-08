@@ -1,0 +1,4 @@
+wariant;pozycja_bajtu;kod_http;admin_uzyskany;pola
+AES-CTR bez MAC;27;200;1;"{""admin"": ""1"", ""uid"": ""1001"", ""user"": ""student""}"
+AES-CBC bez MAC;19;200;0;"{""uid"": ""1001"", ""Ò><HF\rk¶\u0000\u0002\u001ain"": ""1""}"
+AES-GCM;31;403;0;{}

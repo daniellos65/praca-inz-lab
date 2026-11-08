@@ -1,0 +1,11 @@
+serwer;port;wersja;wynik;szyfr
+nginx wspolczesny;443;SSLv3;odrzucona;-
+nginx wspolczesny;443;TLS1.0;odrzucona;-
+nginx wspolczesny;443;TLS1.1;odrzucona;-
+nginx wspolczesny;443;TLS1.2;zaakceptowana;ECDHE-RSA-AES128-GCM-SHA256
+nginx wspolczesny;443;TLS1.3;zaakceptowana;TLS_AES_256_GCM_SHA384
+OpenSSL 1.0.2u;4433;SSLv3;zaakceptowana;ECDHE-RSA-AES256-SHA
+OpenSSL 1.0.2u;4433;TLS1.0;zaakceptowana;ECDHE-RSA-AES256-SHA
+OpenSSL 1.0.2u;4433;TLS1.1;zaakceptowana;ECDHE-RSA-AES256-SHA
+OpenSSL 1.0.2u;4433;TLS1.2;zaakceptowana;ECDHE-RSA-AES256-GCM-SHA384
+OpenSSL 1.0.2u;4433;TLS1.3;odrzucona;-

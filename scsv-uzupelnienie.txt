@@ -1,0 +1,7 @@
+Test uzupelniajacy TLS_FALLBACK_SCSV, serwer 10.10.10.30, 2026-11-08 12:06
+Klient: OpenSSL 1.0.2u  20 Dec 2019 / OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+
+1. :4433 TLS 1.1 + SCSV               -> ODRZUCONE - alert inappropriate_fallback (ochrona dziala)
+2. :4433 TLS 1.0 + SCSV               -> ODRZUCONE - alert inappropriate_fallback (ochrona dziala)
+3. :4433 TLS 1.1 bez SCSV (kontr.)    -> POLACZENIE ZESTAWIONE (TLSv1.1, ECDHE-RSA-AES256-SHA)
+4. :443  TLS 1.2 + SCSV (kontr.)      -> ODRZUCONE - alert inappropriate_fallback (ochrona dziala)

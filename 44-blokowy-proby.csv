@@ -1,0 +1,401 @@
+wariant;proba;pozycja;obszar;kod_http;przyjete;tresc_zmieniona
+AES-CBC bez MAC;1;1;IV;200;1;1
+AES-CBC bez MAC;2;16;blok posredni;200;1;1
+AES-CBC bez MAC;3;1;IV;200;1;1
+AES-CBC bez MAC;4;1;IV;200;1;1
+AES-CBC bez MAC;5;4;IV;200;1;1
+AES-CBC bez MAC;6;22;blok posredni;200;1;1
+AES-CBC bez MAC;7;0;IV;200;1;1
+AES-CBC bez MAC;8;1;IV;200;1;1
+AES-CBC bez MAC;9;4;IV;200;1;1
+AES-CBC bez MAC;10;4;IV;200;1;1
+AES-CBC bez MAC;11;27;blok posredni;200;1;1
+AES-CBC bez MAC;12;8;IV;200;1;1
+AES-CBC bez MAC;13;28;blok posredni;200;1;1
+AES-CBC bez MAC;14;24;blok posredni;200;1;1
+AES-CBC bez MAC;15;9;IV;200;1;1
+AES-CBC bez MAC;16;17;blok posredni;200;1;1
+AES-CBC bez MAC;17;20;blok posredni;200;1;1
+AES-CBC bez MAC;18;47;blok ostatni;400;0;0
+AES-CBC bez MAC;19;3;IV;200;1;1
+AES-CBC bez MAC;20;47;blok ostatni;400;0;0
+AES-CBC bez MAC;21;22;blok posredni;200;1;1
+AES-CBC bez MAC;22;9;IV;200;1;1
+AES-CBC bez MAC;23;5;IV;200;1;1
+AES-CBC bez MAC;24;23;blok posredni;200;1;1
+AES-CBC bez MAC;25;45;blok ostatni;400;0;0
+AES-CBC bez MAC;26;34;blok ostatni;400;0;0
+AES-CBC bez MAC;27;21;blok posredni;200;1;1
+AES-CBC bez MAC;28;28;blok posredni;200;1;1
+AES-CBC bez MAC;29;37;blok ostatni;400;0;0
+AES-CBC bez MAC;30;13;IV;200;1;1
+AES-CBC bez MAC;31;44;blok ostatni;400;0;0
+AES-CBC bez MAC;32;2;IV;200;1;1
+AES-CBC bez MAC;33;17;blok posredni;200;1;1
+AES-CBC bez MAC;34;26;blok posredni;200;1;1
+AES-CBC bez MAC;35;29;blok posredni;400;0;0
+AES-CBC bez MAC;36;47;blok ostatni;400;0;0
+AES-CBC bez MAC;37;21;blok posredni;200;1;1
+AES-CBC bez MAC;38;10;IV;200;1;1
+AES-CBC bez MAC;39;40;blok ostatni;400;0;0
+AES-CBC bez MAC;40;24;blok posredni;200;1;1
+AES-CBC bez MAC;41;5;IV;200;1;1
+AES-CBC bez MAC;42;28;blok posredni;200;1;1
+AES-CBC bez MAC;43;41;blok ostatni;400;0;0
+AES-CBC bez MAC;44;16;blok posredni;200;1;1
+AES-CBC bez MAC;45;36;blok ostatni;400;0;0
+AES-CBC bez MAC;46;28;blok posredni;200;1;1
+AES-CBC bez MAC;47;27;blok posredni;200;1;1
+AES-CBC bez MAC;48;27;blok posredni;200;1;1
+AES-CBC bez MAC;49;43;blok ostatni;400;0;0
+AES-CBC bez MAC;50;44;blok ostatni;400;0;0
+AES-CBC bez MAC;51;32;blok ostatni;400;0;0
+AES-CBC bez MAC;52;30;blok posredni;400;0;0
+AES-CBC bez MAC;53;37;blok ostatni;400;0;0
+AES-CBC bez MAC;54;15;IV;200;1;1
+AES-CBC bez MAC;55;4;IV;200;1;1
+AES-CBC bez MAC;56;1;IV;200;1;1
+AES-CBC bez MAC;57;31;blok posredni;400;0;0
+AES-CBC bez MAC;58;42;blok ostatni;400;0;0
+AES-CBC bez MAC;59;32;blok ostatni;400;0;0
+AES-CBC bez MAC;60;38;blok ostatni;400;0;0
+AES-CBC bez MAC;61;38;blok ostatni;400;0;0
+AES-CBC bez MAC;62;38;blok ostatni;400;0;0
+AES-CBC bez MAC;63;19;blok posredni;200;1;1
+AES-CBC bez MAC;64;43;blok ostatni;400;0;0
+AES-CBC bez MAC;65;24;blok posredni;200;1;1
+AES-CBC bez MAC;66;31;blok posredni;400;0;0
+AES-CBC bez MAC;67;12;IV;200;1;1
+AES-CBC bez MAC;68;22;blok posredni;200;1;1
+AES-CBC bez MAC;69;7;IV;200;1;1
+AES-CBC bez MAC;70;1;IV;200;1;1
+AES-CBC bez MAC;71;18;blok posredni;200;1;1
+AES-CBC bez MAC;72;7;IV;200;1;1
+AES-CBC bez MAC;73;14;IV;200;1;1
+AES-CBC bez MAC;74;14;IV;200;1;1
+AES-CBC bez MAC;75;2;IV;200;1;1
+AES-CBC bez MAC;76;5;IV;200;1;1
+AES-CBC bez MAC;77;37;blok ostatni;400;0;0
+AES-CBC bez MAC;78;41;blok ostatni;400;0;0
+AES-CBC bez MAC;79;25;blok posredni;200;1;1
+AES-CBC bez MAC;80;4;IV;200;1;1
+AES-CBC bez MAC;81;36;blok ostatni;400;0;0
+AES-CBC bez MAC;82;40;blok ostatni;400;0;0
+AES-CBC bez MAC;83;23;blok posredni;200;1;1
+AES-CBC bez MAC;84;27;blok posredni;200;1;1
+AES-CBC bez MAC;85;11;IV;200;1;1
+AES-CBC bez MAC;86;40;blok ostatni;400;0;0
+AES-CBC bez MAC;87;22;blok posredni;200;1;1
+AES-CBC bez MAC;88;18;blok posredni;200;1;1
+AES-CBC bez MAC;89;2;IV;200;1;1
+AES-CBC bez MAC;90;31;blok posredni;400;0;0
+AES-CBC bez MAC;91;28;blok posredni;200;1;1
+AES-CBC bez MAC;92;29;blok posredni;400;0;0
+AES-CBC bez MAC;93;26;blok posredni;200;1;1
+AES-CBC bez MAC;94;34;blok ostatni;400;0;0
+AES-CBC bez MAC;95;42;blok ostatni;400;0;0
+AES-CBC bez MAC;96;9;IV;200;1;1
+AES-CBC bez MAC;97;12;IV;200;1;1
+AES-CBC bez MAC;98;26;blok posredni;200;1;1
+AES-CBC bez MAC;99;44;blok ostatni;400;0;0
+AES-CBC bez MAC;100;5;IV;200;1;1
+AES-CBC bez MAC;101;12;IV;200;1;1
+AES-CBC bez MAC;102;41;blok ostatni;400;0;0
+AES-CBC bez MAC;103;5;IV;200;1;1
+AES-CBC bez MAC;104;47;blok ostatni;400;0;0
+AES-CBC bez MAC;105;7;IV;200;1;1
+AES-CBC bez MAC;106;40;blok ostatni;400;0;0
+AES-CBC bez MAC;107;14;IV;200;1;1
+AES-CBC bez MAC;108;22;blok posredni;200;1;1
+AES-CBC bez MAC;109;46;blok ostatni;400;0;0
+AES-CBC bez MAC;110;44;blok ostatni;400;0;0
+AES-CBC bez MAC;111;37;blok ostatni;400;0;0
+AES-CBC bez MAC;112;6;IV;200;1;1
+AES-CBC bez MAC;113;16;blok posredni;200;1;1
+AES-CBC bez MAC;114;4;IV;200;1;1
+AES-CBC bez MAC;115;35;blok ostatni;400;0;0
+AES-CBC bez MAC;116;0;IV;200;1;1
+AES-CBC bez MAC;117;41;blok ostatni;400;0;0
+AES-CBC bez MAC;118;37;blok ostatni;400;0;0
+AES-CBC bez MAC;119;21;blok posredni;200;1;1
+AES-CBC bez MAC;120;30;blok posredni;400;0;0
+AES-CBC bez MAC;121;25;blok posredni;200;1;1
+AES-CBC bez MAC;122;22;blok posredni;200;1;1
+AES-CBC bez MAC;123;12;IV;200;1;1
+AES-CBC bez MAC;124;43;blok ostatni;400;0;0
+AES-CBC bez MAC;125;20;blok posredni;200;1;1
+AES-CBC bez MAC;126;7;IV;200;1;1
+AES-CBC bez MAC;127;21;blok posredni;200;1;1
+AES-CBC bez MAC;128;38;blok ostatni;400;0;0
+AES-CBC bez MAC;129;46;blok ostatni;400;0;0
+AES-CBC bez MAC;130;24;blok posredni;200;1;1
+AES-CBC bez MAC;131;15;IV;200;1;1
+AES-CBC bez MAC;132;17;blok posredni;200;1;1
+AES-CBC bez MAC;133;47;blok ostatni;400;0;0
+AES-CBC bez MAC;134;1;IV;200;1;1
+AES-CBC bez MAC;135;26;blok posredni;200;1;1
+AES-CBC bez MAC;136;36;blok ostatni;400;0;0
+AES-CBC bez MAC;137;19;blok posredni;200;1;1
+AES-CBC bez MAC;138;30;blok posredni;400;0;0
+AES-CBC bez MAC;139;19;blok posredni;200;1;1
+AES-CBC bez MAC;140;3;IV;200;1;1
+AES-CBC bez MAC;141;29;blok posredni;400;0;0
+AES-CBC bez MAC;142;22;blok posredni;200;1;1
+AES-CBC bez MAC;143;38;blok ostatni;400;0;0
+AES-CBC bez MAC;144;27;blok posredni;200;1;1
+AES-CBC bez MAC;145;32;blok ostatni;400;0;0
+AES-CBC bez MAC;146;31;blok posredni;400;0;0
+AES-CBC bez MAC;147;45;blok ostatni;400;0;0
+AES-CBC bez MAC;148;19;blok posredni;200;1;1
+AES-CBC bez MAC;149;21;blok posredni;200;1;1
+AES-CBC bez MAC;150;47;blok ostatni;400;0;0
+AES-CBC bez MAC;151;1;IV;200;1;1
+AES-CBC bez MAC;152;7;IV;200;1;1
+AES-CBC bez MAC;153;0;IV;200;1;1
+AES-CBC bez MAC;154;43;blok ostatni;400;0;0
+AES-CBC bez MAC;155;44;blok ostatni;400;0;0
+AES-CBC bez MAC;156;24;blok posredni;200;1;1
+AES-CBC bez MAC;157;46;blok ostatni;400;0;0
+AES-CBC bez MAC;158;32;blok ostatni;400;0;0
+AES-CBC bez MAC;159;47;blok ostatni;400;0;0
+AES-CBC bez MAC;160;30;blok posredni;400;0;0
+AES-CBC bez MAC;161;47;blok ostatni;400;0;0
+AES-CBC bez MAC;162;32;blok ostatni;400;0;0
+AES-CBC bez MAC;163;1;IV;200;1;1
+AES-CBC bez MAC;164;3;IV;200;1;1
+AES-CBC bez MAC;165;30;blok posredni;400;0;0
+AES-CBC bez MAC;166;34;blok ostatni;400;0;0
+AES-CBC bez MAC;167;27;blok posredni;200;1;1
+AES-CBC bez MAC;168;26;blok posredni;200;1;1
+AES-CBC bez MAC;169;7;IV;200;1;1
+AES-CBC bez MAC;170;36;blok ostatni;400;0;0
+AES-CBC bez MAC;171;17;blok posredni;200;1;1
+AES-CBC bez MAC;172;4;IV;200;1;1
+AES-CBC bez MAC;173;8;IV;200;1;1
+AES-CBC bez MAC;174;40;blok ostatni;400;0;0
+AES-CBC bez MAC;175;33;blok ostatni;400;0;0
+AES-CBC bez MAC;176;5;IV;200;1;1
+AES-CBC bez MAC;177;42;blok ostatni;400;0;0
+AES-CBC bez MAC;178;15;IV;200;1;1
+AES-CBC bez MAC;179;23;blok posredni;200;1;1
+AES-CBC bez MAC;180;34;blok ostatni;400;0;0
+AES-CBC bez MAC;181;45;blok ostatni;400;0;0
+AES-CBC bez MAC;182;39;blok ostatni;400;0;0
+AES-CBC bez MAC;183;31;blok posredni;400;0;0
+AES-CBC bez MAC;184;35;blok ostatni;400;0;0
+AES-CBC bez MAC;185;18;blok posredni;200;1;1
+AES-CBC bez MAC;186;16;blok posredni;200;1;1
+AES-CBC bez MAC;187;9;IV;200;1;1
+AES-CBC bez MAC;188;7;IV;200;1;1
+AES-CBC bez MAC;189;1;IV;200;1;1
+AES-CBC bez MAC;190;23;blok posredni;200;1;1
+AES-CBC bez MAC;191;21;blok posredni;200;1;1
+AES-CBC bez MAC;192;40;blok ostatni;400;0;0
+AES-CBC bez MAC;193;10;IV;200;1;1
+AES-CBC bez MAC;194;34;blok ostatni;400;0;0
+AES-CBC bez MAC;195;38;blok ostatni;400;0;0
+AES-CBC bez MAC;196;47;blok ostatni;400;0;0
+AES-CBC bez MAC;197;26;blok posredni;200;1;1
+AES-CBC bez MAC;198;9;IV;200;1;1
+AES-CBC bez MAC;199;26;blok posredni;200;1;1
+AES-CBC bez MAC;200;42;blok ostatni;400;0;0
+AES-GCM;1;45;caly token;403;0;0
+AES-GCM;2;34;caly token;403;0;0
+AES-GCM;3;39;caly token;403;0;0
+AES-GCM;4;11;caly token;403;0;0
+AES-GCM;5;27;caly token;403;0;0
+AES-GCM;6;7;caly token;403;0;0
+AES-GCM;7;49;caly token;403;0;0
+AES-GCM;8;16;caly token;403;0;0
+AES-GCM;9;1;caly token;403;0;0
+AES-GCM;10;22;caly token;403;0;0
+AES-GCM;11;22;caly token;403;0;0
+AES-GCM;12;48;caly token;403;0;0
+AES-GCM;13;12;caly token;403;0;0
+AES-GCM;14;19;caly token;403;0;0
+AES-GCM;15;5;caly token;403;0;0
+AES-GCM;16;46;caly token;403;0;0
+AES-GCM;17;22;caly token;403;0;0
+AES-GCM;18;55;caly token;403;0;0
+AES-GCM;19;26;caly token;403;0;0
+AES-GCM;20;39;caly token;403;0;0
+AES-GCM;21;54;caly token;403;0;0
+AES-GCM;22;50;caly token;403;0;0
+AES-GCM;23;17;caly token;403;0;0
+AES-GCM;24;26;caly token;403;0;0
+AES-GCM;25;26;caly token;403;0;0
+AES-GCM;26;26;caly token;403;0;0
+AES-GCM;27;53;caly token;403;0;0
+AES-GCM;28;15;caly token;403;0;0
+AES-GCM;29;44;caly token;403;0;0
+AES-GCM;30;38;caly token;403;0;0
+AES-GCM;31;21;caly token;403;0;0
+AES-GCM;32;18;caly token;403;0;0
+AES-GCM;33;40;caly token;403;0;0
+AES-GCM;34;54;caly token;403;0;0
+AES-GCM;35;5;caly token;403;0;0
+AES-GCM;36;13;caly token;403;0;0
+AES-GCM;37;35;caly token;403;0;0
+AES-GCM;38;16;caly token;403;0;0
+AES-GCM;39;44;caly token;403;0;0
+AES-GCM;40;12;caly token;403;0;0
+AES-GCM;41;5;caly token;403;0;0
+AES-GCM;42;52;caly token;403;0;0
+AES-GCM;43;28;caly token;403;0;0
+AES-GCM;44;39;caly token;403;0;0
+AES-GCM;45;23;caly token;403;0;0
+AES-GCM;46;37;caly token;403;0;0
+AES-GCM;47;37;caly token;403;0;0
+AES-GCM;48;55;caly token;403;0;0
+AES-GCM;49;47;caly token;403;0;0
+AES-GCM;50;50;caly token;403;0;0
+AES-GCM;51;24;caly token;403;0;0
+AES-GCM;52;38;caly token;403;0;0
+AES-GCM;53;28;caly token;403;0;0
+AES-GCM;54;9;caly token;403;0;0
+AES-GCM;55;28;caly token;403;0;0
+AES-GCM;56;13;caly token;403;0;0
+AES-GCM;57;12;caly token;403;0;0
+AES-GCM;58;32;caly token;403;0;0
+AES-GCM;59;41;caly token;403;0;0
+AES-GCM;60;25;caly token;403;0;0
+AES-GCM;61;14;caly token;403;0;0
+AES-GCM;62;41;caly token;403;0;0
+AES-GCM;63;22;caly token;403;0;0
+AES-GCM;64;13;caly token;403;0;0
+AES-GCM;65;6;caly token;403;0;0
+AES-GCM;66;12;caly token;403;0;0
+AES-GCM;67;8;caly token;403;0;0
+AES-GCM;68;47;caly token;403;0;0
+AES-GCM;69;16;caly token;403;0;0
+AES-GCM;70;22;caly token;403;0;0
+AES-GCM;71;52;caly token;403;0;0
+AES-GCM;72;9;caly token;403;0;0
+AES-GCM;73;54;caly token;403;0;0
+AES-GCM;74;35;caly token;403;0;0
+AES-GCM;75;31;caly token;403;0;0
+AES-GCM;76;47;caly token;403;0;0
+AES-GCM;77;25;caly token;403;0;0
+AES-GCM;78;20;caly token;403;0;0
+AES-GCM;79;23;caly token;403;0;0
+AES-GCM;80;13;caly token;403;0;0
+AES-GCM;81;28;caly token;403;0;0
+AES-GCM;82;40;caly token;403;0;0
+AES-GCM;83;50;caly token;403;0;0
+AES-GCM;84;7;caly token;403;0;0
+AES-GCM;85;32;caly token;403;0;0
+AES-GCM;86;33;caly token;403;0;0
+AES-GCM;87;43;caly token;403;0;0
+AES-GCM;88;22;caly token;403;0;0
+AES-GCM;89;51;caly token;403;0;0
+AES-GCM;90;8;caly token;403;0;0
+AES-GCM;91;28;caly token;403;0;0
+AES-GCM;92;22;caly token;403;0;0
+AES-GCM;93;45;caly token;403;0;0
+AES-GCM;94;45;caly token;403;0;0
+AES-GCM;95;10;caly token;403;0;0
+AES-GCM;96;3;caly token;403;0;0
+AES-GCM;97;24;caly token;403;0;0
+AES-GCM;98;36;caly token;403;0;0
+AES-GCM;99;54;caly token;403;0;0
+AES-GCM;100;42;caly token;403;0;0
+AES-GCM;101;33;caly token;403;0;0
+AES-GCM;102;27;caly token;403;0;0
+AES-GCM;103;29;caly token;403;0;0
+AES-GCM;104;39;caly token;403;0;0
+AES-GCM;105;42;caly token;403;0;0
+AES-GCM;106;24;caly token;403;0;0
+AES-GCM;107;17;caly token;403;0;0
+AES-GCM;108;29;caly token;403;0;0
+AES-GCM;109;26;caly token;403;0;0
+AES-GCM;110;35;caly token;403;0;0
+AES-GCM;111;28;caly token;403;0;0
+AES-GCM;112;42;caly token;403;0;0
+AES-GCM;113;29;caly token;403;0;0
+AES-GCM;114;55;caly token;403;0;0
+AES-GCM;115;26;caly token;403;0;0
+AES-GCM;116;49;caly token;403;0;0
+AES-GCM;117;54;caly token;403;0;0
+AES-GCM;118;36;caly token;403;0;0
+AES-GCM;119;20;caly token;403;0;0
+AES-GCM;120;31;caly token;403;0;0
+AES-GCM;121;35;caly token;403;0;0
+AES-GCM;122;12;caly token;403;0;0
+AES-GCM;123;23;caly token;403;0;0
+AES-GCM;124;23;caly token;403;0;0
+AES-GCM;125;36;caly token;403;0;0
+AES-GCM;126;36;caly token;403;0;0
+AES-GCM;127;10;caly token;403;0;0
+AES-GCM;128;35;caly token;403;0;0
+AES-GCM;129;48;caly token;403;0;0
+AES-GCM;130;46;caly token;403;0;0
+AES-GCM;131;44;caly token;403;0;0
+AES-GCM;132;48;caly token;403;0;0
+AES-GCM;133;32;caly token;403;0;0
+AES-GCM;134;44;caly token;403;0;0
+AES-GCM;135;55;caly token;403;0;0
+AES-GCM;136;56;caly token;403;0;0
+AES-GCM;137;10;caly token;403;0;0
+AES-GCM;138;56;caly token;403;0;0
+AES-GCM;139;37;caly token;403;0;0
+AES-GCM;140;35;caly token;403;0;0
+AES-GCM;141;55;caly token;403;0;0
+AES-GCM;142;25;caly token;403;0;0
+AES-GCM;143;53;caly token;403;0;0
+AES-GCM;144;14;caly token;403;0;0
+AES-GCM;145;3;caly token;403;0;0
+AES-GCM;146;29;caly token;403;0;0
+AES-GCM;147;15;caly token;403;0;0
+AES-GCM;148;10;caly token;403;0;0
+AES-GCM;149;0;caly token;403;0;0
+AES-GCM;150;52;caly token;403;0;0
+AES-GCM;151;19;caly token;403;0;0
+AES-GCM;152;9;caly token;403;0;0
+AES-GCM;153;1;caly token;403;0;0
+AES-GCM;154;14;caly token;403;0;0
+AES-GCM;155;41;caly token;403;0;0
+AES-GCM;156;12;caly token;403;0;0
+AES-GCM;157;24;caly token;403;0;0
+AES-GCM;158;42;caly token;403;0;0
+AES-GCM;159;4;caly token;403;0;0
+AES-GCM;160;2;caly token;403;0;0
+AES-GCM;161;35;caly token;403;0;0
+AES-GCM;162;0;caly token;403;0;0
+AES-GCM;163;39;caly token;403;0;0
+AES-GCM;164;3;caly token;403;0;0
+AES-GCM;165;31;caly token;403;0;0
+AES-GCM;166;26;caly token;403;0;0
+AES-GCM;167;7;caly token;403;0;0
+AES-GCM;168;8;caly token;403;0;0
+AES-GCM;169;33;caly token;403;0;0
+AES-GCM;170;41;caly token;403;0;0
+AES-GCM;171;33;caly token;403;0;0
+AES-GCM;172;30;caly token;403;0;0
+AES-GCM;173;34;caly token;403;0;0
+AES-GCM;174;43;caly token;403;0;0
+AES-GCM;175;24;caly token;403;0;0
+AES-GCM;176;0;caly token;403;0;0
+AES-GCM;177;10;caly token;403;0;0
+AES-GCM;178;15;caly token;403;0;0
+AES-GCM;179;44;caly token;403;0;0
+AES-GCM;180;7;caly token;403;0;0
+AES-GCM;181;41;caly token;403;0;0
+AES-GCM;182;6;caly token;403;0;0
+AES-GCM;183;43;caly token;403;0;0
+AES-GCM;184;6;caly token;403;0;0
+AES-GCM;185;7;caly token;403;0;0
+AES-GCM;186;25;caly token;403;0;0
+AES-GCM;187;18;caly token;403;0;0
+AES-GCM;188;14;caly token;403;0;0
+AES-GCM;189;37;caly token;403;0;0
+AES-GCM;190;55;caly token;403;0;0
+AES-GCM;191;5;caly token;403;0;0
+AES-GCM;192;19;caly token;403;0;0
+AES-GCM;193;23;caly token;403;0;0
+AES-GCM;194;36;caly token;403;0;0
+AES-GCM;195;9;caly token;403;0;0
+AES-GCM;196;1;caly token;403;0;0
+AES-GCM;197;9;caly token;403;0;0
+AES-GCM;198;36;caly token;403;0;0
+AES-GCM;199;15;caly token;403;0;0
+AES-GCM;200;41;caly token;403;0;0
