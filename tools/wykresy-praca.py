@@ -281,7 +281,288 @@ def r4_pozycje():
     zapisz(fig, "r4-pozycje.pdf")
 
 
-ROZDZIALY = {"r4": [r4_odsetek, r4_cbc_obszary, r4_pozycje]}
+# =====================================================================
+# Rozdział 5
+# =====================================================================
+SERIA_3 = "#1baf7a"   # trzeci slot palety (zwalidowany all-pairs; etykiety zawsze widoczne)
+KLASY = [("szybka funkcja skrótu", SERIA_1),
+         ("funkcja compute-hard", SERIA_2),
+         ("funkcja memory-hard", SERIA_3)]
+KOLOR_KLASY = {n: k for n, k in KLASY}
+E4 = os.path.join(WYN, "E4")
+
+
+def pl_hs(v):
+    """Prędkość w zapisie polskim: mld/s, mln/s, tys./s."""
+    if v >= 1e9:
+        return f"{pl(v / 1e9)} mld/s"
+    if v >= 1e6:
+        return f"{pl(v / 1e6)} mln/s"
+    if v >= 1e4:
+        return f"{pl(v / 1e3, 1 if v < 1e5 else 0)} tys./s"
+    if v >= 10:
+        return f"{v:.0f}/s".replace(".", ",")
+    return f"{pl(v, 2)}/s"
+
+
+def czytaj_bom(sc):
+    with open(sc, encoding="utf-8-sig") as f:
+        return list(csv.DictReader(f, delimiter=";"))
+
+
+def srednia(xs):
+    xs = list(xs)
+    return sum(xs) / len(xs)
+
+
+def predkosc_z_postepu(sc):
+    """H/s z przyrostu licznika Progress między 1. i 2. odczytem statusu Hashcata."""
+    import re
+    t = open(sc, encoding="utf-8-sig", errors="replace").read()
+    sek = [int(m.group(1) or 0) * 60 + int(m.group(2)) for m in
+           re.finditer(r"Time\.Started\.+: .*?\((?:(\d+) mins?, )?(\d+) secs?\)", t)]
+    post = [int(x) for x in re.findall(r"Progress\.+: (\d+)/", t)]
+    acc = re.findall(r"Speed\.#\d+\.+:.*?Accel:(\d+)", t)
+    if len(post) < 2:
+        return None, None
+    return (post[1] - post[0]) / (sek[1] - sek[0]), int(acc[0])
+
+
+def argon2_dane():
+    """[(MiB, GPU H/s, CPU H/s, Accel GPU)] - 64/256 z 24.10, 1024 z powtórki 8.11."""
+    wyn = []
+    for mib, folder in ((64, "argon2-skalowanie"), (256, "argon2-skalowanie"),
+                        (1024, "argon2-1024-powtorka")):
+        d = os.path.join(E4, folder)
+        pliki = sorted(f for f in os.listdir(d) if f.startswith(f"argon2-{mib}-"))
+        g = [predkosc_z_postepu(os.path.join(d, f)) for f in pliki if "-gpu-" in f]
+        c = [predkosc_z_postepu(os.path.join(d, f)) for f in pliki if "-cpu-" in f]
+        g = [x for x in g if x[0] is not None]
+        c = [x for x in c if x[0] is not None]
+        wyn.append((mib, srednia(x[0] for x in g), srednia(x[0] for x in c), g[0][1]))
+    return wyn
+
+
+def r5_predkosci():
+    """Benchmark Hashcata (-b): prędkość wg formatu, skala logarytmiczna."""
+    rows = czytaj_bom(os.path.join(E4, "wyniki-surowe.csv"))
+    opis = {"0": ("MD5", "szybka funkcja skrótu"),
+            "1000": ("NTLM", "szybka funkcja skrótu"),
+            "11600": ("7-Zip (SHA-256, 2¹⁹ iteracji)", "funkcja compute-hard"),
+            "13400": ("KeePass KDBX 3.1 (AES-KDF)", "funkcja compute-hard"),
+            "13721": ("VeraCrypt (PBKDF2-HMAC-SHA-512)", "funkcja compute-hard"),
+            "34300": ("KeePass KDBX 4 (Argon2d, 64 MiB)", "funkcja memory-hard")}
+    sr = defaultdict(list)
+    for w in rows:
+        sr[w["Tryb"]].append(float(w["HS"]))
+    dane = sorted(((opis[t][0], opis[t][1], srednia(v)) for t, v in sr.items()),
+                  key=lambda x: -x[2])
+    fig, ax = plt.subplots(figsize=(SZER, 2.45))
+    fig.subplots_adjust(left=0.4, right=0.97, top=0.86, bottom=0.12)
+    ax.set_xscale("log")
+    ax.set_xlim(1e2, 1e12)
+    ax.set_ylim(len(dane) - 0.4, -0.6)
+    for s in ("top", "right", "left"):
+        ax.spines[s].set_visible(False)
+    ax.spines["bottom"].set_color(AXIS)
+    ax.set_yticks(range(len(dane)))
+    ax.set_yticklabels([d[0] for d in dane])
+    ax.tick_params(axis="y", length=0, pad=6)
+    ax.tick_params(axis="x", length=0, pad=4)
+    ax.minorticks_off()
+    ax.set_xticks([1e2, 1e4, 1e6, 1e8, 1e10, 1e12])
+    ax.set_xticklabels(["100", "10 tys.", "1 mln", "100 mln", "10 mld", "1 bln"])
+    ax.xaxis.grid(True, color=GRID, lw=0.75, zorder=0)
+    ax.set_axisbelow(True)
+    for i, (_, kl, v) in enumerate(dane):
+        ax.plot([1e2, v], [i, i], color=GRID, lw=1.2, zorder=1)
+        ax.scatter([v], [i], s=46, color=KOLOR_KLASY[kl], edgecolors="white",
+                   linewidths=1.4, zorder=4)
+        ax.text(v * 1.9, i, pl_hs(v), va="center", ha="left", color=INK,
+                fontweight="bold", zorder=5)
+    legenda(fig, [Line2D([0], [0], marker="o", ls="", ms=7, mfc=k, mec="none") for _, k in KLASY],
+            [n for n, _ in KLASY], x=0.0, y=1.0, ncol=3)
+    zapisz(fig, "r5-predkosci.pdf")
+
+
+def r5_karta():
+    """Stan karty w trakcie pomiaru VeraCrypt (najdłuższe ciągłe obciążenie)."""
+    from datetime import datetime
+    sc = os.path.join(E4, "veracrypt", "gpu-log.csv")
+    t, temp, takt = [], [], []
+    with open(sc, encoding="utf-8-sig") as f:
+        next(f)
+        for linia in f:
+            p = [x.strip() for x in linia.split(",")]
+            if len(p) < 6:
+                continue
+            t.append(datetime.strptime(p[0], "%Y/%m/%d %H:%M:%S.%f"))
+            temp.append(float(p[1]))
+            takt.append(float(p[2].split()[0]))
+    t0 = t[0]
+    x = [(a - t0).total_seconds() / 60 for a in t]
+    przebiegi = []
+    for pim in (1, 250, 500):
+        for n in (1, 2, 3):
+            tekst = open(os.path.join(E4, "veracrypt", f"vc-pim{pim}-{n}.txt"),
+                         encoding="utf-8-sig", errors="replace").read()
+            import re
+            st = re.search(r"Started: \w+ (\w+ \d+ [\d:]+ \d+)", tekst).group(1)
+            sp = re.search(r"Stopped: \w+ (\w+ \d+ [\d:]+ \d+)", tekst).group(1)
+            a = datetime.strptime(st, "%b %d %H:%M:%S %Y")
+            b = datetime.strptime(sp, "%b %d %H:%M:%S %Y")
+            przebiegi.append((pim, (a - t0).total_seconds() / 60, (b - t0).total_seconds() / 60))
+    fig, (a1, a2) = plt.subplots(2, 1, figsize=(SZER, 3.0), sharex=True,
+                                 gridspec_kw={"hspace": 0.35})
+    fig.subplots_adjust(left=0.1, right=0.98, top=0.8, bottom=0.13)
+    for ax, y, tyt, lim in ((a1, temp, "temperatura GPU [°C]", (30, 75)),
+                            (a2, takt, "taktowanie rdzeni (SM) [MHz]", (1400, 2100))):
+        oczysc(ax, siatka="y")
+        ax.set_ylim(*lim)
+        for _, s0, s1 in przebiegi:
+            ax.axvspan(s0, s1, color="#f1f0eb", lw=0, zorder=0)
+        ax.plot(x, y, color=SERIA_1, lw=1.5, zorder=3)
+        ax.set_title(tyt, loc="left", fontsize=9.5, color=INK, pad=3)
+    a1.set_yticks([30, 45, 60, 75])
+    a2.set_yticks([1500, 1750, 2000])
+    for pim in (1, 250, 500):
+        p = [pr for pr in przebiegi if pr[0] == pim]
+        a1.text((p[0][1] + p[-1][2]) / 2, 90, f"PIM {pim} (3 próby)", ha="center",
+                va="bottom", color=INK2, fontsize=8.5, clip_on=False)
+    a2.set_xlabel("czas od rozpoczęcia pomiaru [min]", color=INK2, labelpad=3)
+    zapisz(fig, "r5-karta.pdf")
+
+
+def r5_pim():
+    """VeraCrypt: prędkość a liczba iteracji PBKDF2 (skala log-log)."""
+    rows = czytaj_bom(os.path.join(E4, "veracrypt", "wyniki-surowe.csv"))
+    sr = defaultdict(list)
+    it = {}
+    for w in rows:
+        sr[w["PIM"]].append(float(w["HS"]))
+        it[w["PIM"]] = int(w["Iteracje"])
+    dane = sorted(((int(p), it[p], srednia(v)) for p, v in sr.items()))
+    C = srednia(i * v for _, i, v in dane)
+    fig, ax = plt.subplots(figsize=(SZER, 2.5))
+    fig.subplots_adjust(left=0.12, right=0.97, top=0.86, bottom=0.17)
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlim(1e4, 1e6)
+    ax.set_ylim(3e2, 5e4)
+    oczysc(ax, siatka="y")
+    ax.xaxis.grid(True, color=GRID, lw=0.75, zorder=0)
+    ax.minorticks_off()
+    ax.set_xticks([1e4, 3e4, 1e5, 3e5, 1e6])
+    ax.set_xticklabels(["10 tys.", "30 tys.", "100 tys.", "300 tys.", "1 mln"])
+    ax.set_yticks([1e3, 1e4])
+    ax.set_yticklabels(["1 tys.", "10 tys."])
+    xs = [1e4, 1e6]
+    ax.plot(xs, [C / v for v in xs], color=INK2, lw=1.0, ls=(0, (4, 3)), zorder=2)
+    ax.scatter([d[1] for d in dane], [d[2] for d in dane], s=50, color=SERIA_1,
+               edgecolors="white", linewidths=1.4, zorder=4)
+    for pim, i, v in dane:
+        et = f"PIM {pim}: {v:,.0f} H/s".replace(",", "\u2009")
+        if pim == 1:
+            ax.text(i * 1.13, v * 1.12, et, ha="left", va="bottom", color=INK, fontweight="bold")
+        else:
+            ax.text(i / 1.1, v / 1.18, et, ha="right", va="top", color=INK, fontweight="bold")
+    ax.set_xlabel("liczba iteracji PBKDF2-HMAC-SHA-512", color=INK2, labelpad=3)
+    ax.set_ylabel("prędkość [H/s]", color=INK2)
+    legenda(fig, [Line2D([0], [0], marker="o", ls="", ms=7, mfc=SERIA_1, mec="none"),
+                  Line2D([0], [0], color=INK2, lw=1.0, ls=(0, (4, 3)))],
+            ["pomiar (średnia z 3 prób)",
+             f"prędkość × iteracje = {pl(C / 1e6, 0)} mln (stała)"], x=0.06, y=1.0)
+    zapisz(fig, "r5-pim.pdf")
+
+
+def r5_argon2():
+    """Argon2id: prędkość GPU i CPU oraz ich stosunek w funkcji pamięci."""
+    dane = argon2_dane()
+    kat = ["64 MiB", "256 MiB", "1 GiB"]
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(SZER, 2.45),
+                                 gridspec_kw={"width_ratios": [1.25, 1], "wspace": 0.38})
+    fig.subplots_adjust(left=0.1, right=0.98, top=0.8, bottom=0.12)
+    # panel 1: prędkości (log)
+    a1.set_yscale("log")
+    a1.set_ylim(0.3, 1000)
+    a1.set_xlim(-0.4, 2.6)
+    oczysc(a1, siatka="y")
+    a1.minorticks_off()
+    a1.set_yticks([1, 10, 100, 1000])
+    a1.set_yticklabels(["1", "10", "100", "1000"])
+    a1.set_xticks(range(3))
+    a1.set_xticklabels(kat)
+    a1.set_title("prędkość [H/s]", loc="left", fontsize=9.5, color=INK, pad=4)
+    for j, (kol, nazwa) in enumerate(((SERIA_1, "GPU"), (SERIA_2, "CPU"))):
+        ys = [d[1 + j] for d in dane]
+        a1.plot(range(3), ys, color=kol, lw=1.5, zorder=3)
+        a1.scatter(range(3), ys, s=40, color=kol, edgecolors="white", linewidths=1.4, zorder=4)
+        for i, v in enumerate(ys):
+            nd = 0 if v >= 100 else (1 if v >= 10 else 2)
+            if j == 0:
+                a1.text(i + 0.08, v * 1.45, pl(v, nd), ha="left", va="bottom",
+                        color=INK, fontsize=8.5, fontweight="bold")
+            else:
+                a1.text(i - 0.08, v / 1.45, pl(v, nd), ha="right", va="top",
+                        color=INK, fontsize=8.5, fontweight="bold")
+    # panel 2: stosunek GPU/CPU
+    a2.set_xlim(-0.6, 2.6)
+    a2.set_ylim(0, 10)
+    oczysc(a2, siatka="y")
+    a2.set_xticks(range(3))
+    a2.set_xticklabels(kat)
+    a2.set_yticks([0, 2, 4, 6, 8, 10])
+    a2.set_yticklabels([f"{t}×" for t in [0, 2, 4, 6, 8, 10]])
+    a2.set_title("przewaga GPU nad CPU", loc="left", fontsize=9.5, color=INK, pad=4)
+    xpi, _ = per_inch(a2)
+    w = min(0.55, 0.32 * xpi)
+    for i, d in enumerate(dane):
+        r = d[1] / d[2]
+        slupek(a2, i - w / 2, 0, w, r, SERIA_3)
+        a2.text(i, r + 0.25, f"{pl(r)}×", ha="center", va="bottom", color=INK, fontweight="bold")
+    legenda(fig, [Line2D([0], [0], color=SERIA_1, lw=1.5, marker="o", ms=6, mec="white"),
+                  Line2D([0], [0], color=SERIA_2, lw=1.5, marker="o", ms=6, mec="white")],
+            ["GPU (GTX 1660)", "CPU (Ryzen 5 5600)"], x=0.08, y=1.0)
+    zapisz(fig, "r5-argon2.pdf")
+
+
+def r5_gpu_cpu():
+    """Przewaga GPU nad CPU dla wszystkich badanych funkcji."""
+    rows = czytaj_bom(os.path.join(E4, "gpu-cpu", "wyniki-surowe.csv"))
+    opis = {"0": ("MD5", "szybka funkcja skrótu"),
+            "11600": ("7-Zip (SHA-256)", "funkcja compute-hard"),
+            "13400": ("KeePass AES-KDF", "funkcja compute-hard"),
+            "13721": ("VeraCrypt (PBKDF2-SHA-512)", "funkcja compute-hard"),
+            "34300": ("KeePass Argon2d, 64 MiB (próbka)", "funkcja memory-hard")}
+    sr = defaultdict(lambda: defaultdict(list))
+    for w in rows:
+        sr[w["Tryb"]][w["Urzadzenie"]].append(float(w["HS"]))
+    dane = [(opis[t][0], opis[t][1], srednia(v["gpu"]) / srednia(v["cpu"])) for t, v in sr.items()]
+    for mib, g, c, _ in argon2_dane():
+        et = "1 GiB" if mib == 1024 else f"{mib} MiB"
+        dane.append((f"Argon2id, {et}", "funkcja memory-hard", g / c))
+    dane.sort(key=lambda d: -d[2])
+    fig, ax = plt.subplots(figsize=(SZER, 2.85))
+    fig.subplots_adjust(left=0.36, right=0.93, top=0.88, bottom=0.1)
+    ax.set_xlim(0, 45)
+    ax.set_ylim(len(dane) - 0.4, -0.6)
+    oczysc(ax, siatka="x")
+    ax.set_yticks(range(len(dane)))
+    ax.set_yticklabels([d[0] for d in dane])
+    ax.set_xticks([0, 10, 20, 30, 40])
+    ax.set_xticklabels([f"{t}×" for t in [0, 10, 20, 30, 40]])
+    _, ypi = per_inch(ax)
+    h = min(0.6, 0.15 * ypi)
+    for i, (_, kl, r) in enumerate(dane):
+        slupek(ax, 0, i - h / 2, r, h, KOLOR_KLASY[kl], poziomy=True)
+        ax.text(r + 0.6, i, f"{pl(r)}×", va="center", ha="left", color=INK, fontweight="bold")
+    legenda(fig, [Patch(fc=k, ec="none") for _, k in KLASY], [n for n, _ in KLASY],
+            x=0.0, y=1.0, ncol=3)
+    zapisz(fig, "r5-gpu-cpu.pdf")
+
+
+ROZDZIALY = {"r4": [r4_odsetek, r4_cbc_obszary, r4_pozycje],
+             "r5": [r5_predkosci, r5_karta, r5_pim, r5_argon2, r5_gpu_cpu]}
 
 if __name__ == "__main__":
     wybor = sys.argv[1:] or list(ROZDZIALY)
