@@ -30,6 +30,21 @@
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 
+% --- Rozmieszczanie obiektów pływających: mniej stron z samymi rysunkami,
+%     strony z obiektami wyrównane do góry ---
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{14pt plus 1fil}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+
 % --- Podpisy: pod obiektem, "Rysunek 3.1. Opis", bez kropki na końcu ---
 \usepackage[labelsep=period,font=small,labelfont=bf,justification=centering,
             skip=6pt]{caption}
