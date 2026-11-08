@@ -1,0 +1,13 @@
+Klasyfikatory A i B na rzeczywistych plikach z rozdzialu 5
+folder: F:\praca-inz\pliki-testowe
+
+plik                            rozmiar         H       chi2 naglowek            A    B
+kp-aeskdf-kdbx31.kdbx              1390    7.8442      342.7 kdbx (KeePass)    tak  nie
+kp-aeskdf-kdbx4.kdbx               1656    7.7857      956.9 kdbx (KeePass)    tak  nie
+kp-argon2d-1024.kdbx               1846    7.7346     1706.1 kdbx (KeePass)    tak  nie
+kp-argon2d-256.kdbx                1526    7.6398     2059.0 kdbx (KeePass)    tak  nie
+kp-argon2d-64.kdbx                 1990    7.7553     1602.7 kdbx (KeePass)    tak  nie
+test-7zip.7z                       5263    7.9544      337.2 7z                tak  nie
+vc-sha512-pim1.hc               2097152    7.9999      267.1 -                 tak  tak
+vc-sha512-pim250.hc             2097152    7.9999      248.7 -                 tak  tak
+vc-sha512-pim500.hc             2097152    7.9999      283.0 -                 tak  tak
