@@ -1,0 +1,2 @@
+﻿Pamiec            GPU [H/s]        CPU [H/s]      GPU/CPU
+1024 MiB                2,0              1,0         2,0x
