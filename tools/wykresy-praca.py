@@ -50,6 +50,7 @@ plt.rcParams.update({
     "font.family": _czcionka(),
     "font.size": 9.5,
     "pdf.fonttype": 42,
+    "mathtext.fontset": "stix",
     "axes.edgecolor": AXIS,
     "axes.linewidth": 0.8,
     "xtick.color": MUTED,
@@ -561,7 +562,92 @@ def r5_gpu_cpu():
     zapisz(fig, "r5-gpu-cpu.pdf")
 
 
-ROZDZIALY = {"r4": [r4_odsetek, r4_cbc_obszary, r4_pozycje],
+# =====================================================================
+# Rozdział 6
+# =====================================================================
+R6_PROG_H = 7.5
+R6_PROG_CHI2 = 293.25
+GRUPY_R6 = [("jawne", "pliki jawne", SERIA_1),
+            ("skompresowane", "pliki skompresowane", SERIA_2),
+            ("zaszyfrowane", "pliki zaszyfrowane", SERIA_3)]
+
+
+def r6_pliki():
+    return czytaj_bom(os.path.join(WYN, "R6", "pliki.csv"))
+
+
+def r6_rozrzut():
+    """Entropia i chi-kwadrat każdego pliku zbioru; progi klasyfikatora B."""
+    rows = r6_pliki()
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(SZER, 2.75),
+                                 gridspec_kw={"width_ratios": [1, 1.25], "wspace": 0.3})
+    fig.subplots_adjust(left=0.115, right=0.98, top=0.82, bottom=0.16)
+    for ax, (x0, x1), tyt in ((a1, (3.5, 8.2), "wszystkie pliki"),
+                              (a2, (7.2, 8.03), "obszar wysokiej entropii")):
+        ax.set_yscale("log")
+        ax.set_xlim(x0, x1)
+        ax.set_ylim(*((150, 1.5e6) if ax is a1 else (150, 3000)))
+        oczysc(ax, siatka="y")
+        ax.minorticks_off()
+        ax.set_yticks([1e3, 1e4, 1e5, 1e6] if ax is a1 else [200, 500, 1000, 2000])
+        ax.set_yticklabels(["1 tys.", "10 tys.", "100 tys.", "1 mln"] if ax is a1
+                           else ["200", "500", "1000", "2000"])
+        ax.set_title(tyt, loc="left", fontsize=9.5, color=INK, pad=4)
+        ax.axvline(R6_PROG_H, color=INK2, lw=0.9, ls=(0, (4, 3)), zorder=2)
+        ax.set_xlabel("entropia [bit/bajt]", color=INK2, labelpad=3)
+        for klucz, _, kol in GRUPY_R6:
+            g = [w for w in rows if w["grupa"] == klucz]
+            ax.scatter([float(w["entropia"]) for w in g], [float(w["chi2"]) for w in g],
+                       s=26, color=kol, edgecolors="white", linewidths=0.9, zorder=4)
+    a1.set_ylabel("statystyka $\\chi^2$", color=INK2)
+    a1.set_xticks([4, 5, 6, 7, 8])
+    a2.set_xticks([7.25, 7.5, 7.75, 8.0])
+    a2.set_xticklabels(["7,25", "7,5", "7,75", "8,0"])
+    a2.axhline(R6_PROG_CHI2, color=INK2, lw=0.9, ls=(0, (4, 3)), zorder=2)
+    a2.fill_between([R6_PROG_H, 8.03], 150, R6_PROG_CHI2, color="#eef6f2", lw=0, zorder=0)
+    a2.text(7.52, 160, "$H \\geq 7{,}5$ i $\\chi^2 \\leq 293{,}25$", ha="left", va="bottom",
+            color=INK2, fontsize=8)
+    a2.text(7.22, R6_PROG_CHI2 * 1.12, "$\\chi^2 = 293{,}25$", ha="left", va="bottom",
+            color=INK2, fontsize=8)
+    a1.text(R6_PROG_H - 0.08, 6e5, "$H = 7{,}5$", ha="right", va="center", color=INK2, fontsize=8)
+    legenda(fig, [Line2D([0], [0], marker="o", ls="", ms=6, mfc=k, mec="none") for _, _, k in GRUPY_R6],
+            [n for _, n, _ in GRUPY_R6], x=0.06, y=1.0, ncol=3)
+    zapisz(fig, "r6-rozrzut.pdf")
+
+
+def r6_etapy():
+    """Liczba plików uznanych za zaszyfrowane po kolejnych warunkach klasyfikatora B."""
+    rows = r6_pliki()
+    etapy = ["wszystkie pliki", "$H \\geq 7{,}5$", "$+\\ \\chi^2 \\leq 293{,}25$", "+ brak nagłówka"]
+    fig, ax = plt.subplots(figsize=(SZER, 2.35))
+    fig.subplots_adjust(left=0.08, right=0.98, top=0.85, bottom=0.13)
+    ax.set_xlim(-0.55, 3.55)
+    ax.set_ylim(0, 23.5)
+    oczysc(ax, siatka="y")
+    ax.set_xticks(range(4))
+    ax.set_xticklabels(etapy)
+    ax.set_yticks([0, 5, 10, 15, 20])
+    ax.set_ylabel("liczba plików", color=INK2)
+    xpi, _ = per_inch(ax)
+    w = 0.24
+    gap = 2 / 96 * xpi
+    for j, (klucz, _, kol) in enumerate(GRUPY_R6):
+        g = [r for r in rows if r["grupa"] == klucz]
+        s1 = [r for r in g if float(r["entropia"]) >= R6_PROG_H]
+        s2 = [r for r in s1 if float(r["chi2"]) <= R6_PROG_CHI2]
+        s3 = [r for r in s2 if r["magic"] == "-"]
+        for i, n in enumerate([len(g), len(s1), len(s2), len(s3)]):
+            x = i + (j - 1) * w
+            slupek(ax, x - (w - gap) / 2, 0, w - gap, n, kol, r_pt=2)
+            ax.text(x, n + 0.4, str(n), ha="center", va="bottom", color=INK,
+                    fontsize=8.5, fontweight="bold")
+    legenda(fig, [Patch(fc=k, ec="none") for _, _, k in GRUPY_R6], [n for _, n, _ in GRUPY_R6],
+            x=0.06, y=1.0, ncol=3)
+    zapisz(fig, "r6-etapy.pdf")
+
+
+ROZDZIALY = {"r6": [r6_rozrzut, r6_etapy],
+             "r4": [r4_odsetek, r4_cbc_obszary, r4_pozycje],
              "r5": [r5_predkosci, r5_karta, r5_pim, r5_argon2, r5_gpu_cpu]}
 
 if __name__ == "__main__":
