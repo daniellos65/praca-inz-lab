@@ -3,7 +3,7 @@
 %  Ustawienia zgodne z wytycznymi "Jak napisać pracę inżynierską?":
 %  czcionka szeryfowa 12 pt, spis treści, podpisy pod rysunkami
 %  i tabelami bez kropki na końcu, Literatura bez numeru w spisie treści.
-%  Strona tytułowa: do podmiany na obowiązujący wzór wydziału.
+%  Strona tytułowa: wg wzoru wydziału Strona-tytulowa-I-stopien.doc.
 % =====================================================================
 \documentclass[12pt,a4paper,oneside]{report}
 
@@ -77,24 +77,62 @@
 \newcommand{\douzup}[1]{\colorbox{yellow!40}{\small [do uzupełnienia: #1]}}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
+% --- Dane strony tytułowej (UZUPEŁNIĆ pola oznaczone \douzup) ---
+\newcommand{\tytulPL}{Analiza podatności protokołów sieciowych i~błędów logicznych w~implementacjach kryptograficznych}
+\newcommand{\tytulEN}{Vulnerability analysis of network protocols and logic flaws in cryptographic implementations}
+\newcommand{\autorpracy}{Daniel Kubiela}
+\newcommand{\wydzial}{Wydział Informatyki, Elektroniki i~Telekomunikacji}
+\newcommand{\instytut}{\douzup{nazwa instytutu}}
+\newcommand{\kierunek}{\douzup{nazwa kierunku}}
+\newcommand{\opiekun}{\douzup{stopień lub tytuł, imię i nazwisko}}
+\newcommand{\rokpracy}{\douzup{rok}}
+\newcommand{\tytulowa}{\fontfamily{phv}\selectfont}  % krój strony tytułowej (Helvetica)
+
 \addto\captionspolish{\renewcommand{\bibname}{Literatura}}
 
 \begin{document}
 
-% ---------------- Strona tytułowa (tymczasowa) ----------------
+% ---------------- Strona tytułowa ----------------
+% Odwzorowanie wzoru wydziału "Strona-tytulowa-I-stopien.doc"
+% (https://iet.agh.edu.pl/egzamin-dyplomowy/). Położenie elementów i wielkości
+% pisma zmierzone ze wzoru; logo wyciągnięte z pliku wzoru. Krój wzoru (Inter)
+% zastąpiono Helvetiką (helvet), dostępną w każdej dystrybucji TeX.
+% Pola do uzupełnienia są zdefiniowane w preambule (\instytut, \kierunek, \opiekun, \rokpracy).
 \begin{titlepage}
-  \centering
-  {\large AKADEMIA GÓRNICZO-HUTNICZA IM.~STANISŁAWA STASZICA W~KRAKOWIE\par}
-  \vspace{4cm}
-  {\Large Projekt inżynierski\par}
-  \vspace{1cm}
-  {\LARGE\bfseries Analiza podatności protokołów sieciowych i~błędów logicznych w~implementacjach kryptograficznych\par}
-  \vspace{2cm}
-  {\large Daniel Kubiela\par}
-  \vfill
-  {\small [strona tytułowa do podmiany na obowiązujący wzór wydziału]\par}
-  \vspace{1cm}
-  {\large Kraków, 2026\par}
+\begin{tikzpicture}[remember picture, overlay,
+    tp/.style={inner sep=0pt, outer sep=0pt, font=\tytulowa}]
+  % logo z napisem "Akademia Górniczo-Hutnicza im. Stanisława Staszica w Krakowie"
+  \node[tp, anchor=north] at ($(current page.north)+(0,-97.5pt)$)
+    {\includegraphics[width=399.9pt]{rysunki/agh-logo.jpg}};
+  % wydział
+  \node[tp, anchor=base] at ($(current page.north)+(0,-308.4pt)$)
+    {\fontsize{11}{13.3}\selectfont\bfseries\MakeUppercase{\wydzial}};
+  % instytut
+  \node[tp, anchor=base] at ($(current page.north)+(0,-333.7pt)$)
+    {\fontsize{11}{13.3}\selectfont INSTYTUT \instytut};
+  % rodzaj pracy
+  \node[tp, anchor=base] at ($(current page.north)+(0,-386.3pt)$)
+    {\fontsize{18}{21.7}\selectfont Projekt dyplomowy};
+  % tytuł w języku oryginalnym (polskim) i w języku angielskim
+  \node[tp, anchor=north, text width=453pt, align=center] at ($(current page.north)+(0,-424.5pt)$)
+    {\fontsize{16}{19.3}\selectfont\strut\tytulPL\par\strut\tytulEN\par};
+  % autor, kierunek, opiekun
+  \node[tp, anchor=base west] at ($(current page.north west)+(71pt,-603.7pt)$)
+    {\fontsize{11}{13.3}\selectfont Autor:};
+  \node[tp, anchor=base west] at ($(current page.north west)+(212.7pt,-603.7pt)$)
+    {\fontsize{11}{13.3}\selectfont \autorpracy};
+  \node[tp, anchor=base west] at ($(current page.north west)+(71pt,-617.0pt)$)
+    {\fontsize{11}{13.3}\selectfont Kierunek studiów:};
+  \node[tp, anchor=base west] at ($(current page.north west)+(212.7pt,-617.0pt)$)
+    {\fontsize{11}{13.3}\selectfont \kierunek};
+  \node[tp, anchor=base west] at ($(current page.north west)+(71pt,-630.3pt)$)
+    {\fontsize{11}{13.3}\selectfont Opiekun pracy:};
+  \node[tp, anchor=base west] at ($(current page.north west)+(212.7pt,-630.3pt)$)
+    {\fontsize{11}{13.3}\selectfont \opiekun};
+  % miejsce i rok
+  \node[tp, anchor=base] at ($(current page.north)+(0,-670.2pt)$)
+    {\fontsize{11}{13.3}\selectfont Kraków, \rokpracy};
+\end{tikzpicture}
 \end{titlepage}
 
 \tableofcontents
