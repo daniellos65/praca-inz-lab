@@ -1,0 +1,33 @@
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  font=\footnotesize,
+  vm/.style={draw, rounded corners=3pt, minimum width=3.6cm, minimum height=3.2cm,
+             align=center, fill=white, anchor=north},
+  szyna/.style={line width=1pt},
+  >={Stealth[length=2mm]}]
+  % maszyny wirtualne (jednakowa wysokość, wyrównane krawędzie)
+  \node[vm] (client) at (0,1.6)   {\textbf{Klient} (\kod{client})\\10.10.10.20\\Ubuntu Server 24.04\\skrypty pomiarowe};
+  \node[vm] (server) at (4.2,1.6) {\textbf{Serwer} (\kod{server})\\10.10.10.30\\Ubuntu Server 24.04\\Docker:\\aplikacja testowa (:5000)\\nginx 1.27 (:443)\\OpenSSL 1.0.2u (:4433)};
+  \node[vm, line width=1.2pt] (sensor) at (8.4,1.6) {\textbf{Czujnik} (\kod{sensor})\\10.10.10.40\\Ubuntu Server 24.04\\Snort 3, tcpdump};
+  \node[font=\scriptsize, anchor=south] at (8.4,1.65) {tryb nasłuchu};
+  % szyny
+  \draw[szyna] (-1.95,-2.05) -- (10.35,-2.05);
+  \draw[szyna, dashed] (-1.95,-2.8) -- (10.35,-2.8);
+  \foreach \m in {client,server,sensor}{
+    \draw ($(\m.south)+(-0.35,0)$) -- ($(\m.south)+(-0.35,-0.45)$) node[circle,fill,inner sep=1.3pt]{};
+    \draw[dashed] ($(\m.south)+(0.35,0)$) -- ($(\m.south)+(0.35,-1.2)$) node[circle,fill,inner sep=1.3pt]{};
+  }
+  % host
+  \node[draw, rounded corners=3pt, minimum width=12.3cm, minimum height=0.9cm, align=center,
+        fill=black!4] (host) at (4.2,-4.3)
+    {\textbf{Host}: Windows 11 Pro, VirtualBox 7.2.8 \quad$\cdot$\quad stanowisko GPU: Hashcat 7.1.2, NVIDIA GeForce GTX 1660};
+  \draw[dashed,<->] (9.6,-2.8) -- (9.6,-3.85) node[midway,left,font=\scriptsize,align=right]{SSH z~hosta: 127.0.0.1:2220/2230/2240};
+  % legenda
+  \draw[szyna] (-1.9,-5.2) -- (-1.2,-5.2) node[right,font=\scriptsize]{sieć wewnętrzna \kod{labnet} 10.10.10.0/24 (karta \kod{enp0s3}) -- ruch badawczy};
+  \draw[szyna,dashed] (-1.9,-5.6) -- (-1.2,-5.6) node[right,font=\scriptsize]{NAT VirtualBox (karta \kod{enp0s8}) -- instalacja pakietów i~zarządzanie};
+\end{tikzpicture}}
+\caption{Topologia stanowiska laboratoryjnego}
+\label{rys:topologia}
+\end{figure}
