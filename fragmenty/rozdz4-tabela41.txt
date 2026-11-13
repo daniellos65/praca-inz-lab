@@ -1,0 +1,16 @@
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}c >{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}p{3.3cm} L >{\raggedright\arraybackslash}p{2.4cm}@{}}
+\toprule
+\textbf{Podrozdz.} & \textbf{Badany mechanizm} & \textbf{Wariant podatny / poprawiony} & \textbf{Zakres pomiaru} & \textbf{Miara} \\
+\midrule
+\ref{sec:arp}    & podszycie w~protokole ARP & -- / detekcja inspektorem \kod{arp\_spoof} & 3~ramki ARP podszywające się pod adres serwera & liczba alarmów czujnika \\
+\ref{sec:tlsneg} & negocjacja wersji TLS & OpenSSL 1.0.2u / nginx 1.27 & 10~połączeń (5~wersji protokołu $\times$ 2~serwery), 2~połączenia z~sygnałem SCSV, 4~połączenia testu uzupełniającego & wersja, zestaw szyfrów, reakcja na SCSV \\
+\ref{sec:ctr}    & ciasteczko sesyjne, szyfr strumieniowy & AES-128-CTR / AES-128-GCM & po 200 losowych modyfikacji dla każdego wariantu oraz po 1~próbie celowanej & odsetek przyjętych modyfikacji \\
+\ref{sec:cbc}    & ciasteczko sesyjne, szyfr blokowy & AES-128-CBC / AES-128-GCM & po 200 losowych modyfikacji dla każdego wariantu oraz 1~próba celowana (CBC) & odsetek przyjętych modyfikacji \\
+\ref{sec:lenext} & podpis żądania API & \mbox{SHA-256(sekret~$\|$}\newline \mbox{wiadomość)} / \mbox{HMAC-SHA-256} & 5~odmian żądania dla każdego wariantu & kod odpowiedzi serwera \\
+\bottomrule
+\end{tabularx}
+\caption{Przegląd eksperymentów rozdziału~\ref{ch:ataki}}
+\label{tab:r4-przeglad}
+\end{table}
